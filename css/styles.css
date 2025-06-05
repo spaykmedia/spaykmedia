@@ -3169,7 +3169,7 @@ img.u-pull-left {
  * ## intro bg
  * -------------------------------------------------------------------- */
 .s-intro__bg {
-    aspect-ratio        : 1/1;
+    aspect-ratio        : 1/1.08;
     width               : 100%;
     background-color    : var(--color-gray-4);
     background-image    : url(../assets/intro-bg.jpg);
@@ -3451,7 +3451,22 @@ img.u-pull-left {
     position    : relative;
     bottom      : .05em;
 }
-
+.fig-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 56%;
+}
+.fig-profile {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
 /* ------------------------------------------------------------------- 
  * responsive:
  * about
@@ -3502,6 +3517,9 @@ img.u-pull-left {
     .s-about__skills .skill-bars li:nth-child(2n+2) strong {
         left : var(--bar-padding);
     }
+     .fig-container {
+    padding-top: 75%;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -3545,6 +3563,9 @@ img.u-pull-left {
 
     .s-about__skills .skill-bars li::before {
         display : none;
+    }
+    .fig-container {
+    padding-top: 100%;
     }
 }
 
