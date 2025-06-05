@@ -3507,7 +3507,7 @@ img.u-pull-left {
 @media screen and (max-width: 600px) {
     .s-about {
         --timeline-left-padding : var(--vspace-1_25);
-        padding-top             : var(--vspace-4);
+        padding-top             : var(--vspace-2);
         padding-bottom          : var(--vspace-2);
     }
 
