@@ -17,8 +17,8 @@
     /* color-1(#5F9295)
      * color-2(#2D2327)
      */
-    --color-1                      : hsla(0, 11%, 41%, 1);
-    --color-2                      : hsla(336, 13%, 16%, 1);
+    --color-1                      : rgb(135, 54, 54);
+    --color-2                      : rgb(113, 47, 77);
 
     /* theme color variations
      */
@@ -3169,7 +3169,7 @@ img.u-pull-left {
  * ## intro bg
  * -------------------------------------------------------------------- */
 .s-intro__bg {
-    aspect-ratio        : 1/1.2;
+    aspect-ratio        : 1/1;
     width               : 100%;
     background-color    : var(--color-gray-4);
     background-image    : url(../assets/intro-bg.jpg);
@@ -3261,7 +3261,7 @@ img.u-pull-left {
     --timeline-top-adjust          : calc(var(--subtitle-line-height) / 2);
     --timeline-vertical-border-pos : 8px;
 
-    padding-top                    : var(--vspace-5);
+    padding-top                    : var(--vspace-3);
     padding-bottom                 : var(--vspace-3);
 }
 
