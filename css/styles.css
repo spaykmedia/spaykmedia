@@ -3518,7 +3518,7 @@ img.u-pull-left {
         left : var(--bar-padding);
     }
      .fig-container {
-    padding-top: 75%;
+        padding-top: 75%;
     }
 }
 
@@ -3565,7 +3565,7 @@ img.u-pull-left {
         display : none;
     }
     .fig-container {
-    padding-top: 100%;
+        padding-top: 100%;
     }
 }
 
