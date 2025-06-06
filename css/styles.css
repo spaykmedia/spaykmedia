@@ -2039,7 +2039,7 @@ input[type="button"] {
     white-space             : nowrap;
     cursor                  : pointer;
     transition              : all .3s;
-    border-radius           : var(--border-radius);
+    border-radius           : 50px;
     background-color        : var(--color-btn);
     border                  : 2px solid var(--color-btn);
     -webkit-font-smoothing  : antialiased;

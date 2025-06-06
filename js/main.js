@@ -130,69 +130,6 @@
     }; // end ssStickyHeader
 
 
-
-   /* photoswipe
-    * ----------------------------------------------------- */
-    const ssPhotoswipe = function() {
-
-        const items = [];
-        const pswp = document.querySelectorAll('.pswp')[0];
-        const folioItems = document.querySelectorAll('.folio-item');
-
-        if (!(pswp && folioItems)) return;
-
-        folioItems.forEach(function(folioItem) {
-
-            let folio = folioItem;
-            let thumbLink = folio.querySelector('.folio-item__thumb-link');
-            let title = folio.querySelector('.folio-item__title');
-            let caption = folio.querySelector('.folio-item__caption');
-            let titleText = '<h4>' + title.innerHTML + '</h4>';
-            let captionText = caption.innerHTML;
-            let href = thumbLink.getAttribute('href');
-            let size = thumbLink.dataset.size.split('x'); 
-            let width  = size[0];
-            let height = size[1];
-
-            let item = {
-                src  : href,
-                w    : width,
-                h    : height
-            }
-
-            if (caption) {
-                item.title = titleText.trim() + captionText.trim();
-            }
-
-            items.push(item);
-
-        });
-
-        // bind click event
-        folioItems.forEach(function(folioItem, i) {
-
-            let thumbLink = folioItem.querySelector('.folio-item__thumb-link');
-
-            thumbLink.addEventListener('click', function(e) {
-
-                e.preventDefault();
-
-                let options = {
-                    index: i,
-                    showHideOpacity: true
-                }
-
-                // initialize PhotoSwipe
-                let lightBox = new PhotoSwipe(pswp, PhotoSwipeUI_Default, items, options);
-                lightBox.init();
-            });
-
-        });
-
-    };  // end ssPhotoSwipe
-
-
-
    /* animate elements if in viewport
     * ------------------------------------------------------ */
     const ssAnimateOnScroll = function() {
@@ -232,57 +169,6 @@
         }
 
     }; // end ssAnimateOnScroll
-
-
-
-   /* swiper
-    * ------------------------------------------------------ */ 
-    const ssSwiper = function() {
-
-        const mySwiper = new Swiper('.swiper', {
-
-            slidesPerView: 1,
-            effect: 'slide',
-            spaceBetween: 160,
-            centeredSlides: true,
-            speed: 1000,
-            navigation: {
-                nextEl: ".testimonial-slider__next",
-                prevEl: ".testimonial-slider__prev",
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            }
-
-        });
-
-    }; // end ssSwiper
-
-
-
-   /* alert boxes
-    * ------------------------------------------------------ */
-    const ssAlertBoxes = function() {
-
-        const boxes = document.querySelectorAll('.alert-box');
-  
-        boxes.forEach(function(box){
-
-            box.addEventListener('click', function(e) {
-                if (e.target.matches('.alert-box__close')) {
-                    e.stopPropagation();
-                    e.target.parentElement.classList.add('hideit');
-
-                    setTimeout(function(){
-                        box.style.display = 'none';
-                    }, 500)
-                }
-            });
-        })
-
-    }; // end ssAlertBoxes
-
 
 
     /* back to top
@@ -360,10 +246,7 @@
         ssPreloader();
         ssMobileMenu();
         ssStickyHeader();
-        ssPhotoswipe();
         ssAnimateOnScroll();
-        ssSwiper();
-        ssAlertBoxes();
         ssBackToTop();
         ssMoveTo();
 
