@@ -3455,7 +3455,7 @@ img.u-pull-left {
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding-top: 56%;
+    padding-top: 48%;
 }
 .fig-profile {
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -3471,6 +3471,11 @@ img.u-pull-left {
  * responsive:
  * about
  * ------------------------------------------------------------------- */
+ @media screen and (max-width: 1400px) {
+    .fig-container {
+    padding-top: 50%;
+    }
+}
 @media screen and (max-width: 1000px) {
     .s-about {
         --timeline-left-padding : var(--vspace-1_25);
@@ -3478,6 +3483,9 @@ img.u-pull-left {
 
     .s-about .text-subtitle::before {
         width : 2.4rem;
+    }
+    .fig-container {
+    padding-top: 60%;
     }
 }
 
@@ -3565,7 +3573,7 @@ img.u-pull-left {
         display : none;
     }
     .fig-container {
-        padding-top: 100%;
+        padding-top: 80%;
     }
 }
 
