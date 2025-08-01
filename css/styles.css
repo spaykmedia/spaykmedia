@@ -4295,7 +4295,7 @@ img.u-pull-left {
 .bricks-wrapper .entry__excerpt p {
     font-size: 14px;
     margin-bottom : var(--vspace-0_75);
-    line-height: 16px;
+    line-height: 18px;
 }
 .bricks-wrapper .entry__excerpt p span{
     display: block;
