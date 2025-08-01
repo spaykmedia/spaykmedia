@@ -4299,7 +4299,7 @@ img.u-pull-left {
 }
 .bricks-wrapper .entry__excerpt p span{
     display: block;
-    line-height: 16px;
+    line-height: 18px;
     margin-top : var(--vspace-0_75);
 }
 
