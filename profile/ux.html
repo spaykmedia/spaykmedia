@@ -205,6 +205,12 @@ body.nav-open{overflow:hidden}
 /* ================================================================
    SHARED SECTION UTILITIES
 ================================================================ */
+.page-inner{
+  width:100%;
+  max-width:1440px;
+  margin-left:auto;
+  margin-right:auto;
+}
 .sec-tag{
   font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
   display:flex;align-items:center;gap:.7rem;margin-bottom:2rem
@@ -226,17 +232,32 @@ body.nav-open{overflow:hidden}
 /* ================================================================
    ABOUT - light teal bg
 ================================================================ */
-#about{background:var(--warm);color:var(--ink);padding:12rem 3.5rem;position:relative;overflow:hidden}
+#about{
+  background:var(--warm);color:var(--ink);
+  padding:clamp(6rem,10vw,12rem) clamp(1.25rem,4vw,3.5rem);
+  position:relative;overflow:hidden
+}
 .ab-bgnum{
-  position:absolute;right:1rem;top:2rem;font-family:var(--f-serif);font-size:22rem;font-weight:300;
+  position:absolute;right:1rem;top:2rem;font-family:var(--f-serif);font-size:clamp(8rem,18vw,22rem);font-weight:300;
   color:rgba(14,138,120,.04);line-height:1;pointer-events:none;user-select:none
 }
-.ab-grid{display:grid;grid-template-columns:360px 1fr;gap:10rem;max-width:1440px}
-.ab-sticky{position:sticky;top:6rem;align-self:start}
+.ab-grid{
+  display:grid;
+  grid-template-columns:minmax(240px,34%) minmax(0,1fr);
+  gap:clamp(3rem,6vw,10rem);
+  width:100%;
+  max-width:1440px;
+  margin:0 auto;
+}
+.ab-sticky{position:sticky;top:6rem;align-self:start;min-width:0}
 .ab-h{font-family:var(--f-serif);font-size:clamp(2.8rem,4.5vw,5.6rem);font-weight:300;line-height:1.01;letter-spacing:-.02em;color:var(--ink-dark)}
 .ab-h em{font-style:italic;color:var(--ac);display:block}
-.ab-body{display:flex;flex-direction:column;gap:2.8rem}
-.ab-p{font-size:var(--text-base);line-height:1.85;color:var(--ink-alt);font-weight:400}
+.ab-body{display:flex;flex-direction:column;gap:2.8rem;min-width:0}
+.ab-p{
+  font-size:clamp(1rem,1.05vw,1.125rem);
+  line-height:1.85;color:var(--ink-alt);font-weight:400;
+  max-width:none
+}
 .ab-p strong{font-weight:700;color:var(--ink-dark)}
 .skills-g{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule);margin-top:.5rem}
 .sk{
@@ -250,7 +271,12 @@ body.nav-open{overflow:hidden}
 /* ================================================================
    EXPERIENCE - white paper bg (alternating)
 ================================================================ */
-#experience{background:var(--paper);padding:11rem 3.5rem;border-top:1px solid var(--rule)}
+#experience{
+  background:var(--paper);
+  padding:clamp(6rem,9vw,11rem) clamp(1.25rem,4vw,3.5rem);
+  border-top:1px solid var(--rule)
+}
+.exp-hd,.exp-row{width:100%;max-width:1440px;margin-left:auto;margin-right:auto}
 .exp-hd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--rule);padding-bottom:2rem}
 .exp-h{font-family:var(--f-serif);font-size:clamp(3.5rem,7vw,8.5rem);font-weight:300;line-height:.88;letter-spacing:-.028em;color:var(--ink-dark)}
 .exp-ct{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem}
@@ -277,10 +303,17 @@ body.nav-open{overflow:hidden}
 /* ================================================================
    WORKS - light teal-2 (alternating)
 ================================================================ */
-#works{background:var(--warm-2);color:var(--ink);padding:12rem 3.5rem}
-.wk-hd{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:7rem;align-items:end}
+#works{
+  background:var(--warm-2);color:var(--ink);
+  padding:clamp(6rem,10vw,12rem) clamp(1.25rem,4vw,3.5rem)
+}
+.wk-hd{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(2rem,4vw,4rem);margin-bottom:7rem;align-items:end;
+  width:100%;max-width:1440px;margin-left:auto;margin-right:auto
+}
 .wk-h{font-family:var(--f-serif);font-size:clamp(3.5rem,6.5vw,8rem);font-weight:300;line-height:.9;letter-spacing:-.025em;color:var(--ink-dark)}
-.wk-intro{font-size:var(--text-lg);line-height:1.8;color:var(--ink-alt);font-weight:400;align-self:end}
+.wk-intro{font-size:var(--text-lg);line-height:1.8;color:var(--ink-alt);font-weight:400;align-self:end;min-width:0}
 
 .proj-row{
   display:grid;grid-template-columns:1fr 1.15fr;min-height:72vh;
@@ -325,10 +358,13 @@ body.nav-open{overflow:hidden}
 #ai{
   background:var(--ai-bg);
   color:var(--white);
-  padding:8rem 3.5rem;
+  padding:clamp(5rem,8vw,8rem) clamp(1.25rem,4vw,3.5rem);
   position:relative;overflow:hidden;
   border-top:3px solid var(--ac);
 }
+#ai > .ai-header,
+#ai > .ai-body,
+#ai > .ai-pills{width:100%;max-width:1440px;margin-left:auto;margin-right:auto}
 /* Animated grid overlay */
 .ai-grid-bg{
   position:absolute;inset:0;
@@ -351,8 +387,8 @@ body.nav-open{overflow:hidden}
   pointer-events:none;
 }
 .ai-header{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:6rem;align-items:end;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(2.5rem,5vw,6rem);align-items:end;
   margin-bottom:7rem;position:relative;z-index:2;
 }
 .ai-h{
@@ -370,8 +406,8 @@ body.nav-open{overflow:hidden}
 
 /* ── compact AI body ── */
 .ai-body{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:4rem;align-items:start;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(2rem,4vw,4rem);align-items:start;
   position:relative;z-index:2
 }
 .ai-statement{
@@ -443,9 +479,21 @@ body.nav-open{overflow:hidden}
 /* ================================================================
    CONTACT - paper bg (back to base)
 ================================================================ */
-#contact{background:var(--paper);color:var(--ink);padding:12rem 3.5rem;position:relative;overflow:hidden;border-top:1px solid var(--rule)}
-.ct-bgnum{position:absolute;left:1rem;bottom:-4rem;font-family:var(--f-serif);font-size:25rem;font-weight:300;color:rgba(14,138,120,.04);line-height:1;pointer-events:none;user-select:none}
-.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:10rem;align-items:start}
+#contact{
+  background:var(--paper);color:var(--ink);
+  padding:clamp(6rem,10vw,12rem) clamp(1.25rem,4vw,3.5rem);
+  position:relative;overflow:hidden;border-top:1px solid var(--rule)
+}
+.ct-bgnum{
+  position:absolute;left:1rem;bottom:-4rem;font-family:var(--f-serif);
+  font-size:clamp(8rem,20vw,25rem);font-weight:300;
+  color:rgba(14,138,120,.04);line-height:1;pointer-events:none;user-select:none
+}
+.ct-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(3rem,6vw,10rem);align-items:start;
+  width:100%;max-width:1440px;margin:0 auto
+}
 .ct-h{font-family:var(--f-serif);font-size:clamp(3.5rem,6vw,7.5rem);font-weight:300;line-height:.95;letter-spacing:-.025em;color:var(--ink-dark)}
 .ct-h em{font-style:italic;color:var(--ac);display:block}
 .ct-right{display:flex;flex-direction:column;gap:3rem;padding-top:1rem}
@@ -570,6 +618,14 @@ footer{background:var(--ink-dark);padding:3rem 3.5rem;display:flex;align-items:c
 ================================================================ */
 @media(min-width:901px){
   .n-panel--drawer,.n-backdrop{display:none!important}
+  .ab-p{font-size:var(--text-lg)}
+  .exp-row{grid-template-columns:minmax(120px,170px) minmax(0,1fr) minmax(160px,220px)}
+}
+
+@media(min-width:901px) and (max-width:1200px){
+  .ab-grid{grid-template-columns:minmax(200px,38%) minmax(0,1fr);gap:3.5rem}
+  .ab-h{font-size:clamp(2.4rem,4.2vw,3.6rem)}
+  .ct-grid,.ai-header,.ai-body{gap:3rem}
 }
 
 @media(max-width:900px){
@@ -661,8 +717,10 @@ footer{background:var(--ink-dark);padding:3rem 3.5rem;display:flex;align-items:c
   .ai-caps{grid-template-columns:1fr}
   .ai-principles{grid-template-columns:1fr}
 
+  #about{padding:7rem 1.5rem}
   .ab-grid{grid-template-columns:1fr;gap:4rem}
   .ab-sticky{position:relative;top:auto}
+  .ab-bgnum{font-size:10rem;right:.5rem;top:1rem}
   #experience{padding:7rem 1.5rem}
   .exp-row{grid-template-columns:1fr;gap:1.5rem}
   .exp-pills{align-items:flex-start}
@@ -677,6 +735,7 @@ footer{background:var(--ink-dark);padding:3rem 3.5rem;display:flex;align-items:c
   .cs-img-grid.cols-2,.cs-img-grid.cols-3,.cs-img-grid.layout-hero-side{grid-template-columns:1fr}
   .cs-img-grid.layout-hero-side .cs-img-cell:first-child{grid-row:auto}
   .ct-grid{grid-template-columns:1fr;gap:4rem}
+  .ct-bgnum{font-size:9rem}
   #showcase{padding:6rem 1.5rem}
   #contact{padding:7rem 1.5rem}
   footer{flex-direction:column;gap:1.5rem;text-align:center}
