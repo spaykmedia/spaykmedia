@@ -147,7 +147,7 @@ body.nav-open{overflow:hidden}
 .h-eyebrow{
   position:relative;z-index:2;
   font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.32em;text-transform:uppercase;color:var(--ac);
-  margin-bottom:1.8rem;display:flex;align-items:center;gap:1rem;
+  margin-bottom:4.8rem;display:flex;align-items:center;gap:1rem;
   opacity:0;animation:fadeUp .9s var(--ease-snap) .2s forwards
 }
 .h-eyebrow::before{content:'';width:42px;height:1px;background:var(--ac);flex-shrink:0}
@@ -237,7 +237,7 @@ body.nav-open{overflow:hidden}
 }
 .ab-bgnum{
   position:absolute;right:1rem;top:2rem;font-family:var(--f-serif);font-size:clamp(8rem,18vw,22rem);font-weight:300;
-  color:rgba(14,138,120,.04);line-height:1;pointer-events:none;user-select:none
+  color:rgba(35 158 255 / 4%);line-height:1;pointer-events:none;user-select:none
 }
 .ab-grid{
   display:grid;
@@ -871,7 +871,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
         I'm a <strong>Lead Product Designer and Design Systems Architect</strong> with 17+ years building enterprise-scale digital products across healthcare, logistics and B2C platforms. My work lives at the intersection of clinical complexity and human clarity - turning regulated, high-stakes workflows into experiences that are intuitive, accessible and built to scale.
       </p>
       <p class="ab-p rv d1">
-        At <strong>Cigna / Evernorth</strong>, I architected the LEAF Design System - 60+ components with full token architecture, adopted across 10+ product teams - cutting design-to-development handoff by ~40%. At <strong>Express Scripts</strong>, I defined company-wide UI/UX strategy for MemberWeb's 30+ products via a zero-rebuild CSS injection approach, saving hundreds of engineering hours while serving millions of members.
+        At <strong>Cigna / Evernorth</strong>, I led end-to-end UX for large-scale healthcare member experiences including prescription management, refill flows and responsive member portals serving millions of users. I helped modernize legacy platforms into device-agnostic, accessible experiences while partnering closely with engineering, compliance and clinical teams. I architected the LEAF Design System - 60+ components with full token architecture, adopted across 10+ product teams - cutting design-to-development handoff by ~40%. At <strong>Express Scripts</strong>, I defined company-wide UI/UX strategy for MemberWeb's 30+ products via a zero-rebuild CSS injection approach, saving hundreds of engineering hours while serving millions of members.
       </p>
       <p class="ab-p rv d2">
         I am <strong>AI-forward by practice</strong> - integrating LLM interfaces, agentic AI workflows, MCP integrations and AI-assisted prototyping (Claude, Cursor, FigJam AI) directly into my design process. Accessibility is not a checklist - it is the baseline. Every interface ships tested against WCAG 2.2, Section 508, VoiceOver and NVDA.
@@ -905,7 +905,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div>
       <div class="exp-co">Cigna / Evernorth</div>
       <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>Lead Senior UX Designer & Advisor</div>
-      <p class="exp-blurb">Architected the LEAF Design System - 60+ components, full token architecture, Storybook documentation - adopted across 10+ product teams. Led Benefit Overview redesign, Dashboard and NewRx modernization. Reduced design-to-dev handoff by ~40%. Embedded AI-assisted workflows into daily design practice using Claude, Cursor and FigJam AI.</p>
+      <p class="exp-blurb">Led end-to-end UX strategy and product design for large-scale healthcare member platforms, including prescription management, refill workflows and responsive self-service experiences serving millions of users. Architected the LEAF Design System - 60+ components, full token architecture, Storybook documentation - adopted across 10+ product teams. Led Benefit Overview redesign, Dashboard and NewRx modernization. Reduced design-to-dev handoff by ~40%. Embedded AI-assisted workflows into daily design practice using Claude, Cursor and FigJam AI.</p>
     </div>
     <div class="exp-pills">
       <span class="exp-pill hi">Product Design</span>
@@ -1434,7 +1434,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div class="cs-img-grid cols-1" >
       <div class="cs-img-cell"><img src="images/rx.png" alt="NewRx pill bottle transformation animation"></div>
     </div>
-    <div class="cs-img-cap" style="max-width:560px;margin:-3rem auto 5rem;">NewRx · Pill bottle → label → circular digital ID · After Effects</div>
+    <div class="cs-img-cap" style="margin:-3rem auto 5rem;">NewRx · Pill bottle → label → circular digital ID · After Effects</div>
     <div class="cs-sec">
       <div class="cs-sec-tag">Motion System</div>
       <h3 class="cs-h">Purpose-first <em>animation.</em></h3>
@@ -1448,6 +1448,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
       <div class="cs-img-cell"><img src="images/rxbottle.png" alt="Dashboard integration context"></div>
       <div class="cs-img-cell gif-cell"><img src="https://www.spaykmedia.com/images/thumbs/rxbottle.gif" alt="Animation state sequence"></div>
     </div>
+    
     <div class="cs-img-cap">Animation · Dashboard context · Benefit integration</div>
     <div class="cs-sec" style="margin-top:5rem;">
       <div class="cs-sec-tag">Outcome</div>
@@ -1456,6 +1457,19 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
         <div class="cs-impact-cell"><div class="cs-impact-n">3</div><div class="cs-impact-l">Transformation states designed</div></div>
         <div class="cs-impact-cell"><div class="cs-impact-n">0</div><div class="cs-impact-l">External dependencies required</div></div>
       </div>
+    </div>
+
+    <div class="cs-sec">
+      <div class="cs-sec-tag">Motion System</div>
+      <h3 class="cs-h">Other <em>animations.</em></h3>
+      <p class="cs-p">In healthcare, motion carries responsibility. It must communicate progress without inducing anxiety. Every easing curve was deliberate - ease-out on entry, ease-in on exit, spring curves on transformation states.</p>
+    </div>
+    <div class="cs-img-grid cols-2">
+      <div class="cs-img-cell"><img src="images/dayNight.gif" alt="Dashboard integration context"></div>
+      <div class="cs-img-cell gif-cell"><img src="images/cap.gif" alt="Animation state sequence"></div>
+    </div>
+    <div class="cs-img-grid">
+      <div class="cs-img-cell"><img src="images/EverNorth.gif" alt="Dashboard integration context"></div>
     </div>
   </div>
 </div>
