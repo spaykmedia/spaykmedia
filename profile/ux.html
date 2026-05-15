@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sankara Kalidasu — Lead Product Designer & AI Design Engineer</title>
+<title>Sankara Kalidasu - Lead Product Designer & AI Design Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -58,18 +58,16 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 /* ================================================================
    NAV
 ================================================================ */
-#nav{
-  position:fixed;top:0;left:0;right:0;z-index:400;
+.n-top{
+  position:fixed;top:0;left:0;right:0;z-index:401;
   display:flex;align-items:center;justify-content:space-between;
   padding:1rem 3.5rem;
-  background:rgba(2,6,23,.92);
+  background:rgba(2,6,23,.96);
   border-bottom:1px solid rgba(56,189,248,.25);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
   transition:box-shadow .4s,background .4s
 }
-#nav.scrolled{
-  background:rgba(2,6,23,.98);
+.n-top.scrolled{
+  background:rgba(2,6,23,.99);
   box-shadow:0 4px 32px rgba(0,0,0,.35)
 }
 .n-logo{
@@ -96,9 +94,33 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 }
 .n-cta:hover{background:#7dd3fc;transform:translateY(-1px)}
 .n-cta i{font-size:.9rem}
+.n-panel{display:flex;align-items:center;gap:2rem}
+.n-panel--inline{margin-left:auto}
+.n-panel--drawer{display:none}
+.n-toggle{
+  display:none;align-items:center;justify-content:center;
+  width:2.75rem;height:2.75rem;flex-shrink:0;
+  color:rgba(255,255,255,.92);
+  border:1px solid rgba(56,189,248,.35);
+  background:rgba(56,189,248,.08);
+  border-radius:4px;
+  transition:background .25s,border-color .25s
+}
+.n-toggle:hover{background:rgba(56,189,248,.18);border-color:var(--ac-light)}
+.n-toggle i{font-size:1.35rem;line-height:1}
+.n-toggle .n-icon-close{display:none}
+.n-top.is-open .n-toggle .n-icon-menu{display:none}
+.n-top.is-open .n-toggle .n-icon-close{display:block}
+body.nav-open{overflow:hidden}
+.n-backdrop{
+  display:none;position:fixed;inset:0;z-index:398;
+  background:rgba(2,6,23,.55);opacity:0;pointer-events:none;
+  transition:opacity .35s ease
+}
+.n-backdrop.is-visible{display:block;opacity:1;pointer-events:auto}
 
 /* ================================================================
-   HERO — with SVG tech background
+   HERO - with SVG tech background
 ================================================================ */
 #hero{
   min-height:100vh;display:flex;flex-direction:column;
@@ -202,7 +224,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 .icon-chip i{font-size:.9rem}
 
 /* ================================================================
-   ABOUT — light teal bg
+   ABOUT - light teal bg
 ================================================================ */
 #about{background:var(--warm);color:var(--ink);padding:12rem 3.5rem;position:relative;overflow:hidden}
 .ab-bgnum{
@@ -226,7 +248,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 .sk:hover{color:var(--ink-dark);padding-left:.5rem}
 
 /* ================================================================
-   EXPERIENCE — white paper bg (alternating)
+   EXPERIENCE - white paper bg (alternating)
 ================================================================ */
 #experience{background:var(--paper);padding:11rem 3.5rem;border-top:1px solid var(--rule)}
 .exp-hd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--rule);padding-bottom:2rem}
@@ -253,7 +275,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 .exp-pill.hi{border-color:var(--ac);color:var(--ac)}
 
 /* ================================================================
-   WORKS — light teal-2 (alternating)
+   WORKS - light teal-2 (alternating)
 ================================================================ */
 #works{background:var(--warm-2);color:var(--ink);padding:12rem 3.5rem}
 .wk-hd{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:7rem;align-items:end}
@@ -298,7 +320,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 .proj-row:hover .proj-vis img{opacity:.96}
 .proj-vis-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,138,120,.05) 0%,transparent 60%);pointer-events:none}
 /* ================================================================
-   AI SECTION — deep midnight bg (flagship section)
+   AI SECTION - deep midnight bg (flagship section)
 ================================================================ */
 #ai{
   background:var(--ai-bg);
@@ -400,7 +422,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 .ai-pill:hover{border-color:var(--ac-light);color:#fff}
 
 /* ================================================================
-   FIGMA SHOWCASE — warm-3 bg (alternating)
+   FIGMA SHOWCASE - warm-3 bg (alternating)
 ================================================================ */
 #showcase{background:var(--warm-3);padding:10rem 3.5rem;border-top:1px solid var(--rule)}
 .sc-h{font-family:var(--f-serif);font-size:clamp(2.5rem,5vw,6rem);font-weight:300;line-height:.95;letter-spacing:-.025em;margin-bottom:4rem;color:var(--ink-dark)}
@@ -419,7 +441,7 @@ button{font-family:inherit;background:none;border:none;cursor:pointer}
 .sc-link.primary:hover{background:var(--ac);border-color:var(--ac)}
 
 /* ================================================================
-   CONTACT — paper bg (back to base)
+   CONTACT - paper bg (back to base)
 ================================================================ */
 #contact{background:var(--paper);color:var(--ink);padding:12rem 3.5rem;position:relative;overflow:hidden;border-top:1px solid var(--rule)}
 .ct-bgnum{position:absolute;left:1rem;bottom:-4rem;font-family:var(--f-serif);font-size:25rem;font-weight:300;color:rgba(14,138,120,.04);line-height:1;pointer-events:none;user-select:none}
@@ -546,13 +568,59 @@ footer{background:var(--ink-dark);padding:3rem 3.5rem;display:flex;align-items:c
 /* ================================================================
    RESPONSIVE
 ================================================================ */
-@media(max-width:900px){
-  #nav{padding:1rem 1.25rem}
-  .n-links{display:none}
-  .n-logo{font-size:.72rem;letter-spacing:.16em}
-  .n-cta{padding:.5rem .85rem;font-size:.68rem}
+@media(min-width:901px){
+  .n-panel--drawer,.n-backdrop{display:none!important}
+}
 
-  /* Hero — clear fixed nav, stack content */
+@media(max-width:900px){
+  .n-top{padding:1rem 1.25rem}
+  .n-logo{font-size:.72rem;letter-spacing:.16em;flex:1;min-width:0}
+  .n-toggle{display:flex}
+  .n-panel--inline{display:none!important}
+  .n-panel--drawer{
+    display:none;
+    position:fixed;
+    top:0;left:0;right:0;
+    width:100%;
+    height:100dvh;
+    min-height:100dvh;
+    margin:0;
+    padding:5rem 1.25rem 2rem;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    background:#020617;
+    border-top:none;
+    overflow-x:hidden;
+    overflow-y:auto;
+    z-index:400;
+    -webkit-overflow-scrolling:touch
+  }
+  .n-top.is-open + .n-panel--drawer{display:flex}
+  .n-links{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    width:100%
+  }
+  .n-links li{width:100%}
+  .n-links a{
+    padding:1rem 0;
+    font-size:.95rem;
+    border-bottom:1px solid rgba(56,189,248,.12)
+  }
+  .n-links a::after{display:none}
+  .n-links a:hover{padding-left:.25rem}
+  .n-cta{
+    width:100%;
+    justify-content:center;
+    margin-top:1.25rem;
+    padding:.85rem 1.25rem;
+    font-size:.75rem
+  }
+
+  /* Hero - clear fixed nav, stack content */
   #hero{
     min-height:100svh;
     justify-content:flex-start;
@@ -635,17 +703,35 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
 <body>
 
 <!-- ============================================================ NAV -->
-<nav id="nav">
+<div class="n-backdrop" id="navBackdrop" aria-hidden="true"></div>
+<header class="n-top" id="navTop">
   <a href="#hero" class="n-logo">
     <i class="ti ti-hexagon-letter-s" aria-hidden="true"></i>
     SK · Portfolio
   </a>
+  <nav class="n-panel n-panel--inline" id="navPanelDesktop" aria-label="Main navigation">
+    <ul class="n-links">
+      <li><a href="#about"><i class="ti ti-user" aria-hidden="true"></i>About</a></li>
+      <li><a href="#experience"><i class="ti ti-briefcase" aria-hidden="true"></i>Experience</a></li>
+      <li><a href="#works"><i class="ti ti-layout-grid" aria-hidden="true"></i>Work</a></li>
+      <li><a href="#ai" class="ai-link"><i class="ti ti-brain" aria-hidden="true"></i>AI</a></li>
+      <li><a href="#contact"><i class="ti ti-mail" aria-hidden="true"></i>Contact</a></li>
+    </ul>
+    <a href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf" target="_blank" class="n-cta">
+      <i class="ti ti-download" aria-hidden="true"></i>Download CV
+    </a>
+  </nav>
+  <button type="button" class="n-toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+    <i class="ti ti-menu-2 n-icon-menu" aria-hidden="true"></i>
+    <i class="ti ti-x n-icon-close" aria-hidden="true"></i>
+  </button>
+</header>
+<nav class="n-panel n-panel--drawer" id="navPanel" aria-hidden="true" aria-label="Mobile navigation">
   <ul class="n-links">
     <li><a href="#about"><i class="ti ti-user" aria-hidden="true"></i>About</a></li>
     <li><a href="#experience"><i class="ti ti-briefcase" aria-hidden="true"></i>Experience</a></li>
     <li><a href="#works"><i class="ti ti-layout-grid" aria-hidden="true"></i>Work</a></li>
     <li><a href="#ai" class="ai-link"><i class="ti ti-brain" aria-hidden="true"></i>AI</a></li>
-    <!--li><a href="#showcase"><i class="ti ti-brand-figma" aria-hidden="true"></i>Figma</a></li-->
     <li><a href="#contact"><i class="ti ti-mail" aria-hidden="true"></i>Contact</a></li>
   </ul>
   <a href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf" target="_blank" class="n-cta">
@@ -725,13 +811,13 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     </div>
     <div class="ab-body">
       <p class="ab-p rv">
-        I'm a <strong>Lead Product Designer and Design Systems Architect</strong> with 17+ years building enterprise-scale digital products across healthcare, logistics and B2C platforms. My work lives at the intersection of clinical complexity and human clarity — turning regulated, high-stakes workflows into experiences that are intuitive, accessible and built to scale.
+        I'm a <strong>Lead Product Designer and Design Systems Architect</strong> with 17+ years building enterprise-scale digital products across healthcare, logistics and B2C platforms. My work lives at the intersection of clinical complexity and human clarity - turning regulated, high-stakes workflows into experiences that are intuitive, accessible and built to scale.
       </p>
       <p class="ab-p rv d1">
-        At <strong>Cigna / Evernorth</strong>, I architected the LEAF Design System — 60+ components with full token architecture, adopted across 10+ product teams — cutting design-to-development handoff by ~40%. At <strong>Express Scripts</strong>, I defined company-wide UI/UX strategy for MemberWeb's 30+ products via a zero-rebuild CSS injection approach, saving hundreds of engineering hours while serving millions of members.
+        At <strong>Cigna / Evernorth</strong>, I architected the LEAF Design System - 60+ components with full token architecture, adopted across 10+ product teams - cutting design-to-development handoff by ~40%. At <strong>Express Scripts</strong>, I defined company-wide UI/UX strategy for MemberWeb's 30+ products via a zero-rebuild CSS injection approach, saving hundreds of engineering hours while serving millions of members.
       </p>
       <p class="ab-p rv d2">
-        I am <strong>AI-forward by practice</strong> — integrating LLM interfaces, agentic AI workflows, MCP integrations and AI-assisted prototyping (Claude, Cursor, FigJam AI) directly into my design process. Accessibility is not a checklist — it is the baseline. Every interface ships tested against WCAG 2.2, Section 508, VoiceOver and NVDA.
+        I am <strong>AI-forward by practice</strong> - integrating LLM interfaces, agentic AI workflows, MCP integrations and AI-assisted prototyping (Claude, Cursor, FigJam AI) directly into my design process. Accessibility is not a checklist - it is the baseline. Every interface ships tested against WCAG 2.2, Section 508, VoiceOver and NVDA.
       </p>
       <div class="skills-g rv d3">
         <div class="sk"><i class="ti ti-pencil-star" aria-hidden="true"></i>Product Design · UX</div>
@@ -751,7 +837,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
   </div>
 </section>
 
-<!-- ============================================================ EXPERIENCE (paper/white bg — alternating) -->
+<!-- ============================================================ EXPERIENCE (paper/white bg - alternating) -->
 <section id="experience">
   <div class="exp-hd rv">
     <h2 class="exp-h">Experience</h2>
@@ -762,7 +848,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div>
       <div class="exp-co">Cigna / Evernorth</div>
       <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>Lead Senior UX Designer & Advisor</div>
-      <p class="exp-blurb">Architected the LEAF Design System — 60+ components, full token architecture, Storybook documentation — adopted across 10+ product teams. Led Benefit Overview redesign, Dashboard and NewRx modernization. Reduced design-to-dev handoff by ~40%. Embedded AI-assisted workflows into daily design practice using Claude, Cursor and FigJam AI.</p>
+      <p class="exp-blurb">Architected the LEAF Design System - 60+ components, full token architecture, Storybook documentation - adopted across 10+ product teams. Led Benefit Overview redesign, Dashboard and NewRx modernization. Reduced design-to-dev handoff by ~40%. Embedded AI-assisted workflows into daily design practice using Claude, Cursor and FigJam AI.</p>
     </div>
     <div class="exp-pills">
       <span class="exp-pill hi">Product Design</span>
@@ -777,7 +863,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div>
       <div class="exp-co">Express Scripts</div>
       <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>Lead Senior UX Designer & Advisor</div>
-      <p class="exp-blurb">Defined company-wide UI/UX strategy for MemberWeb across 30+ products via CSS injection — no engineering rebuild, saving hundreds of hours. Led 10–12 person cross-functional teams. Owned full ParachuteRx lifecycle with zero critical accessibility defects on launch. Redesigned Pricing as VoiceOver/NVDA-first experience.</p>
+      <p class="exp-blurb">Defined company-wide UI/UX strategy for MemberWeb across 30+ products via CSS injection - no engineering rebuild, saving hundreds of hours. Led 10–12 person cross-functional teams. Owned full ParachuteRx lifecycle with zero critical accessibility defects on launch. Redesigned Pricing as VoiceOver/NVDA-first experience.</p>
     </div>
     <div class="exp-pills">
       <span class="exp-pill hi">MemberWeb · 30+ Products</span>
@@ -791,7 +877,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div>
       <div class="exp-co">Medco Health Solutions</div>
       <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>Senior UI Designer</div>
-      <p class="exp-blurb">Full product lifecycle ownership — research, wireframing, HiFi prototyping, responsive front-end development, QA and launches for millions of members. Designed prescription management tools (refill, history, NewRx) that measurably reduced task abandonment.</p>
+      <p class="exp-blurb">Full product lifecycle ownership - research, wireframing, HiFi prototyping, responsive front-end development, QA and launches for millions of members. Designed prescription management tools (refill, history, NewRx) that measurably reduced task abandonment.</p>
     </div>
     <div class="exp-pills">
       <span class="exp-pill hi">Full Product Lifecycle</span>
@@ -804,7 +890,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div>
       <div class="exp-co">INTTRA Inc.</div>
       <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>User Interface Designer</div>
-      <p class="exp-blurb">Designed data-rich interfaces for global ocean trade — container tracking, booking and documentation for major shipping carriers. Transformed complex multi-step shipping workflows into WCAG 2.1 AA-compliant, scannable UIs.</p>
+      <p class="exp-blurb">Designed data-rich interfaces for global ocean trade - container tracking, booking and documentation for major shipping carriers. Transformed complex multi-step shipping workflows into WCAG 2.1 AA-compliant, scannable UIs.</p>
     </div>
     <div class="exp-pills">
       <span class="exp-pill hi">Research · User Testing</span>
@@ -814,7 +900,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
   </div>
 </section>
 
-<!-- ============================================================ WORKS (warm-2 bg — alternating) -->
+<!-- ============================================================ WORKS (warm-2 bg - alternating) -->
 <section id="works">
   <div class="wk-hd">
     <h2 class="wk-h rv">Selected<br><em style="font-style:italic;color:var(--ac)">Work</em></h2>
@@ -885,7 +971,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
         <div class="proj-body">
           <div class="proj-icon"><i class="ti ti-layout-dashboard" aria-hidden="true"></i></div>
           <h3 class="proj-title">Member Dashboard<br>Redesign</h3>
-          <p class="proj-exc">Modernized the member dashboard with a card-based layout, subtle micro-interactions and transitions — transforming a flat information display into a responsive, engaging and scannable experience.</p>
+          <p class="proj-exc">Modernized the member dashboard with a card-based layout, subtle micro-interactions and transitions - transforming a flat information display into a responsive, engaging and scannable experience.</p>
         </div>
         <div class="proj-footer">
           <div class="proj-tags"><span class="proj-tag">Dashboard UX</span><span class="proj-tag">Micro-interactions</span><span class="proj-tag">Card Layout</span></div>
@@ -904,7 +990,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
         <div class="proj-body">
           <div class="proj-icon"><i class="ti ti-pill" aria-hidden="true"></i></div>
           <h3 class="proj-title">NewRx<br>Micro-interaction</h3>
-          <p class="proj-exc">A fluid visual metaphor — pill bottle transforms into prescription label, then into a digital circular element — communicating the shift from legacy pharmacy to digital-first experience. Solo concept through export.</p>
+          <p class="proj-exc">A fluid visual metaphor - pill bottle transforms into prescription label, then into a digital circular element - communicating the shift from legacy pharmacy to digital-first experience. Solo concept through export.</p>
         </div>
         <div class="proj-footer">
           <div class="proj-tags"><span class="proj-tag">Motion Design</span><span class="proj-tag">After Effects</span><span class="proj-tag">Micro-interaction</span></div>
@@ -923,7 +1009,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
         <div class="proj-body">
           <div class="proj-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
           <h3 class="proj-title">Evernorth<br>Website</h3>
-          <p class="proj-exc">Designed and maintained the Evernorth public website — keeping it visually modern, responsive across all devices and brand-consistent through ongoing product updates and feature launches.</p>
+          <p class="proj-exc">Designed and maintained the Evernorth public website - keeping it visually modern, responsive across all devices and brand-consistent through ongoing product updates and feature launches.</p>
         </div>
         <div class="proj-footer">
           <div class="proj-tags"><span class="proj-tag">Web Design</span><span class="proj-tag">Responsive</span><span class="proj-tag">Brand</span></div>
@@ -939,7 +1025,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
   </div>
 </section>
 
-<!-- ============================================================ AI SECTION (deep midnight — contrasting) -->
+<!-- ============================================================ AI SECTION (deep midnight - contrasting) -->
 <section id="ai">
   <div class="ai-grid-bg" aria-hidden="true"></div>
   <div class="ai-glow" aria-hidden="true"></div>
@@ -1014,7 +1100,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
 
 </section>
 
-<!-- ============================================================ FIGMA SHOWCASE (warm-3 — alternating) -->
+<!-- ============================================================ FIGMA SHOWCASE (warm-3 - alternating) -->
 <!--section id="showcase">
   <div class="sec-tag ac rv">Live Portfolio</div>
   <h2 class="sc-h rv d1">Explore the full<br><em>Figma portfolio</em></h2>
@@ -1096,23 +1182,23 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div class="cs-sec">
       <div class="cs-sec-tag">The Problem</div>
       <h3 class="cs-h">Dense prose. Zero <em>hierarchy.</em></h3>
-      <p class="cs-p">Members navigating health decisions under stress were confronted with long paragraphs of benefit descriptions — no visual hierarchy, no member-specific data, no clear action paths. <strong>Confusion drove support calls. Ambiguity eroded trust.</strong></p>
+      <p class="cs-p">Members navigating health decisions under stress were confronted with long paragraphs of benefit descriptions - no visual hierarchy, no member-specific data, no clear action paths. <strong>Confusion drove support calls. Ambiguity eroded trust.</strong></p>
       <div class="cs-2col">
         <div><div class="cs-col-h">Core Issues</div><p class="cs-col-p">Unstructured text with no scan path. No personalization of member data. Multiple WCAG failures. Unclear next actions for checking coverage, comparing plans or finding a provider.</p></div>
         <div><div class="cs-col-h">Design Constraints</div><p class="cs-col-p">Healthcare compliance requirements. Real-time member data integration. Legacy CMS. Cross-functional alignment across product, clinical, legal and engineering.</p></div>
       </div>
     </div>
     <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/bomain.png" alt="Benefit Overview — full modular card layout"></div>
+      <div class="cs-img-cell"><img src="images/bomain.png" alt="Benefit Overview - full modular card layout"></div>
     </div>
     <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/boverview.png" alt="Benefit Overview — full modular card layout"></div>
+      <div class="cs-img-cell"><img src="images/boverview.png" alt="Benefit Overview - full modular card layout"></div>
     </div>
     <div class="cs-img-cap">Benefit Overview · Modular card system · Accessibility · Cigna / Evernorth</div>
     <div class="cs-sec" style="margin-top:5rem;">
       <div class="cs-sec-tag">Strategy</div>
       <h3 class="cs-h">Modular by <em>design.</em></h3>
-      <p class="cs-p">Each benefit category became a self-contained card surfacing real member data — deductibles, coverage tiers, in-network status — in context. The member no longer needed to read everything to find what was relevant.</p>
+      <p class="cs-p">Each benefit category became a self-contained card surfacing real member data - deductibles, coverage tiers, in-network status - in context. The member no longer needed to read everything to find what was relevant.</p>
     </div>
     <div class="cs-img-grid cols-2">
       <div class="cs-img-cell"><img src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="Benefit card detail view"></div>
@@ -1238,7 +1324,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
       <div class="cs-img-cell"><img src="images/dashboardm.png" alt="Pricing interface redesigned layout"></div>
     </div>
     <div class="cs-img-grid  cols-2">
-      <div class="cs-img-cell"><img src="images/dashv1.png" alt="Dashboard overview — card layout"></div>
+      <div class="cs-img-cell"><img src="images/dashv1.png" alt="Dashboard overview - card layout"></div>
       <div class="cs-img-cell"><img src="images/dashboardmv.png" alt="Status card detail"></div>
     </div>
     <div class="cs-img-cap">Dashboard card layout · NewRx motion · Status card detail</div>
@@ -1266,7 +1352,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
 <!-- 04: NEWRX -->
 <div class="cs-ov" id="case-newrx" role="dialog" aria-modal="true" aria-label="NewRx Micro-interaction Case Study">
   <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-pill"></i>Case Study 04 — NewRx Micro-interaction</span>
+    <span class="cs-nav-id"><i class="ti ti-pill"></i>Case Study 04 - NewRx Micro-interaction</span>
     <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
   </div>
   <div class="cs-hero"">
@@ -1286,7 +1372,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div class="cs-sec">
       <div class="cs-sec-tag">The Concept</div>
       <h3 class="cs-h">One metaphor.<br><em>Three states.</em></h3>
-      <p class="cs-p">A fluid visual metaphor communicating the prescription process — from a traditional physical pill bottle, through a prescription label, to a clean digital circular element. The animation signals the shift from legacy pharmacy to digital-first experience. <strong>Every frame designed, animated and exported solo in After Effects.</strong></p>
+      <p class="cs-p">A fluid visual metaphor communicating the prescription process - from a traditional physical pill bottle, through a prescription label, to a clean digital circular element. The animation signals the shift from legacy pharmacy to digital-first experience. <strong>Every frame designed, animated and exported solo in After Effects.</strong></p>
     </div>
     <div class="cs-img-grid cols-1" >
       <div class="cs-img-cell"><img src="images/rx.png" alt="NewRx pill bottle transformation animation"></div>
@@ -1295,10 +1381,10 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div class="cs-sec">
       <div class="cs-sec-tag">Motion System</div>
       <h3 class="cs-h">Purpose-first <em>animation.</em></h3>
-      <p class="cs-p">In healthcare, motion carries responsibility. It must communicate progress without inducing anxiety. Every easing curve was deliberate — ease-out on entry, ease-in on exit, spring curves on transformation states.</p>
+      <p class="cs-p">In healthcare, motion carries responsibility. It must communicate progress without inducing anxiety. Every easing curve was deliberate - ease-out on entry, ease-in on exit, spring curves on transformation states.</p>
       <div class="cs-2col">
         <div><div class="cs-col-h">Technical Specs</div><p class="cs-col-p">Designed in After Effects. Frame-by-frame easing curves. Exported as optimised GIF and MP4. Animation budget under 400ms. CSS fallback for prefers-reduced-motion.</p></div>
-        <div><div class="cs-col-h">Accessibility</div><p class="cs-col-p">All animated elements have static fallback states. Motion is decorative — interface communicates fully without it. Respects prefers-reduced-motion at CSS and component level.</p></div>
+        <div><div class="cs-col-h">Accessibility</div><p class="cs-col-p">All animated elements have static fallback states. Motion is decorative - interface communicates fully without it. Respects prefers-reduced-motion at CSS and component level.</p></div>
       </div>
     </div>
     <div class="cs-img-grid cols-2">
@@ -1320,7 +1406,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
 <!-- 05: LEAF DESIGN SYSTEM -->
 <div class="cs-ov" id="case-design-system" role="dialog" aria-modal="true" aria-label="LEAF Design System Case Study">
   <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-lego"></i>Case Study 05 — LEAF Design System</span>
+    <span class="cs-nav-id"><i class="ti ti-lego"></i>Case Study 05 - LEAF Design System</span>
     <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
   </div>
   <div class="cs-hero">
@@ -1373,7 +1459,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
         <div class="cs-step"><div class="cs-step-n">01</div><div><div class="cs-step-title">Audit & Inventory</div><p class="cs-step-body">Audited all 10 product teams. 200+ unique components collapsed into 60+ composable LEAF components. Naming conventions and taxonomy established.</p></div></div>
         <div class="cs-step"><div class="cs-step-n">02</div><div><div class="cs-step-title">Token Architecture</div><p class="cs-step-body">Primitive, semantic and component-level tokens. Figma variables → CSS custom properties pipeline. Storybook and Figma kept in sync.</p></div></div>
         <div class="cs-step"><div class="cs-step-n">03</div><div><div class="cs-step-title">Component Development</div><p class="cs-step-body">All states documented: default, hover, focus, active, disabled, error, loading. WCAG 2.2 built-in, not retrofitted.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">04</div><div><div class="cs-step-title">Storybook & Docs</div><p class="cs-step-body">MDX stories, code examples and video tutorials. Teams onboard without designer involvement — self-serve compliance.</p></div></div>
+        <div class="cs-step"><div class="cs-step-n">04</div><div><div class="cs-step-title">Storybook & Docs</div><p class="cs-step-body">MDX stories, code examples and video tutorials. Teams onboard without designer involvement - self-serve compliance.</p></div></div>
         <div class="cs-step"><div class="cs-step-n">05</div><div><div class="cs-step-title">Governance & Mentorship</div><p class="cs-step-body">Contribution model, critique protocols, accessibility review checklists, versioning standards. Mentored junior designers through documentation practices.</p></div></div>
       </div>
     </div>
@@ -1391,7 +1477,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
 <!-- 06: EVERNORTH WEB -->
 <div class="cs-ov" id="case-evernorth-web" role="dialog" aria-modal="true" aria-label="Evernorth Website Case Study">
   <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-world"></i>Case Study 06 — Evernorth Website</span>
+    <span class="cs-nav-id"><i class="ti ti-world"></i>Case Study 06 - Evernorth Website</span>
     <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
   </div>
   <div class="cs-hero">
@@ -1411,7 +1497,7 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
     <div class="cs-sec">
       <div class="cs-sec-tag">Overview</div>
       <h3 class="cs-h">Designed, maintained,<br><em>evolved.</em></h3>
-      <p class="cs-p">Designed and maintained the Evernorth public website — ensuring it remained visually modern, responsive across all devices and up-to-date with new content, features and product updates.</p>
+      <p class="cs-p">Designed and maintained the Evernorth public website - ensuring it remained visually modern, responsive across all devices and up-to-date with new content, features and product updates.</p>
       <div class="cs-2col">
         <div><div class="cs-col-h">Responsibilities</div><p class="cs-col-p">UI design for new pages and features. Brand consistency enforcement. Performance optimization. Collaboration with content, marketing and engineering teams on continuous delivery.</p></div>
         <div><div class="cs-col-h">Tools</div><p class="cs-col-p">Figma for design and prototyping. HTML and CSS for front-end implementation. Responsive design patterns. Brand token system aligned with LEAF Design System foundations.</p></div>
@@ -1440,9 +1526,40 @@ a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid v
 
 <!-- ============================================================ JAVASCRIPT -->
 <script>
-const nav = document.getElementById('nav');
+const navTop = document.getElementById('navTop');
+const navToggle = document.getElementById('navToggle');
+const navPanel = document.getElementById('navPanel');
+const navBackdrop = document.getElementById('navBackdrop');
+const MOBILE_NAV_MQ = window.matchMedia('(max-width: 900px)');
+
+function syncNavPanelMode() {
+  if (!MOBILE_NAV_MQ.matches) setNavOpen(false);
+}
+
+function setNavOpen(open) {
+  if (!MOBILE_NAV_MQ.matches) return;
+  navTop.classList.toggle('is-open', open);
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  if (navPanel) navPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+  navBackdrop.classList.toggle('is-visible', open);
+  navBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+  document.body.classList.toggle('nav-open', open);
+}
+
+navToggle.addEventListener('click', () => setNavOpen(!navTop.classList.contains('is-open')));
+if (navBackdrop) navBackdrop.addEventListener('click', () => setNavOpen(false));
+if (navPanel) {
+  navPanel.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavOpen(false));
+  });
+}
+MOBILE_NAV_MQ.addEventListener('change', syncNavPanelMode);
+window.addEventListener('resize', syncNavPanelMode);
+syncNavPanelMode();
+
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  navTop.classList.toggle('scrolled', window.scrollY > 60);
 }, { passive: true });
 
 const revEls = document.querySelectorAll('.rv, .rv-sc');
@@ -1486,7 +1603,12 @@ document.querySelectorAll('.proj-row[data-case]').forEach(card => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCase(card.dataset.case); }
   });
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCase(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (navTop.classList.contains('is-open')) setNavOpen(false);
+    closeCase();
+  }
+});
 </script>
 </body>
 </html>
