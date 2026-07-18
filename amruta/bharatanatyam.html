@@ -1,0 +1,1126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A premium mobile-first Bharatanatyam and Indian classical dance program agenda."
+    />
+    <title>Nritya Sandhya | Classical Dance Program</title>
+    <style>
+      :root {
+        --parchment: #f7f1e5;
+        --ivory: #fffaf0;
+        --charcoal: #23211d;
+        --charcoal-soft: #4d4840;
+        --gold: #a98338;
+        --gold-light: #d9c38a;
+        --terracotta: #8e3f2f;
+        --sandalwood: #d8b98b;
+        --line: rgba(35, 33, 29, 0.14);
+        --shadow: 0 24px 70px rgba(58, 43, 20, 0.12);
+        --serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+        --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-padding-top: 4.4rem;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--charcoal);
+        background:
+          radial-gradient(circle at top left, rgba(217, 195, 138, 0.22), transparent 28rem),
+          linear-gradient(115deg, rgba(255, 250, 240, 0.96), rgba(247, 241, 229, 0.96)),
+          var(--parchment);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        content: "";
+        opacity: 0.42;
+        background-image:
+          linear-gradient(rgba(169, 131, 56, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(169, 131, 56, 0.05) 1px, transparent 1px);
+        background-size: 34px 34px;
+        mask-image: linear-gradient(to bottom, black, transparent 72%);
+      }
+
+      body::after {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        content: "";
+        background-image:
+          radial-gradient(circle at 50% 50%, rgba(169, 131, 56, 0.13) 1px, transparent 1.5px),
+          radial-gradient(circle at 50% 50%, rgba(142, 63, 47, 0.08) 1px, transparent 1.5px);
+        background-position: 0 0, 12px 12px;
+        background-size: 24px 24px;
+        opacity: 0.22;
+        mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      .page {
+        overflow: hidden;
+      }
+
+      .skip-link {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 10;
+        padding: 0.7rem 0.9rem;
+        color: var(--ivory);
+        background: var(--charcoal);
+        border-radius: 999px;
+        transform: translateY(-150%);
+        transition: transform 180ms ease;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .nav {
+        position: fixed;
+        top: max(0.7rem, env(safe-area-inset-top));
+        right: 0.75rem;
+        left: 0.75rem;
+        z-index: 12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.18rem;
+        max-width: 26rem;
+        padding: 0.34rem;
+        margin: 0 auto;
+        background: rgba(255, 250, 240, 0.78);
+        border: 1px solid rgba(169, 131, 56, 0.24);
+        border-radius: 999px;
+        box-shadow: 0 18px 60px rgba(35, 33, 29, 0.13);
+        backdrop-filter: blur(22px);
+      }
+
+      .nav a {
+        flex: 1 1 0;
+        min-height: 2.25rem;
+        padding: 0.66rem 0.42rem;
+        color: var(--charcoal-soft);
+        border-radius: 999px;
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 180ms ease, background 180ms ease;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        color: var(--charcoal);
+        background: rgba(169, 131, 56, 0.13);
+        outline: none;
+      }
+
+      .hero {
+        position: relative;
+        display: grid;
+        min-height: 94svh;
+        padding: 1rem;
+        isolation: isolate;
+      }
+
+      .hero-media {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.8) contrast(0.95);
+        opacity: 0.31;
+        transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.08);
+        transform-origin: center;
+      }
+
+      .hero-media::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+        background:
+          linear-gradient(to bottom, rgba(247, 241, 229, 0.58), rgba(247, 241, 229, 0.9) 72%, var(--parchment)),
+          radial-gradient(circle at 50% 35%, transparent 0, rgba(247, 241, 229, 0.6) 70%);
+      }
+
+      .hero-inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 1.05rem;
+        width: min(100%, 66rem);
+        min-height: calc(94svh - 2rem);
+        padding: 5.2rem 0 2.4rem;
+        margin: 0 auto;
+      }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--gold);
+        font-size: 0.66rem;
+        font-weight: 800;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .kicker::before,
+      .kicker::after {
+        width: 1.35rem;
+        height: 1px;
+        content: "";
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 500;
+        line-height: 0.95;
+      }
+
+      h1 {
+        max-width: 8.5ch;
+        font-size: clamp(3.65rem, 18vw, 5.4rem);
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        max-width: 38rem;
+        margin: 0;
+        color: var(--charcoal-soft);
+        font-family: var(--serif);
+        font-size: clamp(1.12rem, 5vw, 1.36rem);
+        line-height: 1.32;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.65rem;
+        margin-top: 0.4rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.58rem;
+        width: 100%;
+        min-height: 3.05rem;
+        padding: 0.9rem 1.1rem;
+        color: var(--ivory);
+        background: var(--charcoal);
+        border: 1px solid var(--charcoal);
+        border-radius: 999px;
+        box-shadow: 0 14px 35px rgba(35, 33, 29, 0.16);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        background: #11100f;
+        box-shadow: 0 18px 45px rgba(35, 33, 29, 0.2);
+        outline: none;
+        transform: translateY(-2px);
+      }
+
+      .time-pill {
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+        min-height: 2.72rem;
+        align-items: center;
+        padding: 0.76rem 1rem;
+        border: 1px solid rgba(169, 131, 56, 0.32);
+        border-radius: 999px;
+        color: var(--charcoal-soft);
+        background: rgba(255, 250, 240, 0.54);
+        font-size: 0.72rem;
+        font-weight: 750;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        backdrop-filter: blur(14px);
+      }
+
+      .motif-band {
+        position: relative;
+        height: 3.2rem;
+        margin: -1.6rem auto 0;
+      }
+
+      .motif-band::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: min(88vw, 40rem);
+        height: 1px;
+        content: "";
+        background: linear-gradient(90deg, transparent, rgba(169, 131, 56, 0.58), transparent);
+        transform: translate(-50%, -50%);
+      }
+
+      .motif-band::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2rem;
+        height: 2rem;
+        content: "";
+        border: 1px solid rgba(169, 131, 56, 0.5);
+        background:
+          linear-gradient(45deg, transparent 46%, rgba(169, 131, 56, 0.65) 47%, rgba(169, 131, 56, 0.65) 53%, transparent 54%),
+          var(--parchment);
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+
+      .section {
+        width: min(100% - 1.35rem, 68rem);
+        margin: 0 auto;
+        padding: 3.5rem 0;
+      }
+
+      .section-heading {
+        display: grid;
+        gap: 0.8rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .section-heading h2 {
+        max-width: 9ch;
+        font-size: clamp(2.6rem, 13vw, 4.1rem);
+      }
+
+      .section-heading p {
+        max-width: 40rem;
+        margin: 0;
+        color: var(--charcoal-soft);
+        font-family: var(--serif);
+        font-size: clamp(1.05rem, 4.7vw, 1.28rem);
+        line-height: 1.42;
+      }
+
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .timeline::before {
+        position: absolute;
+        top: 0.5rem;
+        bottom: 0.5rem;
+        left: 0.5rem;
+        width: 1px;
+        content: "";
+        background: linear-gradient(to bottom, transparent, rgba(169, 131, 56, 0.55), transparent);
+      }
+
+      .timeline-item {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1.2rem minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        column-gap: 0.72rem;
+      }
+
+      .timeline-dot {
+        position: relative;
+        z-index: 1;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        width: 1rem;
+        height: 1rem;
+        margin-top: 0.18rem;
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        background: var(--parchment);
+        box-shadow: 0 0 0 0.38rem rgba(247, 241, 229, 0.92);
+      }
+
+      .timeline-card {
+        grid-column: 2;
+        grid-row: 2;
+        padding: 0.25rem 0 1.12rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .timeline-time,
+      .dance-time {
+        grid-column: 2;
+        grid-row: 1;
+        color: var(--gold);
+        font-size: 0.74rem;
+        font-weight: 850;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .timeline-card h3 {
+        margin-top: 0.28rem;
+        font-size: clamp(1.45rem, 7.5vw, 2.15rem);
+        line-height: 1;
+      }
+
+      .timeline-card p {
+        max-width: 38rem;
+        margin: 0.44rem 0 0;
+        color: var(--charcoal-soft);
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      .timeline-item.speech .timeline-dot {
+        border-color: var(--terracotta);
+        background: rgba(142, 63, 47, 0.1);
+      }
+
+      .timeline-item.pause .timeline-card {
+        padding: 1rem;
+        border: 1px solid rgba(169, 131, 56, 0.25);
+        border-radius: 0.5rem;
+        background: rgba(255, 250, 240, 0.46);
+        box-shadow: var(--shadow);
+      }
+
+      .timeline-item.pause .timeline-dot {
+        width: 1.18rem;
+        height: 1.18rem;
+        margin-left: -0.09rem;
+        background: var(--gold-light);
+      }
+
+      .divider-label {
+        display: inline-flex;
+        width: fit-content;
+        margin: 0.18rem 0;
+        padding: 0.4rem 0.62rem;
+        color: var(--terracotta);
+        border: 1px solid rgba(142, 63, 47, 0.2);
+        border-radius: 999px;
+        background: rgba(142, 63, 47, 0.055);
+        font-size: 0.64rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .dance-story {
+        display: grid;
+        gap: 3rem;
+      }
+
+      .dance-card {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .image-frame {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 16 / 11;
+        border-radius: 0.35rem;
+        box-shadow: 0 18px 46px rgba(58, 43, 20, 0.11);
+        background: #d7c5a5;
+      }
+
+      .image-frame::before {
+        position: absolute;
+        inset: 0.48rem;
+        z-index: 1;
+        pointer-events: none;
+        content: "";
+        border: 1px solid rgba(255, 250, 240, 0.42);
+      }
+
+      .image-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.78) contrast(0.98);
+        transform: scale(1.03);
+        transition: transform 900ms cubic-bezier(0.2, 0.75, 0.25, 1), filter 900ms ease;
+      }
+
+      .dance-card:hover .image-frame img {
+        filter: saturate(0.95) contrast(1);
+        transform: scale(1.085);
+      }
+
+      .dance-copy {
+        display: grid;
+        gap: 0.62rem;
+        align-content: center;
+      }
+
+      .dance-copy h3 {
+        font-size: clamp(2rem, 10vw, 3.2rem);
+        line-height: 0.98;
+      }
+
+      .dance-copy p {
+        margin: 0;
+        color: var(--charcoal-soft);
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+
+      .ornament {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--gold);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .ornament::before {
+        width: 1.1rem;
+        height: 1px;
+        content: "";
+        background: currentColor;
+      }
+
+      .closing {
+        position: relative;
+        width: min(100% - 1.35rem, 68rem);
+        padding: 3.6rem 0 4.2rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .closing h2 {
+        max-width: 11ch;
+        margin: 0 auto;
+        font-size: clamp(2.55rem, 13vw, 4rem);
+      }
+
+      .closing p {
+        max-width: 34rem;
+        margin: 1rem auto 0;
+        color: var(--charcoal-soft);
+        font-family: var(--serif);
+        font-size: clamp(1.05rem, 4.5vw, 1.28rem);
+        line-height: 1.42;
+      }
+
+      footer {
+        padding: 1.8rem 1rem max(2rem, env(safe-area-inset-bottom));
+        color: rgba(35, 33, 29, 0.68);
+        border-top: 1px solid var(--line);
+        text-align: center;
+        font-size: 0.68rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 780ms ease, transform 780ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .stagger > * {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 680ms ease, transform 680ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+
+      .stagger.is-visible > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .stagger.is-visible > *:nth-child(2) {
+        transition-delay: 90ms;
+      }
+
+      .stagger.is-visible > *:nth-child(3) {
+        transition-delay: 180ms;
+      }
+
+      .stagger.is-visible > *:nth-child(4) {
+        transition-delay: 270ms;
+      }
+
+      @media (min-width: 760px) {
+        .hero {
+          padding: 2rem;
+        }
+
+        .hero-inner {
+          min-height: calc(100svh - 4rem);
+        }
+
+        .section {
+          padding: 7rem 0;
+        }
+
+        .button,
+        .time-pill {
+          width: auto;
+        }
+
+        .section-heading {
+          grid-template-columns: minmax(17rem, 0.7fr) minmax(20rem, 1fr);
+          align-items: end;
+          margin-bottom: 3.4rem;
+        }
+
+        .timeline::before {
+          left: 8.9rem;
+        }
+
+        .timeline-item {
+          grid-template-columns: 7.7rem 2.4rem minmax(0, 1fr);
+          gap: 1.1rem;
+        }
+
+        .timeline-time {
+          grid-column: 1;
+          grid-row: auto;
+          padding-top: 0.24rem;
+          text-align: right;
+        }
+
+        .timeline-dot {
+          grid-column: 2;
+        }
+
+        .timeline-card {
+          grid-column: 3;
+          grid-row: auto;
+          padding-top: 0;
+        }
+
+        .dance-card {
+          grid-template-columns: minmax(18rem, 0.9fr) minmax(20rem, 1fr);
+          align-items: center;
+          gap: clamp(2rem, 5vw, 5.5rem);
+        }
+
+        .dance-card:nth-child(even) .image-frame {
+          order: 2;
+        }
+
+        .image-frame {
+          aspect-ratio: 5 / 6;
+        }
+
+        .nav {
+          top: 1rem;
+          right: auto;
+          left: 50%;
+          width: min(calc(100% - 2rem), 34rem);
+          transform: translateX(-50%);
+        }
+
+        footer {
+          padding-bottom: 2.2rem;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .nav {
+          right: 0.5rem;
+          left: 0.5rem;
+          padding: 0.28rem;
+        }
+
+        .nav a {
+          min-height: 2.1rem;
+          padding: 0.58rem 0.28rem;
+          font-size: 0.58rem;
+          letter-spacing: 0.02em;
+        }
+
+        .hero {
+          padding: 0.82rem;
+        }
+
+        h1 {
+          font-size: 3.2rem;
+        }
+
+        .kicker {
+          font-size: 0.6rem;
+        }
+
+        .section {
+          width: min(100% - 1rem, 68rem);
+        }
+
+        .timeline-card h3 {
+          font-size: 1.38rem;
+        }
+
+        .timeline-card p,
+        .dance-copy p {
+          font-size: 0.88rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+
+        .reveal,
+        .stagger > * {
+          opacity: 1;
+          transform: none;
+        }
+
+        .hero-media img {
+          transform: scale(1.08);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#program">Skip to program</a>
+    <nav class="nav" aria-label="Program navigation">
+      <a href="#welcome">Welcome</a>
+      <a href="#program">Timeline</a>
+      <a href="#performances">Dances</a>
+    </nav>
+
+    <main class="page">
+      <header id="welcome" class="hero">
+        <div class="hero-media" aria-hidden="true">
+          <img
+            src="images/pushpa.jpg"
+            alt=""
+          />
+        </div>
+        <div class="hero-inner stagger">
+          <span class="kicker">Classical Dance Evening</span>
+          <h1>Amruta's Bharatanatyam Recital & Graduation</h1>
+          <p class="hero-copy">
+            Welcome to an evening of rhythm, devotion, family, and grace, honoring Indian classical dance.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#program" aria-label="Explore the evening program">Explore the Evening</a>
+            <span class="time-pill">5:00 PM - 7:00 PM</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="motif-band" aria-hidden="true"></div>
+
+      <section id="program" class="section" aria-labelledby="program-title">
+        <div class="section-heading reveal">
+          <h2 id="program-title">The Evening</h2>
+          
+        </div>
+
+        <div class="timeline" aria-label="Full event timeline">
+          <article class="timeline-item speech reveal">
+            <time class="timeline-time" datetime="16:50">4:50 - 5:00 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="divider-label">Opening</span>
+              <h3>Introductory Speech</h3>
+              <p>
+                A warm welcome from the hosts, setting the tone for the evening and inviting
+                the audience into the spirit of celebration.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <time class="timeline-time" datetime="17:00">5:00 - 5:12 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="divider-label">First Half</span>
+              <h3>Pushpanjali + Mahilvahana</h3>
+              <p>
+                An offering of flowers and movement, beginning the recital with devotion,
+                precision, and reverence for the divine presence.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <time class="timeline-time" datetime="17:14">5:14 - 5:34 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <h3>Varnam</h3>
+              <p>
+                The central jewel of the repertoire, weaving rhythm, storytelling, and expressive
+                devotion into an expansive portrait of longing and surrender.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <time class="timeline-time" datetime="17:36">5:36 - 5:42 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <h3>Swagatham Krishna</h3>
+              <p>
+                A lyrical welcome to Lord Krishna, evoking playfulness, tenderness, and the
+                luminous beauty of bhakti through graceful expression.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item pause reveal">
+            <time class="timeline-time" datetime="17:42">5:42 - 6:12 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="divider-label">30 Minute Intermission</span>
+              <h3>Resumes at around 6:15 PM</h3>
+            </div>
+          </article>
+
+          <article class="timeline-item speech reveal">
+            <time class="timeline-time" datetime="18:15">6:15 - 6:18 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="divider-label">Gratitude</span>
+              <h3>Amruta Thank You Speech</h3>
+              <p>
+                A heartfelt acknowledgement to Guru Smt. Malini Nair, family, friends, and the community whose
+                encouragement made this milestone possible.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <time class="timeline-time" datetime="18:20">6:20 - 6:27 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="divider-label">Second Half</span>
+              <h3>Ananda Nartana</h3>
+              <p>
+                A joyful dance of divine bliss, celebrating movement as prayer and rhythm as a
+                radiant expression of inner happiness.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <time class="timeline-time" datetime="18:30">6:30 - 6:42 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <h3>Ravanastotram</h3>
+              <p>
+                A powerful ode to Lord Shiva, carried by vigorous rhythm, sculptural poses, and
+                the dramatic intensity of devotion.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <time class="timeline-time" datetime="18:45">6:45 - 6:50 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <h3>Mangalam</h3>
+              <p>
+                The auspicious finale, offering gratitude and blessings as the performance closes
+                with serenity and grace.
+              </p>
+            </div>
+          </article>
+
+          <article class="timeline-item speech reveal">
+            <time class="timeline-time" datetime="19:00">7:00 PM</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="timeline-card">
+              <span class="divider-label">Dinner</span>
+              <h3>Celebration Dinner</h3>
+              <p>
+                Guests are invited to gather, share a meal, and continue the evening in fellowship.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="performances" class="section" aria-labelledby="performances-title">
+        <div class="section-heading reveal">
+          <h2 id="performances-title">Six Expressions</h2>
+          
+        </div>
+
+        <div class="dance-story">
+          <article class="dance-card reveal">
+            <figure class="image-frame">
+              <img
+                src="images/pushpa.jpg"
+                alt="Classical Indian dancer in an expressive pose"
+                loading="lazy"
+              />
+            </figure>
+            <div class="dance-copy stagger">
+              <span class="ornament">5:00 - 5:12 PM</span>
+              <h3>Pushpanjali + Mayil Vahana</h3>
+              <p>
+                The invocatory piece is a bharatanatyam pushpanjali followed by mayil vahana
+keerthanam on lord Subramania.Pushpanjali is the foremost item in bharatanatyam
+repertoire where the dancer seeks blessings to Lord,Her Guru and the Audience.
+
+<h4>Jog Pushpanjali-</h4>
+<p>Composer-Sri.Madhurai.R.Muralidharan</p>
+
+<p>Ragam-Jog</p>
+<p>Talam-Aadi</p>
+
+              <h4>Mayil Vahana-</h4>
+<p>Composer-Sri.Papanasom Sivan</p>
+
+<p>Ragam-Mohanam</p>
+<p>Talam-Aadi
+              </p>
+            </div>
+          </article>
+
+          <article class="dance-card reveal">
+            <figure class="image-frame">
+              <img
+                src="images/varnam.jpg"
+                alt="Indian classical dance costume details and jewelry"
+                loading="lazy"
+              />
+            </figure>
+            <div class="dance-copy stagger">
+              <span class="ornament">5:14 - 5:34 PM</span>
+              <h3>Varnam</h3>
+              <p>
+                Varnam is the most important piece in any recital and involves
+Jathi Korvais and Theermanams and a theme is elaborated with Abhinaya depicting the
+emotions of the diety portrayed.
+Mathe Varnom is a thematic representation on Mother Goddess Parvathy. The dance
+represents the power that runs the universe with specific praise for feminine
+empowerment and strength. The dance juxtaposes the Divine Mother and Her mortal
+counterpart in finely crafted wording. The item portrays Goddess in the gentle form of
+protection, love, and care & her ferocious form to destroy evil forces.
+
+<p>Today amruta is presenting an abridged version of Mathe Varnom.</p>
+<p>Composer-Sri.Muthiah Bhagavathar</p>
+<p>Ragam-Daru</p>
+<p>Talam-Adi</p>
+            </div>
+          </article>
+
+          <article class="dance-card reveal">
+            <figure class="image-frame">
+              <img
+                src="images/swagatham.jpg"
+                alt="Warm temple-inspired Indian classical performance setting"
+                loading="lazy"
+              />
+            </figure>
+            <div class="dance-copy stagger">
+              <span class="ornament">5:36 - 5:42 PM</span>
+              <h3>Swagatham Krishna</h3>
+              <p>
+                This is a famous composition on lord krishna by
+Sri.Oothukad Venkata Subbaiyer.The item depicts the beauty,greatness and divinity
+portrayed by the dancer.
+
+<p>Ragam-Mohanam</p>
+<p>Talam-Aadi
+              </p>
+            </div>
+          </article>
+
+          <article class="dance-card reveal">
+            <figure class="image-frame">
+              <img
+                src="images/nartana.jpg"
+                alt="Stage light falling across a refined performance space"
+                loading="lazy"
+              />
+            </figure>
+            <div class="dance-copy stagger">
+              <span class="ornament">6:20 - 6:27 PM</span>
+              <h3>Ananda Nartana</h3>
+              <p>
+                AnandaNatanaPrakashom-This keertanam describes the beauty of Lord Shiva, His
+golden matted hair, the river Ganges flowing down it, the crescent moon on top, and the
+snakes that decorate Him like jewels and the beautiful dance of the cosmic lord.This is
+an abridged version as well.
+
+<p>Composer-Dikshitar</p>
+<p>Ragam-Kedaram</p>
+<p>Talam-Mishrachappu</p>
+            </div>
+          </article>
+
+          <article class="dance-card reveal">
+            <figure class="image-frame">
+              <img
+                src="images/ravana.jpg"
+                alt="Dramatic Indian architectural detail evoking Shiva mythology"
+                loading="lazy"
+              />
+            </figure>
+            <div class="dance-copy stagger">
+              <span class="ornament">6:30 - 6:42 PM</span>
+              <h3>Ravanastotram</h3>
+              <p>
+                The Ravana Stotram, commonly known as the Shiv Tandav Stotram, is a powerful
+
+Sanskrit hymn dedicated to Lord Shiva. It was traditionally composed by the Asura King
+Ravana to praise Shiva's strength and cosmic dance. Chanting or listening to it is
+believed to remove negative energies and bring mental strength.
+This powerful mantra is supposed to be composed by the mighty king Ravana who was an
+ardent devotee of Lord Shiva.Ravana in his pride tried to lift Mount.kailasa.Scared Goddess
+parvathy ran to her husband lord Shiva.Shiva just pressed down his small toe on the floor and
+kailasa fell upon King Ravana.He realized his mistake and asked for forgiveness chanting this
+slokam.
+              </p>
+            </div>
+          </article>
+
+          <article class="dance-card reveal">
+            <figure class="image-frame">
+              <img
+                src="images/mangalam.jpg"
+                alt="Indian classical dancer completing a graceful performance gesture"
+                loading="lazy"
+              />
+            </figure>
+            <div class="dance-copy stagger">
+              <span class="ornament">6:45 - 6:50 PM</span>
+              <h3>Mangalam</h3>
+              <p>
+                The final piece or mangalam presented by the dancer today is on Lord
+Rama.The song is a beautiful, lilting, charming devotional hymn to Shri Rama who is offering
+strength and protection, vanquishing enemies, and adored by deities.
+Composer-Goswamy Tulasidas</p>
+<p>Ragam-Kalyani</p>
+<p>Talam-Tisram</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="dinner" class="closing reveal" aria-labelledby="closing-title">
+        <span class="kicker">7:00 PM</span>
+        <h2 id="closing-title">Dinner & Blessings</h2>
+        <p>
+          Thank you for joining this celebration of tradition, family, and artistry.
+          Please continue the evening with dinner.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <span>Thank you!!!</span>
+    </footer>
+
+    <script>
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+      );
+
+      document.querySelectorAll(".reveal, .stagger").forEach((element) => {
+        revealObserver.observe(element);
+      });
+
+      const heroImage = document.querySelector(".hero-media img");
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function updateParallax() {
+        if (prefersReducedMotion || !heroImage) return;
+        const offset = Math.min(window.scrollY * 0.16, 90);
+        heroImage.style.setProperty("--parallax-y", `${offset}px`);
+      }
+
+      let ticking = false;
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (!ticking) {
+            window.requestAnimationFrame(() => {
+              updateParallax();
+              ticking = false;
+            });
+            ticking = true;
+          }
+        },
+        { passive: true }
+      );
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (event) => {
+          const target = document.querySelector(link.getAttribute("href"));
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
+        });
+      });
+
+      updateParallax();
+    </script>
+  </body>
+</html>
