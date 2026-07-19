@@ -10,16 +10,16 @@
     <title>Nritya Sandhya | Classical Dance Program</title>
     <style>
       :root {
-        --parchment: #f7f1e5;
-        --ivory: #fffaf0;
-        --charcoal: #23211d;
-        --charcoal-soft: #4d4840;
-        --gold: #a98338;
-        --gold-light: #d9c38a;
-        --terracotta: #8e3f2f;
-        --sandalwood: #d8b98b;
-        --line: rgba(35, 33, 29, 0.14);
-        --shadow: 0 24px 70px rgba(58, 43, 20, 0.12);
+        --parchment: #0c1716;
+        --ivory: #111f1d;
+        --charcoal: #f7ead2;
+        --charcoal-soft: #cbbda4;
+        --gold: #d6a84f;
+        --gold-light: #f0d58a;
+        --terracotta: #e1744f;
+        --sandalwood: #4b8b7b;
+        --line: rgba(240, 213, 138, 0.18);
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.36);
         --serif: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
         --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
@@ -37,8 +37,9 @@
         margin: 0;
         color: var(--charcoal);
         background:
-          radial-gradient(circle at top left, rgba(217, 195, 138, 0.22), transparent 28rem),
-          linear-gradient(115deg, rgba(255, 250, 240, 0.96), rgba(247, 241, 229, 0.96)),
+          radial-gradient(circle at top left, rgba(214, 168, 79, 0.2), transparent 22rem),
+          radial-gradient(circle at bottom right, rgba(75, 139, 123, 0.18), transparent 20rem),
+          linear-gradient(145deg, rgba(8, 21, 20, 0.98), rgba(17, 31, 29, 0.98)),
           var(--parchment);
         font-family: var(--sans);
         -webkit-font-smoothing: antialiased;
@@ -53,8 +54,8 @@
         content: "";
         opacity: 0.42;
         background-image:
-          linear-gradient(rgba(169, 131, 56, 0.06) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(169, 131, 56, 0.05) 1px, transparent 1px);
+          linear-gradient(rgba(214, 168, 79, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(214, 168, 79, 0.045) 1px, transparent 1px);
         background-size: 34px 34px;
         mask-image: linear-gradient(to bottom, black, transparent 72%);
       }
@@ -66,8 +67,8 @@
         pointer-events: none;
         content: "";
         background-image:
-          radial-gradient(circle at 50% 50%, rgba(169, 131, 56, 0.13) 1px, transparent 1.5px),
-          radial-gradient(circle at 50% 50%, rgba(142, 63, 47, 0.08) 1px, transparent 1.5px);
+          radial-gradient(circle at 50% 50%, rgba(214, 168, 79, 0.17) 1px, transparent 1.5px),
+          radial-gradient(circle at 50% 50%, rgba(225, 116, 79, 0.12) 1px, transparent 1.5px);
         background-position: 0 0, 12px 12px;
         background-size: 24px 24px;
         opacity: 0.22;
@@ -117,10 +118,10 @@
         max-width: 26rem;
         padding: 0.34rem;
         margin: 0 auto;
-        background: rgba(255, 250, 240, 0.78);
-        border: 1px solid rgba(169, 131, 56, 0.24);
+        background: rgba(12, 23, 22, 0.76);
+        border: 1px solid rgba(214, 168, 79, 0.28);
         border-radius: 999px;
-        box-shadow: 0 18px 60px rgba(35, 33, 29, 0.13);
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.34);
         backdrop-filter: blur(22px);
       }
 
@@ -142,7 +143,7 @@
       .nav a:hover,
       .nav a:focus-visible {
         color: var(--charcoal);
-        background: rgba(169, 131, 56, 0.13);
+        background: rgba(214, 168, 79, 0.16);
         outline: none;
       }
 
@@ -165,8 +166,8 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: saturate(0.8) contrast(0.95);
-        opacity: 0.75;
+        filter: saturate(0.82) contrast(1.02);
+        opacity: 0.38;
         transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.08);
         transform-origin: center;
       }
@@ -176,8 +177,8 @@
         inset: 0;
         content: "";
         background:
-          linear-gradient(to bottom, rgba(247, 241, 229, 0.58), rgba(247, 241, 229, 0.9) 72%, var(--parchment)),
-          radial-gradient(circle at 50% 35%, transparent 0, rgba(247, 241, 229, 0.6) 70%);
+          linear-gradient(to bottom, rgba(12, 23, 22, 0.12), rgba(12, 23, 22, 0.84) 72%, var(--parchment)),
+          radial-gradient(circle at 50% 35%, transparent 0, rgba(12, 23, 22, 0.68) 70%);
       }
 
       .hero-inner {
@@ -254,7 +255,7 @@
         background: var(--charcoal);
         border: 1px solid var(--charcoal);
         border-radius: 999px;
-        box-shadow: 0 14px 35px rgba(35, 33, 29, 0.16);
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.24);
         font-size: 0.72rem;
         font-weight: 800;
         letter-spacing: 0.08em;
@@ -265,8 +266,8 @@
 
       .button:hover,
       .button:focus-visible {
-        background: #11100f;
-        box-shadow: 0 18px 45px rgba(35, 33, 29, 0.2);
+        background: #fff0c8;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.32);
         outline: none;
         transform: translateY(-2px);
       }
@@ -278,10 +279,10 @@
         min-height: 2.72rem;
         align-items: center;
         padding: 0.76rem 1rem;
-        border: 1px solid rgba(169, 131, 56, 0.32);
+        border: 1px solid rgba(214, 168, 79, 0.34);
         border-radius: 999px;
         color: var(--charcoal-soft);
-        background: rgba(255, 250, 240, 0.54);
+        background: rgba(17, 31, 29, 0.72);
         font-size: 0.72rem;
         font-weight: 750;
         letter-spacing: 0.06em;
@@ -302,7 +303,7 @@
         width: min(88vw, 40rem);
         height: 1px;
         content: "";
-        background: linear-gradient(90deg, transparent, rgba(169, 131, 56, 0.58), transparent);
+        background: linear-gradient(90deg, transparent, rgba(214, 168, 79, 0.62), transparent);
         transform: translate(-50%, -50%);
       }
 
@@ -313,9 +314,9 @@
         width: 2rem;
         height: 2rem;
         content: "";
-        border: 1px solid rgba(169, 131, 56, 0.5);
+        border: 1px solid rgba(214, 168, 79, 0.55);
         background:
-          linear-gradient(45deg, transparent 46%, rgba(169, 131, 56, 0.65) 47%, rgba(169, 131, 56, 0.65) 53%, transparent 54%),
+          linear-gradient(45deg, transparent 46%, rgba(214, 168, 79, 0.7) 47%, rgba(214, 168, 79, 0.7) 53%, transparent 54%),
           var(--parchment);
         transform: translate(-50%, -50%) rotate(45deg);
       }
@@ -359,7 +360,7 @@
         left: 0.5rem;
         width: 1px;
         content: "";
-        background: linear-gradient(to bottom, transparent, rgba(169, 131, 56, 0.55), transparent);
+        background: linear-gradient(to bottom, transparent, rgba(214, 168, 79, 0.55), transparent);
       }
 
       .timeline-item {
@@ -381,7 +382,7 @@
         border: 1px solid var(--gold);
         border-radius: 50%;
         background: var(--parchment);
-        box-shadow: 0 0 0 0.38rem rgba(247, 241, 229, 0.92);
+        box-shadow: 0 0 0 0.38rem rgba(12, 23, 22, 0.94);
       }
 
       .timeline-card {
@@ -418,14 +419,14 @@
 
       .timeline-item.speech .timeline-dot {
         border-color: var(--terracotta);
-        background: rgba(142, 63, 47, 0.1);
+        background: rgba(225, 116, 79, 0.13);
       }
 
       .timeline-item.pause .timeline-card {
         padding: 1rem;
-        border: 1px solid rgba(169, 131, 56, 0.25);
+        border: 1px solid rgba(214, 168, 79, 0.28);
         border-radius: 0.5rem;
-        background: rgba(255, 250, 240, 0.46);
+        background: rgba(17, 31, 29, 0.72);
         box-shadow: var(--shadow);
       }
 
@@ -442,9 +443,9 @@
         margin: 0.18rem 0;
         padding: 0.4rem 0.62rem;
         color: var(--terracotta);
-        border: 1px solid rgba(142, 63, 47, 0.2);
+        border: 1px solid rgba(225, 116, 79, 0.26);
         border-radius: 999px;
-        background: rgba(142, 63, 47, 0.055);
+        background: rgba(225, 116, 79, 0.1);
         font-size: 0.64rem;
         font-weight: 800;
         letter-spacing: 0.08em;
@@ -466,7 +467,7 @@
         overflow: hidden;
         aspect-ratio: 16 / 11;
         border-radius: 0.35rem;
-        background: #f7f1e5;
+        background: #142a28;
       }
 
       .image-frame::before {
@@ -475,7 +476,7 @@
         z-index: 1;
         pointer-events: none;
         content: "";
-        border: 1px solid rgba(255, 250, 240, 0.42);
+        border: 1px solid rgba(247, 234, 210, 0.28);
       }
 
       .image-frame img {
@@ -552,7 +553,7 @@
 
       footer {
         padding: 1.8rem 1rem max(2rem, env(safe-area-inset-bottom));
-        color: rgba(35, 33, 29, 0.68);
+        color: rgba(247, 234, 210, 0.62);
         border-top: 1px solid var(--line);
         text-align: center;
         font-size: 0.68rem;
@@ -837,7 +838,7 @@
             <span class="timeline-dot" aria-hidden="true"></span>
             <div class="timeline-card">
               <span class="divider-label">Second Half</span>
-              <h3>Ananda Natana Prakashom</h3>
+              <h3>Ananda Natana Prakasham</h3>
             </div>
           </article>
 
@@ -888,8 +889,8 @@
               <h3>Pushpanjali + Mayil Vahana</h3>
               <p>
                 The invocatory piece is a bharatanatyam pushpanjali followed by mayil vahana
-keerthanam on lord Subramania.Pushpanjali is the foremost item in bharatanatyam
-repertoire where the dancer seeks blessings to Lord,Her Guru and the Audience.
+keerthanam on lord Subramania. Pushpanjali is the foremost item in bharatanatyam
+repertoire where the dancer seeks blessings to Lord, her Guru and the Audience.
 
 <h4>Jog Pushpanjali-</h4>
 <p>Composer-Sri.Madhurai.R.Muralidharan</p>
@@ -923,11 +924,11 @@ Jathi Korvais and Theermanams and a theme is elaborated with Abhinaya depicting 
 emotions of the diety portrayed.
 Mathe Varnom is a thematic representation on Mother Goddess Parvathy. The dance
 represents the power that runs the universe with specific praise for feminine
-empowerment and strength. The dance juxtaposes the Divine Mother and Her mortal
+empowerment and strength. The dance contrasts the Divine Mother and Her mortal
 counterpart in finely crafted wording. The item portrays Goddess in the gentle form of
 protection, love, and care & her ferocious form to destroy evil forces.
 
-<p>Today amruta is presenting an abridged version of Mathe Varnom.</p>
+<p>Today Amruta is presenting an abridged version of Mathe Varnom.</p>
 <p>Composer-Sri.Muthiah Bhagavathar</p>
 <p>Ragam-Daru</p>
 <p>Talam-Adi</p>
@@ -947,7 +948,7 @@ protection, love, and care & her ferocious form to destroy evil forces.
               <h3>Swagatham Krishna</h3>
               <p>
                 This is a famous composition on lord krishna by
-Sri.Oothukad Venkata Subbaiyer.The item depicts the beauty,greatness and divinity
+Sri.Oothukad Venkata Subbaiyer. The item depicts the beauty, greatness and divinity
 portrayed by the dancer.
 
 <p>Ragam-Mohanam</p>
@@ -966,11 +967,11 @@ portrayed by the dancer.
             </figure>
             <div class="dance-copy stagger">
               <span class="ornament">6:20 - 6:27 PM</span>
-              <h3>Ananda Natana Prakashom</h3>
+              <h3>Ananda Natana Prakasham</h3>
               <p>
-                Ananda Natana Prakashom-This keertanam describes the beauty of Lord Shiva, His
+                This keertanam describes the beauty of Lord Shiva, His
 golden matted hair, the river Ganges flowing down it, the crescent moon on top, and the
-snakes that decorate Him like jewels and the beautiful dance of the cosmic lord.This is
+snakes that decorate Him like jewels and the beautiful dance of the cosmic Lord. This is
 an abridged version as well.
 
 <p>Composer-Dikshitar</p>
@@ -997,9 +998,9 @@ Sanskrit hymn dedicated to Lord Shiva. It was traditionally composed by the Asur
 Ravana to praise Shiva's strength and cosmic dance. Chanting or listening to it is
 believed to remove negative energies and bring mental strength.
 This powerful mantra is supposed to be composed by the mighty king Ravana who was an
-ardent devotee of Lord Shiva.Ravana in his pride tried to lift Mount.kailasa.Scared Goddess
-parvathy ran to her husband lord Shiva.Shiva just pressed down his small toe on the floor and
-kailasa fell upon King Ravana.He realized his mistake and asked for forgiveness chanting this
+ardent devotee of Lord Shiva. Ravana in his pride tried to lift Mount.kailasa. Scared, Goddess
+Parvathy ran to her husband Lord Shiva. Shiva just pressed down his small toe on the floor and
+kailasa fell upon King Ravana. He realized his mistake and asked for forgiveness chanting this
 slokam.
               </p>
             </div>
@@ -1018,10 +1019,10 @@ slokam.
               <span class="ornament">6:45 - 6:50 PM</span>
               <h3>Mangalam</h3>
               <p>
-                The final piece or mangalam presented by the dancer today is on Lord
-Rama.The song is a beautiful, lilting, charming devotional hymn to Shri Rama who is offering
+                The final piece or mangalam presented by Amruta today is on Lord
+Rama. The song is a beautiful, lilting, charming devotional hymn to Shri Rama who is offering
 strength and protection, vanquishing enemies, and adored by deities.
-Composer-Goswamy Tulasidas</p>
+<p>Composer-Goswamy Tulasidas</p>
 <p>Ragam-Kalyani</p>
 <p>Talam-Tisram</p>
             </div>
