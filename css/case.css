@@ -1,5 +1,5 @@
-/* Case study dialogs + lightbox. They use the opposite theme of the page */
-dialog.case{border:0;padding:0;margin:auto;width:min(1500px,calc(100% - 1.5rem));height:calc(100% - 1.5rem);max-width:none;max-height:none;background:var(--paper);color:var(--ink);overflow:auto;overscroll-behavior:contain;border-radius:10px}
+/* Case study dialogs + lightbox. They follow the page theme */
+dialog.case{border:1px solid var(--line);box-shadow:0 40px 120px -30px rgba(0,0,0,.65);padding:0;margin:auto;width:min(1500px,calc(100% - 1.5rem));height:calc(100% - 1.5rem);max-width:none;max-height:none;background:var(--paper);color:var(--ink);overflow:auto;overscroll-behavior:contain;border-radius:10px}
 dialog::backdrop{background:rgba(8,10,28,.72);backdrop-filter:blur(8px)}
 dialog.case[open]{animation:up .75s var(--ease)}dialog.case.out{animation:down .35s ease-in forwards}
 @keyframes up{from{transform:translateY(7%);opacity:0;clip-path:inset(10% 0 0 0 round 10px)}}
