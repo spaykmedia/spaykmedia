@@ -1,0 +1,20 @@
+/* Tokens + reset. Accent is orange on light and mint on dark. --act is the same hue tuned for text and icons so they pass contrast */
+:root{--paper:#ECEEF3;--ink:#0E1224;--mute:#59607A;--line:rgba(14,18,36,.16);--ac:#ff8101;--act:#ff8101;--on-ac:#05060f;--card:#fff;
+--f-d:'Bricolage Grotesque',system-ui,sans-serif;--f-b:'Source Serif 4',Georgia,serif;
+--ease:cubic-bezier(.16,1,.3,1);--pad:clamp(1.25rem,4.5vw,4.5rem);color-scheme:light}
+[data-theme=dark]{--paper:#0B0E1B;--ink:#E9EBF5;--mute:#A2A9C4;--line:rgba(233,235,245,.17);--ac:#00f1c0;--act:#00f1c0;--card:#151A33;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem}
+body{background:var(--paper);color:var(--ink);font:400 1.125rem/1.7 var(--f-b);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,.d{font-family:var(--f-d);font-weight:400;line-height:1.05;letter-spacing:-.02em}
+a{color:inherit}img{display:block;max-width:100%}ul,ol{list-style:none}strong{font-weight:600}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;box-shadow:0 0 0 6px var(--ac)}
+.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;z-index:99;background:var(--ink);color:var(--paper);padding:.6rem 1rem}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Case dialogs always take the opposite theme of the page */
+[data-theme=light] dialog.case{--paper:#0B0E1B;--ink:#E9EBF5;--mute:#A2A9C4;--line:rgba(233,235,245,.17);--ac:#00f1c0;--act:#00f1c0;--card:#151A33;color-scheme:dark}
+[data-theme=dark] dialog.case{--paper:#ECEEF3;--ink:#0E1224;--mute:#59607A;--line:rgba(14,18,36,.16);--ac:#ff8101;--act:#ff8101;--card:#fff;color-scheme:light}
+/* The AI panel is inverted too */
+[data-theme=light] .ai{--ac:#00f1c0;--act:#00f1c0}
+[data-theme=dark] .ai{--ac:#ff8101;--act:#ff8101}

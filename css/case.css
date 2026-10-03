@@ -1,0 +1,52 @@
+/* Case study dialogs + lightbox. They use the opposite theme of the page */
+dialog.case{border:0;padding:0;margin:auto;width:min(1500px,calc(100% - 1.5rem));height:calc(100% - 1.5rem);max-width:none;max-height:none;background:var(--paper);color:var(--ink);overflow:auto;overscroll-behavior:contain;border-radius:10px}
+dialog::backdrop{background:rgba(8,10,28,.72);backdrop-filter:blur(8px)}
+dialog.case[open]{animation:up .75s var(--ease)}dialog.case.out{animation:down .35s ease-in forwards}
+@keyframes up{from{transform:translateY(7%);opacity:0;clip-path:inset(10% 0 0 0 round 10px)}}
+@keyframes down{to{transform:translateY(4%);opacity:0}}
+.sheet{animation:fade .6s var(--ease)}@keyframes fade{from{opacity:0}}
+.c-bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem var(--pad);background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);font:500 .95rem var(--f-d)}
+.c-id{display:flex;align-items:center;gap:.6rem;min-width:0}.c-id .ico{color:var(--act)}.c-id b{font-weight:600}
+.c-act{display:flex;align-items:center;gap:.6rem}
+.c-nx,.c-close{display:inline-flex;align-items:center;gap:.45rem;border:1.5px solid var(--ink);padding:.45rem 1rem;border-radius:99px;transition:background .25s,color .25s}
+.c-nx{background:var(--ac);border-color:var(--act);color:var(--on-ac)}.c-nx .ico,.c-close .ico{width:1.1rem;height:1.1rem;transition:transform .4s var(--ease)}.c-nx:hover .ico{transform:translateX(4px)}
+.c-close:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:700px){.c-id>span{display:none}}
+/* Cover image is the hero background, fading into the dialog body */
+.c-hero{position:relative;isolation:isolate;overflow:hidden;min-height:82vh;display:flex;flex-direction:column;justify-content:flex-end;padding:6rem var(--pad) 3rem}
+.c-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;z-index:-2}
+.c-fade{position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,var(--paper) 3%,color-mix(in srgb,var(--paper) 62%,transparent) 48%,color-mix(in srgb,var(--paper) 25%,transparent) 100%)}
+.c-meta{font:500 1rem var(--f-d);color:var(--mute);margin-bottom:1.5rem}
+.c-title{font-size:clamp(3rem,10.5vw,10rem);font-weight:300;line-height:.88;letter-spacing:-.045em}
+.c-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:2rem;margin-top:3.5rem;padding-top:1.75rem;border-top:1px solid var(--line)}
+.c-metrics dt{font:300 clamp(2.2rem,4.6vw,4.2rem)/1 var(--f-d);letter-spacing:-.04em;color:var(--act)}.c-metrics dd{color:var(--mute);font-size:1rem;margin-top:.4rem}
+sup{font-size:.4em;vertical-align:super;margin-left:.1em;letter-spacing:0}
+.cs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,3fr);gap:2rem 3rem;padding:5rem var(--pad);border-top:1px solid var(--line);margin-top:4rem}
+.cs-tag{display:flex;align-items:flex-start;gap:.6rem;font:500 1rem var(--f-d);color:var(--mute)}.cs-tag .ico{width:1.4rem;height:1.4rem;color:var(--act)}
+.cs-h{font:300 clamp(1.9rem,4vw,3.6rem)/1.05 var(--f-d);letter-spacing:-.03em}.cs-p{max-width:40em;margin-top:1.5rem}.cs-h+.cs-notes,.cs-p+.cs-notes{margin-top:2.5rem}
+.cs-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:2rem}
+.cs-notes h4,.cs-steps h4{font:600 1.1rem var(--f-d);margin-bottom:.4rem}.cs-notes p,.cs-steps p{font-size:1rem;color:var(--mute)}
+.cs-steps{margin-top:2.5rem}.cs-steps li{position:relative;padding:0 0 2.2rem 3.6rem}.cs-steps li:last-child{padding-bottom:0}
+.nd{position:absolute;left:0;top:.05rem;width:2.1rem;height:2.1rem;border:1.5px solid var(--ac);border-radius:50%;background:var(--paper)}.nd::after{content:'';position:absolute;inset:.62rem;border-radius:50%;background:var(--ac)}
+.cs-steps li:not(:last-child)::before{content:'';position:absolute;left:calc(1.05rem - .75px);top:2.3rem;bottom:.2rem;width:1.5px;background:var(--line)}
+.cs-impact{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:1.5rem}
+.cs-impact>div{padding-top:1.25rem;border-top:1px solid var(--line)}
+.cs-impact b{display:block;font:300 clamp(2.4rem,5vw,4.4rem)/1 var(--f-d);letter-spacing:-.04em;color:var(--act)}.cs-impact span{display:block;margin-top:.5rem;color:var(--mute);font-size:1rem}
+/* Images keep their natural aspect ratio */
+.g{display:grid;gap:1rem;align-items:start;padding:0 var(--pad);margin-top:3rem}.g1{grid-template-columns:minmax(0,1fr)}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g figure{min-width:0}.zoom{display:block;width:100%;background:var(--card);padding:1rem;border-radius:8px;transition:transform .5s var(--ease)}
+.zoom:hover{transform:translateY(-4px)}.zoom img{margin:auto;width:auto;max-width:100%;height:auto}
+.g-cap{padding:.9rem var(--pad) 0;color:var(--mute);font-size:.95rem}
+@media(max-width:760px){.g2{grid-template-columns:1fr}.cs{grid-template-columns:1fr;padding:3rem var(--pad)}}
+/* Next case study, with an arrow */
+.c-next{padding:5rem var(--pad) 6rem;border-top:1px solid var(--line);margin-top:4rem}
+.c-next small{display:block;font:500 1rem var(--f-d);color:var(--mute);margin-bottom:.75rem}
+.c-next button{display:flex;align-items:center;justify-content:space-between;gap:2rem;width:100%;font:300 clamp(2.2rem,7vw,6.5rem)/.95 var(--f-d);letter-spacing:-.04em}
+.c-next button span{transition:color .3s}.c-next button:hover span{color:var(--act)}
+.c-next .arr{width:clamp(3rem,8vw,7rem);height:clamp(3rem,8vw,7rem);stroke-width:1.2;color:var(--act);transition:transform .5s var(--ease)}.c-next button:hover .arr{transform:translateX(1rem)}
+/* Lightbox */
+dialog.lb{border:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;color:#fff}
+dialog.lb[open]{display:grid;place-items:center;animation:fade .3s}dialog.lb::backdrop{background:rgba(5,7,20,.94)}
+.lb figure{display:grid;gap:.75rem;justify-items:center;padding:3rem 1rem}.lb img{width:auto;height:auto;max-width:92vw;max-height:80vh;background:var(--card);border-radius:6px}
+.lb figcaption{color:#c9cee6}.lb button{position:fixed;font:500 1rem var(--f-d);color:#fff;padding:.8rem 1.1rem;border:1.5px solid #fff5;border-radius:99px;background:#0008}
+.lb [data-step="-1"]{left:1rem;top:50%}.lb [data-step="1"]{right:1rem;top:50%}.lb [data-x]{right:1rem;top:1rem}
