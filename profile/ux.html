@@ -2,1688 +2,366 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sankara Kalidasu - Lead Product Designer & AI Design Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-<!-- Tabler Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
-<style>
-/* ================================================================
-   DESIGN TOKENS
-================================================================ */
-:root {
-        --ink:        #0f172a;
-        --ink-dark:   #020617;
-        --ink-alt:    #1e3a5f;
-        --paper:      #f8f9fb;
-        --warm:       #eef2f7;       /* NEW: light teal-tinted surface */
-        --warm-2:     #e3eaf3;       /* alternate section bg */
-        --warm-3:     #d6e1ee;       /* third variation */
-        --ac:         #0ea5e9;       /* teal-green accent */
-        --ac-light:   #38bdf8;
-        --ac-dim:     rgba(14,138,120,.1);
-        --ac-glow:    rgba(14,138,120,.06);
-        --white:      #ffffff;
-        --muted:      #64748b;
-        --muted-2:    #94a3b8;
-        --rule:       #d1e5e7;
-        --rule-dark:  rgba(99, 199, 246, 0.12);
-        --sec-dark:   #0d2e32;       /* dark section bg */
-        --sec-dark-2: #002d79;       /* slightly lighter dark */
-        --ai-bg:      #020610;       /* deep midnight for AI section */
-
-  --f-serif: 'Newsreader', serif;
-  --f-ui:    'Inter', sans-serif;
-  --f-mono:  'DM Mono', 'Courier New', monospace;
-
-  --ease-snap: cubic-bezier(.16,1,.3,1);
-  --ease-film: cubic-bezier(.65,0,.35,1);
-
-  --text-xs:   0.875rem;
-  --text-sm:   1rem;
-  --text-base: 1.0625rem;
-  --text-lg:   1.125rem;
-  --text-mono: 0.8125rem;
-}
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden}
-body{font-family:var(--f-ui);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
-button{font-family:inherit;background:none;border:none;cursor:pointer}
-
-/* ================================================================
-   NAV
-================================================================ */
-.n-top{
-  position:fixed;top:0;left:0;right:0;z-index:401;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1rem 3.5rem;
-  background:rgba(2,6,23,.96);
-  border-bottom:1px solid rgba(56,189,248,.25);
-  transition:box-shadow .4s,background .4s
-}
-.n-top.scrolled{
-  background:rgba(2,6,23,.99);
-  box-shadow:0 4px 32px rgba(0,0,0,.35)
-}
-.n-logo{
-  font-family:var(--f-mono);font-size:var(--text-mono);letter-spacing:.28em;text-transform:uppercase;
-  color:rgba(255,255,255,.92);font-weight:600;transition:color .3s;display:flex;align-items:center;gap:.6rem
-}
-.n-logo i{font-size:1rem;color:var(--ac-light)}
-.n-logo:hover{color:var(--ac-light)}
-.n-links{display:flex;gap:2rem;list-style:none;align-items:center}
-.n-links a{
-  font-family:var(--f-ui);font-size:var(--text-xs);letter-spacing:.04em;font-weight:600;
-  color:rgba(255,255,255,.62);transition:color .25s;position:relative;padding-bottom:4px;
-  display:flex;align-items:center;gap:.35rem
-}
-.n-links a i{font-size:.9rem;opacity:.75}
-.n-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--ac-light);transition:width .32s var(--ease-snap)}
-.n-links a:hover{color:rgba(255,255,255,.95)}
-.n-links a:hover::after{width:100%}
-.n-cta{
-  font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-dark);background:var(--ac-light);padding:.6rem 1.4rem;transition:background .25s,transform .2s;display:inline-flex;align-items:center;gap:.5rem
-}
-.n-cta:hover{background:#7dd3fc;transform:translateY(-1px)}
-.n-cta i{font-size:.9rem}
-.n-panel{display:flex;align-items:center;gap:2rem}
-.n-panel--inline{margin-left:auto}
-.n-panel--drawer{display:none}
-.n-toggle{
-  display:none;align-items:center;justify-content:center;
-  width:2.75rem;height:2.75rem;flex-shrink:0;
-  color:rgba(255,255,255,.92);
-  border:1px solid rgba(56,189,248,.35);
-  background:rgba(56,189,248,.08);
-  border-radius:4px;
-  transition:background .25s,border-color .25s
-}
-.n-toggle:hover{background:rgba(56,189,248,.18);border-color:var(--ac-light)}
-.n-toggle i{font-size:1.35rem;line-height:1}
-.n-toggle .n-icon-close{display:none}
-.n-top.is-open .n-toggle .n-icon-menu{display:none}
-.n-top.is-open .n-toggle .n-icon-close{display:block}
-body.nav-open{overflow:hidden}
-.n-backdrop{
-  display:none;position:fixed;inset:0;z-index:398;
-  background:rgba(2,6,23,.55);opacity:0;pointer-events:none;
-  transition:opacity .35s ease
-}
-.n-backdrop.is-visible{display:block;opacity:1;pointer-events:auto}
-
-/* ================================================================
-   HERO - with SVG tech background
-================================================================ */
-#hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  justify-content:flex-end;padding:0 6.5rem 5.5rem;
-  position:relative;overflow:hidden;
-  background:var(--paper);
-}
-/* Tech circuit/node background */
-.h-techbg{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 60% 55% at 75% 45%, rgba(14,138,120,.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 50% at 15% 80%, rgba(14,138,120,.04) 0%, transparent 50%);
-  pointer-events:none;
-}
-.h-techbg svg{
-  position:absolute;inset:0;width:100%;height:100%;opacity:.18;
-}
-.h-grid{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(var(--rule-dark) 1px,transparent 1px),
-    linear-gradient(90deg,var(--rule-dark) 1px,transparent 1px);
-  background-size:72px 72px;pointer-events:none
-}
-.h-eyebrow{
-  position:relative;z-index:2;
-  font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.32em;text-transform:uppercase;color:var(--ac);
-  margin-bottom:4.8rem;display:flex;align-items:center;gap:1rem;
-  opacity:0;animation:fadeUp .9s var(--ease-snap) .2s forwards
-}
-/*.h-eyebrow::before{content:'';width:42px;height:1px;background:var(--ac);flex-shrink:0}*/
-.h-name{
-  position:relative;z-index:2;
-  font-family:var(--f-serif);font-size:clamp(4.5rem,8vw,12rem);
-  font-weight:300;line-height:.86;letter-spacing:-.028em;color:var(--ink-dark);
-  opacity:0;animation:fadeUp 1.25s var(--ease-snap) .42s forwards;will-change:transform
-}
-.h-name em{font-style:italic;color:var(--ac);font-weight:300}
-.h-rule{
-  position:relative;z-index:2;margin-top:3.5rem;
-  width:0;height:1px;background:var(--rule);
-  animation:expandLine 1s var(--ease-snap) 1.18s forwards
-}
-.h-footer{
-  position:relative;z-index:2;
-  display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;
-  margin-top:2.5rem;opacity:0;animation:fadeUp .85s var(--ease-snap) 1.38s forwards
-}
-.h-stat-n{font-family:var(--f-serif);font-size:3.8rem;font-weight:300;color:var(--ink-dark);line-height:1}
-.h-stat-n sup{font-size:1.5rem;vertical-align:super;color:var(--ac)}
-.h-stat-l{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.4rem;line-height:1.6}
-.h-badges{
-  position:relative;z-index:2;
-  display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem;
-  opacity:0;animation:fadeUp .7s var(--ease-snap) 1.6s forwards
-}
-.h-badge{
-  display:inline-flex;align-items:center;gap:.4rem;
-  font-family:var(--f-ui);font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
-  border:1px solid var(--rule);color:var(--muted);padding:.35rem .9rem;
-  background:rgba(255,255,255,.7);backdrop-filter:blur(8px);transition:all .3s
-}
-.h-badge i{font-size:.85rem;color:var(--ac)}
-.h-badge:hover{border-color:var(--ac);color:var(--ac)}
-.h-scroll{
-  position:absolute;right:3.5rem;bottom:5.5rem;z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:.9rem;
-  opacity:0;animation:fadeIn .8s var(--ease-snap) 2s forwards
-}
-.h-scroll-bar{width:1px;height:56px;background:linear-gradient(to bottom,transparent,var(--muted));animation:scrollDrop 2.4s ease-in-out infinite 2.2s}
-.h-scroll-txt{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.24em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl}
-
-/* ================================================================
-   MARQUEE
-================================================================ */
-.mq-bar{background:var(--ink-dark);padding:.72rem 0;overflow:hidden;white-space:nowrap}
-.mq-track{display:inline-flex;animation:mq 22s linear infinite}
-.mq-track span{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.85);padding:0 2.2rem}
-.mq-track .dot{opacity:.3;padding:0}
-
-/* ================================================================
-   SHARED SECTION UTILITIES
-================================================================ */
-.page-inner{
-  width:100%;
-  max-width:1440px;
-  margin-left:auto;
-  margin-right:auto;
-}
-.sec-tag{
-  font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
-  display:flex;align-items:center;gap:.7rem;margin-bottom:2rem
-}
-/*.sec-tag::before{content:'';width:16px;height:1px;background:currentColor}*/
-.sec-tag.ac{color:var(--ac)}
-.sec-tag.white{color:rgba(255,255,255,.55)}
-.sec-tag.white::before{background:rgba(255,255,255,.55)}
-
-/* Icon utility used across sections */
-.icon-chip{
-  display:inline-flex;align-items:center;gap:.45rem;
-  font-family:var(--f-ui);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  background:var(--ac-dim);color:var(--ac);border:1px solid rgba(14,138,120,.2);
-  padding:.3rem .75rem;
-}
-.icon-chip i{font-size:.9rem}
-
-/* ================================================================
-   ABOUT - light teal bg
-================================================================ */
-#about{
-  background:var(--warm);color:var(--ink);
-  padding:clamp(6rem,10vw,12rem) clamp(1.25rem,10vw,10.5rem);
-  position:relative;overflow:hidden
-}
-.ab-bgnum{
-  position:absolute;right:1rem;top:2rem;font-family:var(--f-serif);font-size:clamp(8rem,18vw,22rem);font-weight:300;
-  color:rgba(35 158 255 / 4%);line-height:1;pointer-events:none;user-select:none
-}
-.ab-grid{
-  display:grid;
-  grid-template-columns:minmax(240px,34%) minmax(0,1fr);
-  gap:clamp(3rem,6vw,10rem);
-  width:100%;
-  max-width:1440px;
-  margin:0 auto;
-}
-.ab-sticky{position:sticky;top:6rem;align-self:start;min-width:0}
-.ab-h{font-family:var(--f-serif);font-size:clamp(2.8rem,4.5vw,5.6rem);font-weight:300;line-height:1.01;letter-spacing:-.02em;color:var(--ink-dark)}
-.ab-h em{font-style:italic;color:var(--ac);display:block}
-.ab-body{display:flex;flex-direction:column;gap:2.8rem;min-width:0}
-.ab-p{
-  font-size:clamp(1rem,1.05vw,1.125rem);
-  line-height:1.85;color:var(--ink-alt);font-weight:400;
-  max-width:none
-}
-.ab-p strong{font-weight:700;color:var(--ink-dark)}
-.skills-g{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule);margin-top:.5rem}
-.sk{
-  font-family:var(--f-ui);font-size:var(--text-xs);font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
-  padding:.9rem .4rem;border-bottom:1px solid var(--rule);
-  display:flex;align-items:center;gap:.55rem;transition:color .25s,padding-left .25s
-}
-.sk i{color:var(--ac);font-size:.85rem;flex-shrink:0}
-.sk:hover{color:var(--ink-dark);padding-left:.5rem}
-
-/* ================================================================
-   EXPERIENCE - white paper bg (alternating)
-================================================================ */
-#experience{
-  background:var(--paper);
-  padding:clamp(6rem,9vw,11rem) clamp(1.25rem,10vw,6.5rem);
-  border-top:1px solid var(--rule)
-}
-.exp-hd,.exp-row{width:100%;max-width:1440px;margin-left:auto;margin-right:auto}
-.exp-hd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--rule);padding-bottom:2rem}
-.exp-h{font-family:var(--f-serif);font-size:clamp(3.5rem,7vw,8.5rem);font-weight:300;line-height:.88;letter-spacing:-.028em;color:var(--ink-dark)}
-.exp-ct{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem}
-.exp-ct i{font-size:.85rem;color:var(--ac)}
-.exp-row{
-  display:grid;grid-template-columns:170px 1fr 220px;
-  gap:4rem;padding:3.2rem 0;border-bottom:1px solid var(--rule);
-  position:relative;transition:background .3s
-}
-.exp-row::before{
-  content:'';position:absolute;left:-3.5rem;top:0;bottom:0;width:0;
-  transition:width .4s var(--ease-snap);pointer-events:none
-}
-.exp-row:hover::before{width:calc(100% + 7rem)}
-.exp-yr{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.1em;color:var(--muted);padding-top:.28rem}
-.exp-co{font-family:var(--f-serif);font-size:2.3rem;font-weight:400;line-height:1;margin-bottom:.3rem;color:var(--ink-dark)}
-.exp-role{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac);margin-bottom:.9rem;display:flex;align-items:center;gap:.4rem}
-.exp-role i{font-size:.85rem}
-.exp-blurb{font-size:var(--text-sm);line-height:1.75;color:var(--ink-alt)}
-.exp-pills{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;padding-top:.28rem}
-.exp-pill{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:600;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--rule);padding:.38rem .9rem;color:var(--muted);white-space:nowrap}
-.exp-pill.hi{border-color:var(--ac);color:var(--ac)}
-
-/* ================================================================
-   WORKS - light teal-2 (alternating)
-================================================================ */
-#works{
-  background:var(--warm-2);color:var(--ink);
-  padding:clamp(6rem,10vw,12rem) clamp(1.25rem,4vw,3.5rem)
-}
-#works .proj-row{
-  width:90%;
-  margin-left:auto;
-  margin-right:auto;
-}
-.wk-hd{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(2rem,4vw,4rem);margin-bottom:7rem;align-items:end;
-  width:90%;max-width:1440px;margin-left:auto;margin-right:auto
-}
-.wk-h{font-family:var(--f-serif);font-size:clamp(3.5rem,6.5vw,8rem);font-weight:300;line-height:.9;letter-spacing:-.025em;color:var(--ink-dark)}
-.wk-intro{font-size:var(--text-lg);line-height:1.8;color:var(--ink-alt);font-weight:400;align-self:end;min-width:0}
-
-.proj-row{
-  display:grid;grid-template-columns:1fr 1.15fr;min-height:72vh;
-  border-top:1px solid var(--rule);overflow:hidden;position:relative;
-  transition:background .5s var(--ease-film);cursor:pointer;background:var(--paper)
-}
-.proj-row:last-child{border-bottom:1px solid var(--rule)}
-.proj-row.alt{grid-template-columns:1.15fr 1fr}
-.proj-row.alt .proj-info{order:2}
-.proj-row.alt .proj-vis{order:1}
-.proj-row:hover{background:var(--ink-dark);color:var(--white)}
-.proj-row:hover .proj-meta{color:rgba(255,255,255,.55)}
-.proj-row:hover .proj-num{color:rgba(255,255,255,.07)}
-.proj-row:hover .proj-title{color:var(--white)}
-.proj-row:hover .proj-exc{color:rgba(255,255,255,.78)}
-.proj-row:hover .proj-tag{border-color:rgba(255,255,255,.22);color:rgba(255,255,255,.72)}
-.proj-row:hover .proj-arrow{color:var(--ac-light);transform:translate(5px,-5px)}
-.proj-row:hover .proj-icon{color:rgba(255,255,255,.4)}
-
-.proj-info{padding:4.5rem 4rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2}
-.proj-meta-row{display:flex;align-items:center;justify-content:space-between}
-.proj-meta{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);transition:color .5s}
-.proj-num{font-family:var(--f-serif);font-size:6rem;font-weight:300;color:rgba(14,138,120,.06);line-height:1;transition:color .5s}
-.proj-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:2rem 0}
-.proj-icon{font-size:2rem;color:var(--ac);margin-bottom:1rem;transition:color .5s}
-.proj-title{font-family:var(--f-serif);font-size:clamp(2.2rem,3.5vw,4rem);font-weight:300;line-height:1.05;letter-spacing:-.018em;margin-bottom:1.2rem;transition:color .5s;color:var(--ink-dark)}
-.proj-exc{font-size:var(--text-sm);line-height:1.78;color:var(--ink-alt);max-width:420px;transition:color .5s}
-.proj-footer{display:flex;align-items:center;justify-content:space-between}
-.proj-tags{display:flex;gap:.5rem;flex-wrap:wrap}
-.proj-tag{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:600;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--rule);padding:.35rem .85rem;color:var(--muted);transition:border-color .5s,color .5s}
-.proj-arrow{font-size:1.4rem;color:var(--muted);transition:color .4s,transform .35s var(--ease-snap)}
-
-.proj-vis{position:relative;overflow:hidden;background:var(--warm-3)}
-.proj-vis-inner{position:absolute;inset:0;transition:transform .9s var(--ease-film)}
-.proj-row:hover .proj-vis-inner{transform:scale(1.04)}
-.proj-vis img{width:100%;height:100%;object-fit:cover;opacity:.88;transition:opacity .6s}
-.proj-row:hover .proj-vis img{opacity:.96}
-.proj-vis-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(14,138,120,.05) 0%,transparent 60%);pointer-events:none}
-/* ================================================================
-   AI SECTION - deep midnight bg (flagship section)
-================================================================ */
-#ai{
-  background:var(--ai-bg);
-  color:var(--white);
-  padding:clamp(5rem,8vw,8rem) clamp(1.25rem,10vw,6.5rem);
-  position:relative;overflow:hidden;
-  border-top:3px solid var(--ac);
-}
-#ai > .ai-header,
-#ai > .ai-body,
-#ai > .ai-pills{width:100%;max-width:1440px;margin-left:auto;margin-right:auto}
-/* Animated grid overlay */
-.ai-grid-bg{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(14,138,120,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(14,138,120,.08) 1px,transparent 1px);
-  background-size:60px 60px;
-  pointer-events:none;
-  animation:aiGridPulse 8s ease-in-out infinite;
-}
-@keyframes aiGridPulse{
-  0%,100%{opacity:.5}
-  50%{opacity:1}
-}
-.ai-glow{
-  position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 50% 40% at 80% 30%,rgba(14,138,120,.15) 0%,transparent 60%),
-    radial-gradient(ellipse 35% 45% at 10% 70%,rgba(14,138,120,.1) 0%,transparent 55%);
-  pointer-events:none;
-}
-.ai-header{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(2.5rem,5vw,6rem);align-items:end;
-  margin-bottom:7rem;position:relative;z-index:2;
-}
-.ai-h{
-  font-family:var(--f-serif);
-  font-size:clamp(3rem,6vw,7rem);
-  font-weight:300;line-height:.9;letter-spacing:-.025em;color:var(--white)
-}
-.ai-h em{font-style:italic;color:var(--ac-light);display:block}
-.ai-intro{
-  font-size:var(--text-base);line-height:1.82;
-  color:rgba(255,255,255,.65);
-  font-weight:300;align-self:end
-}
-.ai-intro strong{color:var(--white);font-weight:600}
-
-/* ── compact AI body ── */
-.ai-body{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(2rem,4vw,4rem);align-items:start;
-  position:relative;z-index:2
-}
-.ai-statement{
-  font-family:var(--f-serif);
-  font-size:clamp(1.4rem,2.2vw,2rem);
-  font-weight:300;font-style:italic;
-  line-height:1.45;color:rgba(255,255,255,.85);
-  padding-bottom:2.5rem;
-  border-bottom:1px solid rgba(14,138,120,.25)
-}
-.ai-statement strong{font-style:normal;color:var(--ac-light);font-weight:600}
-.ai-tagline{
-  font-size:var(--text-sm);line-height:1.75;
-  color:rgba(255,255,255,.5);margin-top:1.5rem
-}
-/* Right col: tool pill grid */
-.ai-tools{display:flex;flex-direction:column;gap:0}
-.ai-tool-row{
-  display:flex;align-items:center;gap:1.2rem;
-  padding:1.1rem 0;
-  border-bottom:1px solid rgba(14,138,120,.15);
-  transition:background .25s;cursor:default
-}
-.ai-tool-row i{font-size:1.2rem;color:var(--ac-light);flex-shrink:0;width:1.6rem;text-align:center}
-.ai-tool-label{
-  font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--white);flex:1
-}
-.ai-tool-sub{font-size:.75rem;color:rgba(255,255,255,.42);letter-spacing:.03em}
-/* Compact pill strip below */
-.ai-pills{
-  display:flex;flex-wrap:wrap;gap:.5rem;
-  margin-top:3rem;padding-top:3rem;
-  border-top:1px solid rgba(14,138,120,.2);
-  position:relative;z-index:2
-}
-.ai-pill{
-  display:inline-flex;align-items:center;gap:.4rem;
-  font-family:var(--f-ui);font-size:.72rem;font-weight:600;
-  letter-spacing:.06em;text-transform:uppercase;
-  border:1px solid rgba(14,138,120,.25);
-  color:rgba(255,255,255,.6);
-  padding:.32rem .85rem;
-  transition:border-color .25s,color .25s
-}
-.ai-pill i{font-size:.8rem;color:var(--ac)}
-.ai-pill:hover{border-color:var(--ac-light);color:#fff}
-
-/* ================================================================
-   FIGMA SHOWCASE - warm-3 bg (alternating)
-================================================================ */
-#showcase{background:var(--warm-3);padding:10rem 3.5rem;border-top:1px solid var(--rule)}
-.sc-h{font-family:var(--f-serif);font-size:clamp(2.5rem,5vw,6rem);font-weight:300;line-height:.95;letter-spacing:-.025em;margin-bottom:4rem;color:var(--ink-dark)}
-.sc-h em{font-style:italic;color:var(--ac);display:block}
-.sc-frame{width:100%;aspect-ratio:16/9;border:1px solid var(--rule);overflow:hidden;background:var(--warm)}
-.sc-frame iframe{width:100%;height:100%;border:none}
-.sc-links{display:flex;gap:1.5rem;margin-top:2rem;flex-wrap:wrap}
-.sc-link{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink);border:1px solid var(--rule);padding:.65rem 1.5rem;transition:border-color .3s,color .3s,background .3s
-}
-.sc-link i{font-size:.85rem}
-.sc-link:hover{border-color:var(--ac);color:var(--ac)}
-.sc-link.primary{border-color:var(--ink-dark);color:var(--white);background:var(--ink-dark)}
-.sc-link.primary:hover{background:var(--ac);border-color:var(--ac)}
-
-/* ================================================================
-   CONTACT - paper bg (back to base)
-================================================================ */
-#contact{
-  background:var(--paper);color:var(--ink);
-  padding:clamp(6rem,10vw,12rem) clamp(1.25rem,10vw,6.5rem);
-  position:relative;overflow:hidden;border-top:1px solid var(--rule)
-}
-.ct-bgnum{
-  position:absolute;left:1rem;bottom:-4rem;font-family:var(--f-serif);
-  font-size:clamp(8rem,20vw,25rem);font-weight:300;
-  color:rgba(14,138,120,.04);line-height:1;pointer-events:none;user-select:none
-}
-.ct-grid{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:clamp(3rem,6vw,10rem);align-items:start;
-  width:100%;max-width:1440px;margin:0 auto
-}
-.ct-h{font-family:var(--f-serif);font-size:clamp(3.5rem,6vw,7.5rem);font-weight:300;line-height:.95;letter-spacing:-.025em;color:var(--ink-dark)}
-.ct-h em{font-style:italic;color:var(--ac);display:block}
-.ct-right{display:flex;flex-direction:column;gap:3rem;padding-top:1rem}
-.ct-item{display:flex;flex-direction:column;gap:.4rem}
-.ct-lbl{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.ct-val{font-family:var(--f-serif);font-size:1.7rem;font-weight:400;color:var(--ink-dark);transition:color .3s;display:flex;align-items:center;gap:.5rem}
-.ct-val i{font-size:1.2rem;color:var(--ac)}
-.ct-val:hover{color:var(--ac)}
-.ct-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem}
-.ct-btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--f-ui);font-size:var(--text-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.85rem 2rem;transition:all .3s}
-.ct-btn.dark{background:var(--ink-dark);color:var(--white)}
-.ct-btn.dark:hover{background:var(--ac)}
-.ct-btn.outline{border:2px solid var(--rule);color:var(--ink)}
-.ct-btn.outline:hover{border-color:var(--ac);color:var(--ac)}
-.ct-btn i{font-size:.9rem}
-
-/* ================================================================
-   FOOTER
-================================================================ */
-footer{background:var(--ink-dark);padding:3rem 3.5rem;display:flex;align-items:center;justify-content:space-between;}
-.ft-id{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:.5rem}
-.ft-id i{color:var(--ac);font-size:.85rem}
-.ft-links{display:flex;gap:2rem;list-style:none}
-.ft-links a{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);transition:color .3s;display:flex;align-items:center;gap:.35rem}
-.ft-links a i{font-size:.8rem}
-.ft-links a:hover{color:var(--ac)}
-
-/* ================================================================
-   CASE STUDY OVERLAYS
-================================================================ */
-.cs-ov{position:fixed;inset:0;z-index:600;background:#020617;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .5s var(--ease-film);color:rgba(255,255,255,.88)}
-.cs-ov.open{opacity:1;pointer-events:all}
-.cs-nav{
-  position:sticky;top:0;z-index:10;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:1.4rem 3.5rem;
-  background:rgba(2,6,23,.96);border-bottom:1px solid rgba(56,189,248,.25);backdrop-filter:blur(20px);
-  flex-wrap:nowrap
-}
-.cs-nav-id{
-  font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:rgba(255,255,255,.9);display:flex;align-items:center;gap:.5rem;
-  flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap
-}
-.cs-nav-id i{color:var(--ac-light);font-size:1rem;flex-shrink:0}
-.cs-close{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;flex-shrink:0;white-space:nowrap;
-  font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:var(--ink-dark);background:var(--ac-light);padding:.55rem 1rem;border-radius:2px;
-  transition:background .25s,transform .2s
-}
-.cs-close:hover{background:#7dd3fc;transform:scale(1.03)}
-
-.cs-hero{min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 6rem;position:relative;overflow:hidden;border-bottom:1px solid rgba(56,189,248,.15)}
-.cs-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22}
-.cs-hero-fade{position:absolute;inset:0;background:linear-gradient(to top,#020617 0%,rgba(2,6,23,.55) 55%,transparent 100%);z-index:1;pointer-events:none}
-.cs-hero-body{position:relative;z-index:2}
-.cs-hero-meta{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.26em;text-transform:uppercase;color:var(--ac-light);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
-.cs-hero-meta::before{content:'';width:35px;height:1px;background:var(--ac-light)}
-.cs-hero-title{font-family:var(--f-serif);font-size:clamp(3.5rem,7vw,9rem);font-weight:300;line-height:.88;letter-spacing:-.025em;margin-bottom:2.5rem;color:rgba(255,255,255,.95)}
-.cs-hero-title em{font-style:italic;color:var(--ac-light);display:block}
-.cs-stats{display:flex;gap:4rem;padding-top:2rem;border-top:1px solid rgba(56,189,248,.2)}
-.cs-stat-v{font-family:var(--f-serif);font-size:2.8rem;font-weight:300;color:rgba(255,255,255,.95)}
-.cs-stat-v sup{font-size:1.2rem;color:var(--ac-light);vertical-align:super}
-.cs-stat-l{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:.3rem}
-
-.cs-body{max-width:1200px;margin:0 auto;padding:8rem 3.5rem}
-.cs-sec{margin-bottom:8rem}
-.cs-sec-tag{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac-light);display:flex;align-items:center;gap:.8rem;margin-bottom:2.5rem}
-/*.cs-sec-tag::before{content:'';width:22px;height:1px;background:var(--ac-light)}*/
-.cs-h{font-family:var(--f-serif);font-size:clamp(2.4rem,4vw,4.8rem);font-weight:300;line-height:1.01;letter-spacing:-.02em;margin-bottom:2rem;color:rgba(255,255,255,.95)}
-.cs-h em{font-style:italic;color:var(--ac-light)}
-.cs-p{font-size:var(--text-base);line-height:1.85;color:rgba(255,255,255,.72);max-width:700px}
-.cs-p strong{color:rgba(255,255,255,.95);font-weight:600}
-.cs-2col{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3.5rem}
-.cs-col-h{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac-light);margin-bottom:.9rem}
-.cs-col-p{font-size:var(--text-sm);line-height:1.8;color:rgba(255,255,255,.55)}
-.cs-img-grid{display:grid;gap:2px;margin:5rem 0;background:rgba(56,189,248,.15)}
-.cs-img-grid.cols-1{grid-template-columns:1fr}
-.cs-img-grid.cols-2{grid-template-columns:1fr 1fr}
-.cs-img-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
-.cs-img-grid.layout-hero-side{grid-template-columns:1.5fr 1fr;grid-template-rows:1fr 1fr}
-.cs-img-grid.layout-hero-side .cs-img-cell:first-child{grid-row:1/3}
-.cs-img-cell{position:relative;overflow:hidden;background:#0f172a}
-.cs-img-cell img{width:100%;height:100%;object-fit:cover;min-height:260px;transition:transform 1.2s var(--ease-film)}
-.cs-img-cell:hover img{transform:scale(1.03)}
-.cs-img-cell.gif-cell img{object-fit:contain;background:#ffffff;padding:2.5rem}
-.cs-img-cap{font-family:var(--f-mono);font-size:var(--text-xs);letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:1.2rem;text-align:right}
-.cs-steps{display:flex;flex-direction:column;margin-top:2.5rem}
-.cs-step{display:grid;grid-template-columns:64px 1fr;gap:2.5rem;padding:2rem 0;border-bottom:1px solid rgba(56,189,248,.15)}
-.cs-step-n{font-family:var(--f-serif);font-size:2.5rem;font-weight:300;color:rgba(56,189,248,.25);line-height:1;padding-top:.1rem;transition:color .35s}
-.cs-step:hover .cs-step-n{color:var(--ac-light)}
-.cs-step-title{font-family:var(--f-ui);font-size:var(--text-sm);font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.5rem;color:rgba(255,255,255,.92)}
-.cs-step-body{font-size:var(--text-sm);line-height:1.78;color:rgba(255,255,255,.55)}
-.cs-impact-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(56,189,248,.2);border:1px solid rgba(56,189,248,.2);margin-top:3rem}
-.cs-impact-cell{background:#0f172a;padding:3rem 2.5rem}
-.cs-impact-n{font-family:var(--f-serif);font-size:3.8rem;font-weight:300;color:var(--ac-light);line-height:1}
-.cs-impact-n sup{font-size:1.5rem;vertical-align:super}
-.cs-impact-l{font-family:var(--f-ui);font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:.5rem;line-height:1.6}
-.cs-cta-row{text-align:center;padding:3rem 0 5rem}
-.cs-figma-btn{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--f-ui);font-size:var(--text-sm);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dark);background:var(--ac-light);padding:.9rem 2.4rem;transition:background .25s,transform .2s}
-.cs-figma-btn:hover{background:#7dd3fc;transform:translateY(-2px)}
-.cs-figma-btn i{font-size:1rem}
-
-/* ================================================================
-   SCROLL REVEAL
-================================================================ */
-.rv{opacity:0;transform:translateY(38px);transition:opacity .9s var(--ease-snap),transform .9s var(--ease-snap)}
-.rv.in{opacity:1;transform:translateY(0)}
-.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.22s}.rv.d3{transition-delay:.36s}.rv.d4{transition-delay:.5s}
-.rv-sc{opacity:0;transform:scale(.97);transition:opacity .9s var(--ease-snap),transform .9s var(--ease-snap)}
-.rv-sc.in{opacity:1;transform:scale(1)}
-
-@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-@keyframes fadeIn{to{opacity:1}}
-@keyframes expandLine{to{width:100%}}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes scrollDrop{0%,100%{opacity:.3;transform:scaleY(1) translateY(0)}50%{opacity:1;transform:scaleY(1.15) translateY(4px)}}
-
-/* ================================================================
-   RESPONSIVE
-================================================================ */
-@media(min-width:901px){
-  .n-panel--drawer,.n-backdrop{display:none!important}
-  .ab-p{font-size:var(--text-lg)}
-  .exp-row{grid-template-columns:minmax(120px,170px) minmax(0,1fr) minmax(160px,220px)}
-}
-
-@media(min-width:901px) and (max-width:1200px){
-  .ab-grid{grid-template-columns:minmax(200px,38%) minmax(0,1fr);gap:3.5rem}
-  .ab-h{font-size:clamp(2.4rem,4.2vw,3.6rem)}
-  .ct-grid,.ai-header,.ai-body{gap:3rem}
-}
-
-@media(max-width:900px){
-  .n-top{padding:1rem 1.25rem}
-  .n-logo{font-size:.72rem;letter-spacing:.16em;flex:1;min-width:0}
-  .n-toggle{display:flex}
-  .n-panel--inline{display:none!important}
-  .n-panel--drawer{
-    display:none;
-    position:fixed;
-    top:0;left:0;right:0;
-    width:100%;
-    height:100dvh;
-    min-height:100dvh;
-    margin:0;
-    padding:5rem 1.25rem 2rem;
-    flex-direction:column;
-    align-items:stretch;
-    gap:0;
-    background:#020617;
-    border-top:none;
-    overflow-x:hidden;
-    overflow-y:auto;
-    z-index:400;
-    -webkit-overflow-scrolling:touch
-  }
-  .n-top.is-open + .n-panel--drawer{display:flex}
-  .n-links{
-    display:flex;
-    flex-direction:column;
-    align-items:stretch;
-    gap:0;
-    width:100%
-  }
-  .n-links li{width:100%}
-  .n-links a{
-    padding:1rem 0;
-    font-size:.95rem;
-    border-bottom:1px solid rgba(56,189,248,.12)
-  }
-  .n-links a::after{display:none}
-  .n-links a:hover{padding-left:.25rem}
-  .n-cta{
-    width:100%;
-    justify-content:center;
-    margin-top:1.25rem;
-    padding:.85rem 1.25rem;
-    font-size:.75rem
-  }
-
-  /* Hero - clear fixed nav, stack content */
-  #hero{
-    min-height:100svh;
-    justify-content:flex-start;
-    padding:5.75rem 1.25rem 3rem;
-  }
-  .h-eyebrow{
-    flex-wrap:wrap;
-    letter-spacing:.14em;
-    font-size:.7rem;
-    line-height:1.5;
-    gap:.55rem;
-    margin-bottom:1.25rem;
-  }
-  .h-eyebrow::before{width:24px}
-  .h-name{font-size:clamp(2.8rem,12vw,4.8rem);line-height:.9}
-  .h-rule{margin-top:1.75rem}
-  .h-footer{grid-template-columns:1fr;gap:1.5rem;margin-top:1.5rem}
-  .h-stat-n{font-size:2.5rem}
-  .h-stat-l{font-size:.68rem}
-  .h-badges{margin-top:1.25rem;gap:.45rem}
-  .h-badge{font-size:.65rem;padding:.3rem .65rem}
-  .h-scroll{display:none}
-
-  /* AI section */
-  #ai{padding:5rem 1.25rem}
-  .ai-header{grid-template-columns:1fr;gap:1.75rem;margin-bottom:3.5rem}
-  .ai-h{font-size:clamp(2.2rem,9vw,3.4rem)}
-  .ai-intro{align-self:start;font-size:.95rem;line-height:1.7}
-  .ai-body{grid-template-columns:1fr;gap:2.5rem}
-  .ai-statement{font-size:clamp(1.15rem,4.5vw,1.5rem);padding-bottom:1.5rem}
-  .ai-tagline{font-size:.9rem;margin-top:1rem}
-  .ai-tool-row{gap:.85rem;padding:.85rem 0}
-  .ai-tool-label{font-size:.7rem}
-  .ai-tool-sub{font-size:.68rem}
-  .ai-pills{margin-top:2rem;padding-top:2rem;gap:.4rem}
-  .ai-pill{font-size:.65rem;padding:.28rem .7rem}
-  .ai-tools-grid{grid-template-columns:1fr}
-  .ai-caps{grid-template-columns:1fr}
-  .ai-principles{grid-template-columns:1fr}
-
-  #about{padding:7rem 1.5rem}
-  .ab-grid{grid-template-columns:1fr;gap:4rem}
-  .ab-sticky{position:relative;top:auto}
-  .ab-bgnum{font-size:10rem;right:.5rem;top:1rem}
-  #experience{padding:7rem 1.5rem}
-  .exp-row{grid-template-columns:1fr;gap:1.5rem}
-  .exp-pills{align-items:flex-start}
-  #works{padding:7rem 1.5rem}
-  .wk-hd{grid-template-columns:1fr}
-  .proj-row,.proj-row.alt{grid-template-columns:1fr;min-height:auto}
-  .proj-row.alt .proj-info{order:0}
-  .proj-row.alt .proj-vis{order:0}
-  .proj-vis{min-height:55vw}
-  .cs-2col{grid-template-columns:1fr}
-  .cs-impact-g{grid-template-columns:1fr}
-  .cs-img-grid.cols-2,.cs-img-grid.cols-3,.cs-img-grid.layout-hero-side{grid-template-columns:1fr}
-  .cs-img-grid.layout-hero-side .cs-img-cell:first-child{grid-row:auto}
-  .ct-grid{grid-template-columns:1fr;gap:4rem}
-  .ct-bgnum{font-size:9rem}
-  #showcase{padding:6rem 1.5rem}
-  #contact{padding:7rem 1.5rem}
-  footer{flex-direction:column;gap:1.5rem;text-align:center}
-  .cs-body{padding:4rem 1.25rem}
-  .cs-hero{padding:0 1.25rem 3.5rem;min-height:auto}
-  .cs-hero-title{font-size:clamp(2.4rem,10vw,4rem)}
-  .cs-stats{flex-wrap:wrap;gap:1.5rem 2rem}
-  .cs-nav{padding:1rem 1.25rem;gap:.75rem}
-  .cs-nav-id{font-size:.62rem;letter-spacing:.05em}
-  .cs-close{padding:.5rem .65rem;font-size:.75rem;gap:.35rem}
-  .cs-close-label{display:none}
-}
-
-@media(max-width:520px){
-  .cs-nav{align-items:stretch}
-  .cs-nav-id{white-space:normal;line-height:1.35}
-  .cs-close{align-self:flex-end;margin-top:.15rem}
-  .cs-close-label{display:inline}
-}
-
-a:focus-visible,button:focus-visible,.proj-row:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sankara Kalidasu, Lead Product Designer and Design Systems Architect</title>
+<meta name="description" content="Seventeen years of enterprise healthcare product design, design systems and accessibility, with an AI-forward practice.">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('sk-theme')||'dark';document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='dark'}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/tokens.css"><link rel="stylesheet" href="../css/layout.css"><link rel="stylesheet" href="../css/case.css">
 </head>
 <body>
-
-<!-- ============================================================ NAV -->
-<div class="n-backdrop" id="navBackdrop" aria-hidden="true"></div>
-<header class="n-top" id="navTop">
-  <a href="#hero" class="n-logo">
-    <i class="ti ti-hexagon-letter-s" aria-hidden="true"></i>
-    SK · Portfolio
-  </a>
-  <nav class="n-panel n-panel--inline" id="navPanelDesktop" aria-label="Main navigation">
-    <ul class="n-links">
-      <li><a href="#about"><i class="ti ti-user" aria-hidden="true"></i>About</a></li>
-      <li><a href="#experience"><i class="ti ti-briefcase" aria-hidden="true"></i>Experience</a></li>
-      <li><a href="#works"><i class="ti ti-layout-grid" aria-hidden="true"></i>Work</a></li>
-      <li><a href="#ai"><i class="ti ti-brain" aria-hidden="true"></i>AI</a></li>
-      <li><a href="#contact"><i class="ti ti-mail" aria-hidden="true"></i>Contact</a></li>
-    </ul>
-    <a href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf" target="_blank" class="n-cta">
-      <i class="ti ti-download" aria-hidden="true"></i>Download CV
-    </a>
-  </nav>
-  <button type="button" class="n-toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
-    <i class="ti ti-menu-2 n-icon-menu" aria-hidden="true"></i>
-    <i class="ti ti-x n-icon-close" aria-hidden="true"></i>
-  </button>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-about" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12.5l9 5 9-5"/><path d="M3 17l9 5 9-5"/></symbol><symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3c.6 5.4 3.6 8.4 9 9-5.4.6-8.4 3.6-9 9-.6-5.4-3.6-8.4-9-9 5.4-.6 8.4-3.6 9-9z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5M4 20h16"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 00-7.1 0L12 7.3l-1.7-1.7a5 5 0 00-7.1 7.1L12 21.5l8.8-8.8a5 5 0 000-7.1z"/><path d="M3 12h4l2-3 3 6 2-3h7"/></symbol><symbol id="i-access" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="1.8"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5M9 21l3-6 3 6"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol><symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5M16 4.8a3.5 3.5 0 010 6.4M18 14c2.2.7 3.5 2.6 3.5 5"/></symbol><symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-5L16.5 3.5a2.1 2.1 0 013 3L8 18l-4 2z"/><path d="M14 6l4 4"/></symbol><symbol id="i-ship" viewBox="0 0 24 24"><path d="M2 19c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0"/><path d="M5 15l-1-5h16l-1 5M8 10V6h8v4"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol><symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/></symbol><symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0V8zM12 17v4"/></symbol><symbol id="i-braces" viewBox="0 0 24 24"><path d="M9 4C6 4 6 6 6 8s0 4-3 4c3 0 3 2 3 4s0 4 3 4M15 4c3 0 3 2 3 4s0 4 3 4c-3 0-3 2-3 4s0 4-3 4"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-9 9"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v5M12 18v.5"/></symbol><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></symbol><symbol id="i-steps" viewBox="0 0 24 24"><path d="M3 20h5v-5h5v-5h5V5h3"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol><symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></symbol><symbol id="i-motion" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5v-7z"/></symbol><symbol id="i-layout" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></symbol><symbol id="i-brain" viewBox="0 0 24 24"><path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 5 3 3 0 002 5 3 3 0 003 3V4zM15 4a3 3 0 013 3 3 3 0 012 5 3 3 0 01-2 5 3 3 0 01-3 3V4z"/></symbol><symbol id="i-figma" viewBox="0 0 24 24"><rect x="8" y="3" width="4" height="6" rx="2"/><rect x="12" y="3" width="4" height="6" rx="2"/><rect x="8" y="9" width="4" height="6" rx="2"/><circle cx="14" cy="12" r="2"/><path d="M8 15h2a2 2 0 012 2v1a3 3 0 11-4-3z"/></symbol><symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9" ry="3.8"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.8" transform="rotate(120 12 12)"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2V5z"/><path d="M4 21h15"/></symbol><symbol id="i-microscope" viewBox="0 0 24 24"><path d="M8 21h10M10 17h6M9 3l4 2-3 7-4-2 3-7zM12 12a5 5 0 105 5"/></symbol><symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6L5 3z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3z"/></symbol><symbol id="i-robot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 14h.01M15 14h.01M2 13v3M22 13v3"/></symbol><symbol id="i-transfer" viewBox="0 0 24 24"><path d="M7 4v14M3 14l4 4 4-4M17 20V6M13 10l4-4 4 4"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L3 11l7 3 3 7 8-18z"/><path d="M10 14l5-5"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l5 5v13H6V3z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol><symbol id="i-dollar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.2c-.5-.8-1.4-1.2-2.5-1.2-1.5 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1 2-2.5 2c-1.1 0-2-.4-2.5-1.2M12 6v2M12 16v2"/></symbol><symbol id="i-pill" viewBox="0 0 24 24"><path d="M10.5 20.5a4.9 4.9 0 01-7-7l10-10a4.9 4.9 0 017 7l-10 10z"/><path d="M8.5 8.5l7 7"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M3 12h17M14 5l7 7-7 7"/></symbol><symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-7M12 13c0-2 1.2-3 3-3s2.2 1.2 2.2 3V17"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-hex" viewBox="0 0 24 24"><path d="M12 2l8.7 5v10L12 22l-8.7-5V7L12 2z"/><path d="M14.5 9.5c-.4-.6-1.4-1-2.5-1-1.4 0-2.3.6-2.3 1.5 0 2.2 5 1 5 3.4 0 1-1 1.7-2.5 1.7-1.2 0-2.2-.5-2.7-1.2"/></symbol></defs></svg>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="logo" href="#hero"><svg class="ico" aria-hidden="true"><use href="#i-hex"/></svg><span>SK · Portfolio</span></a>
+  <nav id="navPanel" aria-label="Main navigation"><ul><li><a href="#about"><svg class="ico" aria-hidden="true"><use href="#i-about"/></svg>About</a></li><li><a href="#experience"><svg class="ico" aria-hidden="true"><use href="#i-briefcase"/></svg>Experience</a></li><li><a href="#works"><svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg>Work</a></li><li><a href="#ai"><svg class="ico" aria-hidden="true"><use href="#i-brain"/></svg>AI</a></li><li><a href="#contact"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Contact</a></li></ul>
+    <a class="btn" href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf" target="_blank" rel="noopener"><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>Download CV</a></nav>
+  <span class="top-r"><button id="theme" aria-label="Dark mode" aria-pressed="false"></button>
+  <button id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu"><svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg></button></span>
 </header>
-<nav class="n-panel n-panel--drawer" id="navPanel" aria-hidden="true" aria-label="Mobile navigation">
-  <ul class="n-links">
-    <li><a href="#about"><i class="ti ti-user" aria-hidden="true"></i>About</a></li>
-    <li><a href="#experience"><i class="ti ti-briefcase" aria-hidden="true"></i>Experience</a></li>
-    <li><a href="#works"><i class="ti ti-layout-grid" aria-hidden="true"></i>Work</a></li>
-    <li><a href="#ai"><i class="ti ti-brain" aria-hidden="true"></i>AI</a></li>
-    <li><a href="#contact"><i class="ti ti-mail" aria-hidden="true"></i>Contact</a></li>
-  </ul>
-  <a href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf" target="_blank" class="n-cta">
-    <i class="ti ti-download" aria-hidden="true"></i>Download CV
-  </a>
-</nav>
-
-<!-- ============================================================ HERO -->
-<section id="hero">
-  <!-- Tech background: animated SVG circuit/node pattern -->
-  
-  <div class="h-grid"></div>
-
-  <p class="h-eyebrow">Lead Product Designer &nbsp;·&nbsp; Design Systems Architect &nbsp;·&nbsp; AI Design Engineer</p>
-  <h1 class="h-name" id="heroName">Sankara<br><em>Kalidasu</em></h1>
-  <div class="h-footer">
-    <div>
-      <div class="h-stat-n">17<sup>+</sup></div>
-      <div class="h-stat-l">Years of enterprise<br>product design</div>
-    </div>
-    <div>
-      <div class="h-stat-n">60<sup>+</sup></div>
-      <div class="h-stat-l">Design system<br>components shipped</div>
-    </div>
-    <div>
-      <div class="h-stat-n">~40<sup>%</sup></div>
-      <div class="h-stat-l">Faster design-to-dev<br>handoff achieved</div>
-    </div>
-  </div>
-  <div class="h-badges">
-    <span class="h-badge"><i class="ti ti-brain" aria-hidden="true"></i>AI-Native Workflows</span>
-    <span class="h-badge"><i class="ti ti-accessible" aria-hidden="true"></i>WCAG 2.2</span>
-    <span class="h-badge"><i class="ti ti-brand-figma" aria-hidden="true"></i>Figma Architecture</span>
-    <span class="h-badge"><i class="ti ti-components" aria-hidden="true"></i>Design Systems</span>
-    <span class="h-badge"><i class="ti ti-sparkles" aria-hidden="true"></i>Prompt Engineering</span>
-    <span class="h-badge"><i class="ti ti-plug" aria-hidden="true"></i>MCP Integrations</span>
-  </div>
-  <div class="h-scroll">
-    <div class="h-scroll-bar"></div>
-    <span class="h-scroll-txt" aria-hidden="true">Scroll</span>
+<main id="main">
+<section class="hero" id="hero">
+  <canvas id="dots" aria-hidden="true"></canvas>
+  <div class="hero-top"><p class="role">Lead Product Designer · Design Systems Architect · AI Design Engineer</p><ul class="tags"><li><svg class="ico" aria-hidden="true"><use href="#i-brain"/></svg>AI-Native Workflows</li><li><svg class="ico" aria-hidden="true"><use href="#i-access"/></svg>WCAG 2.2</li><li><svg class="ico" aria-hidden="true"><use href="#i-figma"/></svg>Figma Architecture</li><li><svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg>Design Systems</li><li><svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg>Prompt Engineering</li><li><svg class="ico" aria-hidden="true"><use href="#i-plug"/></svg>MCP Integrations</li></ul></div>
+  <h1 class="name" id="name" aria-label="Sankara Kalidasu"><span class="ln" aria-hidden="true">Sankara</span><span class="ln" aria-hidden="true">Kalidasu</span></h1>
+  <div class="hero-foot">
+    <p class="lead">I design the systems behind healthcare software that millions of people use to manage their prescriptions and benefits.</p>
+    <dl class="stats"><div><dt><svg class="ico" aria-hidden="true"><use href="#i-calendar"/></svg>17<sup>+</sup></dt><dd>Years of enterprise product design</dd></div><div><dt><svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg>60<sup>+</sup></dt><dd>Design system components shipped</dd></div><div><dt><svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>~40<sup>%</sup></dt><dd>Faster design-to-dev handoff achieved</dd></div></dl>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="mq-bar" aria-hidden="true">
-  <div class="mq-track">
-    <span>Product Design</span><span class="dot">·</span>
-    <span>Design Systems</span><span class="dot">·</span>
-    <span>LEAF Component Library</span><span class="dot">·</span>
-    <span>WCAG 2.2 Accessibility</span><span class="dot">·</span>
-    <span>AI-Design Engineering</span><span class="dot">·</span>
-    <span>Claude · Cursor · FigJam AI</span><span class="dot">·</span>
-    <span>Healthcare UX</span><span class="dot">·</span>
-    <span>Prompt Engineering</span><span class="dot">·</span>
-    <span>MCP Integrations</span><span class="dot">·</span>
-    <span>Token Architecture</span><span class="dot">·</span>
-    <span>Product Design</span><span class="dot">·</span>
-    <span>Design Systems</span><span class="dot">·</span>
-    <span>LEAF Component Library</span><span class="dot">·</span>
-    <span>WCAG 2.2 Accessibility</span><span class="dot">·</span>
-    <span>AI-Design Engineering</span><span class="dot">·</span>
-    <span>Claude · Cursor · FigJam AI</span><span class="dot">·</span>
-    <span>Healthcare UX</span><span class="dot">·</span>
-    <span>Prompt Engineering</span><span class="dot">·</span>
-    <span>MCP Integrations</span><span class="dot">·</span>
-    <span>Token Architecture</span><span class="dot">·</span>
-  </div>
-</div>
+<div class="mq" aria-hidden="true"><div class="mq-track"><span>Product Design</span><span aria-hidden="true">·</span><span>Design Systems</span><span aria-hidden="true">·</span><span>LEAF Component Library</span><span aria-hidden="true">·</span><span>WCAG 2.2 Accessibility</span><span aria-hidden="true">·</span><span>AI-Design Engineering</span><span aria-hidden="true">·</span><span>Claude · Cursor · FigJam AI</span><span aria-hidden="true">·</span><span>Healthcare UX</span><span aria-hidden="true">·</span><span>Prompt Engineering</span><span aria-hidden="true">·</span><span>MCP Integrations</span><span aria-hidden="true">·</span><span>Token Architecture</span><span aria-hidden="true">·</span><span>Product Design</span><span aria-hidden="true">·</span><span>Design Systems</span><span aria-hidden="true">·</span><span>LEAF Component Library</span><span aria-hidden="true">·</span><span>WCAG 2.2 Accessibility</span><span aria-hidden="true">·</span><span>AI-Design Engineering</span><span aria-hidden="true">·</span><span>Claude · Cursor · FigJam AI</span><span aria-hidden="true">·</span><span>Healthcare UX</span><span aria-hidden="true">·</span><span>Prompt Engineering</span><span aria-hidden="true">·</span><span>MCP Integrations</span><span aria-hidden="true">·</span><span>Token Architecture</span><span aria-hidden="true">·</span></div></div>
 
-<!-- ============================================================ ABOUT (warm teal bg) -->
-<section id="about">
-  <div class="ab-bgnum" aria-hidden="true">01</div>
-  <div class="ab-grid">
-    <div class="ab-sticky">
-      <div class="sec-tag rv">About</div>
-      <h2 class="ab-h rv d1">Design that<br>thinks first,<br><em>ships clean.</em></h2>
-    </div>
-    <div class="ab-body">
-      <p class="ab-p rv">
-        I'm a <strong>Lead Product Designer and Design Systems Architect</strong> with 17+ years building enterprise-scale digital products across healthcare, logistics and B2C platforms. My work lives at the intersection of clinical complexity and human clarity, turning regulated, high-stakes workflows into experiences that are intuitive, accessible and built to scale.
-      </p>
-      <p class="ab-p rv d1">
-        At <strong>Cigna / Evernorth</strong>, I led end-to-end UX for large-scale healthcare member experiences including prescription management, refill flows and responsive member portals serving millions of users. I helped modernize legacy platforms into device-agnostic, accessible experiences while partnering closely with engineering, compliance and clinical teams. I architected the LEAF Design System, 60+ components with full token architecture, adopted across 10+ product teams, cutting design-to-development handoff by ~40%. At <strong>Express Scripts</strong>, I defined company-wide UI/UX strategy for MemberWeb's 30+ products via a zero-rebuild CSS injection approach, saving hundreds of engineering hours while serving millions of members.
-      </p>
-      <p class="ab-p rv d2">
-        I am <strong>AI-forward by practice</strong> integrating LLM interfaces, agentic AI workflows, MCP integrations and AI-assisted prototyping (Claude, Cursor, FigJam AI) directly into my design process. Accessibility is not a checklist, it is the baseline. Every interface ships tested against WCAG 2.2, Section 508, VoiceOver and NVDA.
-      </p>
-      <div class="skills-g rv d3">
-        <div class="sk"><i class="ti ti-pencil-star" aria-hidden="true"></i>Product Design · UX</div>
-        <div class="sk"><i class="ti ti-components" aria-hidden="true"></i>Design Systems</div>
-        <div class="sk"><i class="ti ti-accessible" aria-hidden="true"></i>Accessibility · WCAG 2.2</div>
-        <div class="sk"><i class="ti ti-brand-figma" aria-hidden="true"></i>Figma Architecture</div>
-        <div class="sk"><i class="ti ti-cursor-text" aria-hidden="true"></i>Interaction Design</div>
-        <div class="sk"><i class="ti ti-player-play" aria-hidden="true"></i>Motion & Animation</div>
-        <div class="sk"><i class="ti ti-brain" aria-hidden="true"></i>AI-Design Engineering</div>
-        <div class="sk"><i class="ti ti-brand-react" aria-hidden="true"></i>React / Web Components</div>
-        <div class="sk"><i class="ti ti-book-2" aria-hidden="true"></i>Storybook · Tokens</div>
-        <div class="sk"><i class="ti ti-microscope" aria-hidden="true"></i>UX Research · Testing</div>
-        <div class="sk"><i class="ti ti-users" aria-hidden="true"></i>Design Leadership</div>
-        <div class="sk"><i class="ti ti-code" aria-hidden="true"></i>HTML · CSS · SCSS · JS</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ EXPERIENCE (paper/white bg - alternating) -->
-<section id="experience">
-  <div class="exp-hd rv">
-    <h2 class="exp-h">Experience</h2>
-    <span class="exp-ct"><i class="ti ti-clock" aria-hidden="true"></i>ProductUX · 17+ Years</span>
-  </div>
-  <div class="exp-row rv">
-    <div class="exp-yr">2022 – 2025</div>
-    <div>
-      <div class="exp-co">Cigna / Evernorth</div>
-      <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>Lead Senior UX Designer & Advisor</div>
-      <p class="exp-blurb">Led end-to-end UX strategy and product design for large-scale healthcare member platforms, including prescription management, refill workflows and responsive self-service experiences serving millions of users. Architected the LEAF Design System, 60+ components, full token architecture, Storybook documentation, adopted across 10+ product teams. Led Benefit Overview redesign, Dashboard and NewRx modernization. Reduced design-to-dev handoff by ~40%. Embedded AI-assisted workflows into daily design practice using Claude, Cursor and FigJam AI.</p>
-    </div>
-    <div class="exp-pills">
-      <span class="exp-pill hi">Product Design</span>
-      <span class="exp-pill hi">Figma · React Components</span>
-      <span class="exp-pill hi">LEAF Design System</span>
-      <span class="exp-pill">Storybook · Tokens</span>
-      <span class="exp-pill">WCAG 2.2 · Accessibility</span>
-    </div>
-  </div>
-  <div class="exp-row rv d1">
-    <div class="exp-yr">2016 – 2022</div>
-    <div>
-      <div class="exp-co">Express Scripts</div>
-      <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>Lead Senior UX Designer & Advisor</div>
-      <p class="exp-blurb">Defined company-wide UI/UX strategy for MemberWeb across 30+ products via CSS injection - no engineering rebuild, saving hundreds of hours. Led 10–12 person cross-functional teams. Owned full ParachuteRx lifecycle with zero critical accessibility defects on launch. Redesigned Pricing as VoiceOver/NVDA-first experience.</p>
-    </div>
-    <div class="exp-pills">
-      <span class="exp-pill hi">MemberWeb · 30+ Products</span>
-      <span class="exp-pill hi">CSS Injection Strategy</span>
-      <span class="exp-pill">ParachuteRx · Motion Design</span>
-      <span class="exp-pill">VoiceOver · Product Design</span>
-    </div>
-  </div>
-  <div class="exp-row rv d2">
-    <div class="exp-yr">2009 – 2016</div>
-    <div>
-      <div class="exp-co">Medco Health Solutions</div>
-      <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>Senior UI Designer</div>
-      <p class="exp-blurb">Full product lifecycle ownership, research, wireframing, HiFi prototyping, responsive front-end development, QA and launches for millions of members. Designed prescription management tools (refill, history, NewRx) that measurably reduced task abandonment.</p>
-    </div>
-    <div class="exp-pills">
-      <span class="exp-pill hi">Full Product Lifecycle</span>
-      <span class="exp-pill">Responsive Dev</span>
-      <span class="exp-pill">Rx Management UX</span>
-    </div>
-  </div>
-  <div class="exp-row rv d3">
-    <div class="exp-yr">2006 – 2008</div>
-    <div>
-      <div class="exp-co">INTTRA Inc.</div>
-      <div class="exp-role"><i class="ti ti-star" aria-hidden="true"></i>User Interface Designer</div>
-      <p class="exp-blurb">Designed data-rich interfaces for global ocean trade, container tracking, booking and documentation for major shipping carriers. Transformed complex multi-step shipping workflows into WCAG 2.1 AA-compliant, scannable UIs.</p>
-    </div>
-    <div class="exp-pills">
-      <span class="exp-pill hi">Research · User Testing</span>
-      <span class="exp-pill">WCAG 2.1 AA</span>
-      <span class="exp-pill">Hi-Fi Prototyping</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ WORKS (warm-2 bg - alternating) -->
-<section id="works">
-  <div class="wk-hd">
-    <h2 class="wk-h rv">Selected<br><em style="font-style:italic;color:var(--ac)">Work</em></h2>
-    <p class="wk-intro rv d2">Five enterprise case studies, each a system problem solved through reserach, architecture, accessibility and design leadership.</p>
-  </div>
+<section class="sec about" id="about">
+  <div class="side"><p class="chip"><svg class="ico" aria-hidden="true"><use href="#i-about"/></svg>About</p><h2>Design that<br>thinks first,<br><em>ships clean.</em></h2></div>
   <div>
-
-    <article class="proj-row rv-sc" data-case="benefit" role="button" tabindex="0" aria-label="View Benefit Overview case study">
-      <div class="proj-info">
-        <div class="proj-meta-row"><span class="proj-meta">Cigna / Evernorth · Product Design</span><span class="proj-num">01</span></div>
-        <div class="proj-body">
-          <div class="proj-icon"><i class="ti ti-heart-rate-monitor" aria-hidden="true"></i></div>
-          <h3 class="proj-title">Benefit Overview<br>Redesign</h3>
-          <p class="proj-exc">Transformed a legacy, text-heavy benefits experience into a modular accessible card-based UI. Real member data surfaced in context. Support dependency reduced across a regulated healthcare portal.</p>
-        </div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">Product Design</span><span class="proj-tag">Accessibility</span><span class="proj-tag">Healthcare UX</span></div>
-          <span class="proj-arrow">↗</span>
-        </div>
-      </div>
-      <div class="proj-vis" style="background-color: #0A2D50;">
-        <div class="proj-vis-inner"><img src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="Benefit Overview redesign" loading="lazy" style="object-fit:contain;padding:1rem;"></div>
-        <div class="proj-vis-ov"></div>
-      </div>
-    </article>
-
-    <article class="proj-row alt rv-sc" data-case="pricing" role="button" tabindex="0" aria-label="View Pricing redesign case study">
-      <div class="proj-info">
-        <div class="proj-meta-row"><span class="proj-meta">Express Scripts · Product Design</span><span class="proj-num">02</span></div>
-        <div class="proj-body">
-          <div class="proj-icon"><i class="ti ti-currency-dollar" aria-hidden="true"></i></div>
-          <h3 class="proj-title">Pricing Interface<br>Redesign</h3>
-          <p class="proj-exc">Rebuilt a cluttered, inaccessible pricing interface into a clean, structured VoiceOver/NVDA-friendly experience helping members with visual impairments navigate and compare pricing with ease.</p>
-        </div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">Figma</span><span class="proj-tag">Accessibility</span><span class="proj-tag">VoiceOver</span><span class="proj-tag">WCAG 2.2</span></div>
-          <span class="proj-arrow">↗</span>
-        </div>
-      </div>
-      <div class="proj-vis" style="background-color: #0A2D50;">
-        <div class="proj-vis-inner"><img src="https://www.spaykmedia.com/images/thumbs/masonry/pricing.jpg" alt="Pricing interface accessibility redesign" loading="lazy" style="object-fit:contain;padding:1rem;"></div>
-        <div class="proj-vis-ov"></div>
-      </div>
-    </article>
-
-    <article class="proj-row rv-sc" data-case="design-system" role="button" tabindex="0" aria-label="View LEAF Design System case study">
-      <div class="proj-info">
-        <div class="proj-meta-row"><span class="proj-meta">Cigna / Evernorth · Tokens · Components</span><span class="proj-num">05</span></div>
-        <div class="proj-body">
-          <div class="proj-icon"><i class="ti ti-lego" aria-hidden="true"></i></div>
-          <h3 class="proj-title">LEAF<br>Design System</h3>
-          <p class="proj-exc">Architected from zero: 60+ components, token architecture, Storybook documentation and adoption governance across 10+ product teams. Reduced handoff by ~40% and made WCAG 2.2 compliance self-serve.</p>
-        </div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">Design Systems</span><span class="proj-tag">Token Architecture</span><span class="proj-tag">Storybook</span></div>
-          <span class="proj-arrow">↗</span>
-        </div>
-      </div>
-      <div class="proj-vis">
-        <div class="proj-vis-inner"><img src="images/ds.png" alt="LEAF Design System" loading="lazy"></div>
-        <div class="proj-vis-ov"></div>
-      </div>
-    </article>
-
-    <article class="proj-row alt rv-sc" data-case="dashboard" role="button" tabindex="0" aria-label="View Dashboard redesign case study">
-      <div class="proj-info">
-        <div class="proj-meta-row"><span class="proj-meta">Express Scripts · Product Design</span><span class="proj-num">03</span></div>
-        <div class="proj-body">
-          <div class="proj-icon"><i class="ti ti-layout-dashboard" aria-hidden="true"></i></div>
-          <h3 class="proj-title">Member Dashboard<br>Redesign</h3>
-          <p class="proj-exc">Modernized the member dashboard with a card-based layout, subtle micro-interactions and transitions transforming a flat information display into a responsive, engaging and scannable experience.</p>
-        </div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">Dashboard UX</span><span class="proj-tag">Micro-interactions</span><span class="proj-tag">Card Layout</span></div>
-          <span class="proj-arrow">↗</span>
-        </div>
-      </div>
-      <div class="proj-vis" style="background-color: #0A2D50;">
-        <div class="proj-vis-inner"><img src="https://www.spaykmedia.com/images/thumbs/masonry/dashboard.jpg" alt="Member dashboard redesign" loading="lazy" style="object-fit:contain;padding:1rem;"></div>
-        <div class="proj-vis-ov"></div>
-      </div>
-    </article>
-
-    <article class="proj-row rv-sc" data-case="newrx" role="button" tabindex="0" aria-label="View NewRx micro-interaction case study">
-      <div class="proj-info">
-        <div class="proj-meta-row"><span class="proj-meta">Evernorth · Motion Design</span><span class="proj-num">04</span></div>
-        <div class="proj-body">
-          <div class="proj-icon"><i class="ti ti-pill" aria-hidden="true"></i></div>
-          <h3 class="proj-title">NewRx<br>Micro-interaction</h3>
-          <p class="proj-exc">A fluid visual metaphor - pill bottle transforms into prescription label, then into a digital circular element communicating the shift from legacy pharmacy to digital-first experience. Solo concept through export.</p>
-        </div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">Motion Design</span><span class="proj-tag">After Effects</span><span class="proj-tag">Micro-interaction</span></div>
-          <span class="proj-arrow">↗</span>
-        </div>
-      </div>
-      <div class="proj-vis" style="background:#ffffff;">
-        <div class="proj-vis-inner"><img src="https://www.spaykmedia.com/images/thumbs/rxbottle.gif" alt="NewRx animation" loading="lazy" style="object-fit:contain;padding:1rem;"></div>
-        <div class="proj-vis-ov"></div>
-      </div>
-    </article>
-
-    <!--article class="proj-row alt rv-sc" data-case="evernorth-web" role="button" tabindex="0" aria-label="View Evernorth website case study">
-      <div class="proj-info">
-        <div class="proj-meta-row"><span class="proj-meta">Evernorth · Web Design</span><span class="proj-num">06</span></div>
-        <div class="proj-body">
-          <div class="proj-icon"><i class="ti ti-world" aria-hidden="true"></i></div>
-          <h3 class="proj-title">Evernorth<br>Website</h3>
-          <p class="proj-exc">Designed and maintained the Evernorth public website - keeping it visually modern, responsive across all devices and brand-consistent through ongoing product updates and feature launches.</p>
-        </div>
-        <div class="proj-footer">
-          <div class="proj-tags"><span class="proj-tag">Web Design</span><span class="proj-tag">Responsive</span><span class="proj-tag">Brand</span></div>
-          <span class="proj-arrow">↗</span>
-        </div>
-      </div>
-      <div class="proj-vis">
-        <div class="proj-vis-inner"><img src="https://www.spaykmedia.com/images/thumbs/masonry/evernorth.jpg" alt="Evernorth website design" loading="lazy"></div>
-        <div class="proj-vis-ov"></div>
-      </div>
-    </article-->
-
+    <p class="rv">I'm a <strong>Lead Product Designer and Design Systems Architect</strong> with 17+ years building enterprise-scale digital products across healthcare, logistics and B2C platforms. My work lives at the intersection of clinical complexity and human clarity, turning regulated, high-stakes workflows into experiences that are intuitive, accessible and built to scale.</p><p class="rv">At <strong>Cigna / Evernorth</strong>, I led end-to-end UX for large-scale healthcare member experiences including prescription management, refill flows and responsive member portals serving millions of users. I helped modernize legacy platforms into device-agnostic, accessible experiences while partnering closely with engineering, compliance and clinical teams. I architected the LEAF Design System, 60+ components with full token architecture, adopted across 10+ product teams, cutting design-to-development handoff by ~40%. At <strong>Express Scripts</strong>, I defined company-wide UI/UX strategy for MemberWeb's 30+ products via a zero-rebuild CSS injection approach, saving hundreds of engineering hours while serving millions of members.</p><p class="rv">I am <strong>AI-forward by practice</strong> integrating LLM interfaces, agentic AI workflows, MCP integrations and AI-assisted prototyping (Claude, Cursor, FigJam AI) directly into my design process. Accessibility is not a checklist, it is the baseline. Every interface ships tested against WCAG 2.2, Section 508, VoiceOver and NVDA.</p>
+    <ul class="skills rv"><li><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg>Product Design · UX</li><li><svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg>Design Systems</li><li><svg class="ico" aria-hidden="true"><use href="#i-access"/></svg>Accessibility · WCAG 2.2</li><li><svg class="ico" aria-hidden="true"><use href="#i-figma"/></svg>Figma Architecture</li><li><svg class="ico" aria-hidden="true"><use href="#i-cursor"/></svg>Interaction Design</li><li><svg class="ico" aria-hidden="true"><use href="#i-motion"/></svg>Motion & Animation</li><li><svg class="ico" aria-hidden="true"><use href="#i-brain"/></svg>AI-Design Engineering</li><li><svg class="ico" aria-hidden="true"><use href="#i-atom"/></svg>React / Web Components</li><li><svg class="ico" aria-hidden="true"><use href="#i-book"/></svg>Storybook · Tokens</li><li><svg class="ico" aria-hidden="true"><use href="#i-microscope"/></svg>UX Research · Testing</li><li><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>Design Leadership</li><li><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg>HTML · CSS · SCSS · JS</li></ul>
   </div>
 </section>
 
-<!-- ============================================================ AI SECTION (deep midnight - contrasting) -->
-<section id="ai">
-  <div class="ai-grid-bg" aria-hidden="true"></div>
-  <div class="ai-glow" aria-hidden="true"></div>
-
-  <div class="ai-header rv">
-    <div>
-      <div class="sec-tag"><span></span>AI Practice</div>
-      <h2 class="ai-h rv d1">Designing with<br><em>intelligence.</em></h2>
-    </div>
-    <p class="ai-intro rv d2">
-      I don't just use AI tools - <strong>I architect AI-powered design workflows</strong> that are fast, ethical and accessible-first.
-    </p>
-  </div>
-
-  <!-- One compact two-column block -->
-  <div class="ai-body rv">
-    <!-- Left: vision statement + tagline -->
-    <div>
-      <p class="ai-statement">
-        A clear, forward-looking vision for <strong>AI-enabled product transformation</strong> where governance, accessibility and inclusive design are embedded into every AI-driven solution from the start.
-      </p>
-      <p class="ai-tagline">
-        Generative AI helps accelerate exploration and workflows, but strong product design still depends on experience, critical thinking and human decision-making.
-      </p>
-    </div>
-    <!-- Right: tool list -->
-    <div class="ai-tools">
-      <div class="ai-tool-row">
-        <i class="ti ti-robot" aria-hidden="true"></i>
-        <span class="ai-tool-label">Claude</span>
-        <span class="ai-tool-sub">Research · specs · agentic workflows · MCP</span>
-      </div>
-      <div class="ai-tool-row">
-        <i class="ti ti-terminal-2" aria-hidden="true"></i>
-        <span class="ai-tool-label">Cursor</span>
-        <span class="ai-tool-sub">AI IDE · prototype code · token handoff</span>
-      </div>
-      <div class="ai-tool-row">
-        <i class="ti ti-brand-figma" aria-hidden="true"></i>
-        <span class="ai-tool-label">FigJam AI + Figma MCP</span>
-        <span class="ai-tool-sub">Ideation · design-to-code bridging</span>
-      </div>
-      <div class="ai-tool-row">
-        <i class="ti ti-plug" aria-hidden="true"></i>
-        <span class="ai-tool-label">MCP Integrations</span>
-        <span class="ai-tool-sub">Figma · Storybook · docs pipelines</span>
-      </div>
-      <div class="ai-tool-row">
-        <i class="ti ti-message-chatbot" aria-hidden="true"></i>
-        <span class="ai-tool-label">Prompt Engineering</span>
-        <span class="ai-tool-sub">Multi-turn · orchestration · LLM interfaces</span>
-      </div>
-      <div class="ai-tool-row">
-        <i class="ti ti-photo-ai" aria-hidden="true"></i>
-        <span class="ai-tool-label">AI Image & Video</span>
-        <span class="ai-tool-sub">Midjourney · Firefly · Runway ML · Pika</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Compact capability pill strip -->
-  <div class="ai-pills rv d2">
-    <span class="ai-pill"><i class="ti ti-shield-check" aria-hidden="true"></i>Responsible AI</span>
-    <span class="ai-pill"><i class="ti ti-accessible" aria-hidden="true"></i>Accessible by default</span>
-    <span class="ai-pill"><i class="ti ti-brain" aria-hidden="true"></i>LLM Interfaces</span>
-    <span class="ai-pill"><i class="ti ti-sparkles" aria-hidden="true"></i>Generative AI</span>
-    <span class="ai-pill"><i class="ti ti-code-circle" aria-hidden="true"></i>Skill Training Models</span>
-    <span class="ai-pill"><i class="ti ti-arrows-transfer-up" aria-hidden="true"></i>Agentic Workflows</span>
-    <span class="ai-pill"><i class="ti ti-eye" aria-hidden="true"></i>AI Governance</span>
-    <span class="ai-pill"><i class="ti ti-users" aria-hidden="true"></i>Inclusive Design</span>
-  </div>
-
+<section class="sec" id="experience">
+  <div class="side"><p class="chip"><svg class="ico" aria-hidden="true"><use href="#i-briefcase"/></svg></p><h2>Experience</h2><p class="exp-ct"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>ProductUX · 17+ Years</p></div>
+  <ol class="exp">
+    <li class="rv"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg></span>
+      <p class="yr">2022 – 2025<span class="ch">Systems</span></p>
+      <div><h3>Cigna / Evernorth</h3><p class="rl"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Lead Senior UX Designer & Advisor</p><p class="bl">Led end-to-end UX strategy and product design for large-scale healthcare member platforms, including prescription management, refill workflows and responsive self-service experiences serving millions of users. Architected the LEAF Design System, 60+ components, full token architecture, Storybook documentation, adopted across 10+ product teams. Led Benefit Overview redesign, Dashboard and NewRx modernization. Reduced design-to-dev handoff by ~40%. Embedded AI-assisted workflows into daily design practice using Claude, Cursor and FigJam AI.</p><ul class="pills"><li class="pill hi">Product Design</li><li class="pill hi">Figma · React Components</li><li class="pill hi">LEAF Design System</li><li class="pill hi">Storybook · Tokens</li><li class="pill hi">WCAG 2.2 · Accessibility</li></ul></div>
+    </li>
+    <li class="rv"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg></span>
+      <p class="yr">2016 – 2022<span class="ch">Scale</span></p>
+      <div><h3>Express Scripts</h3><p class="rl"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Lead Senior UX Designer & Advisor</p><p class="bl">Defined company-wide UI/UX strategy for MemberWeb across 30+ products via CSS injection - no engineering rebuild, saving hundreds of hours. Led 10–12 person cross-functional teams. Owned full ParachuteRx lifecycle with zero critical accessibility defects on launch. Redesigned Pricing as VoiceOver/NVDA-first experience.</p><ul class="pills"><li class="pill hi">MemberWeb · 30+ Products</li><li class="pill hi">CSS Injection Strategy</li><li class="pill hi">ParachuteRx · Motion Design</li><li class="pill hi">VoiceOver · Product Design</li></ul></div>
+    </li>
+    <li class="rv"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></span>
+      <p class="yr">2009 – 2016<span class="ch">Craft</span></p>
+      <div><h3>Medco Health Solutions</h3><p class="rl"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Senior UI Designer</p><p class="bl">Full product lifecycle ownership, research, wireframing, HiFi prototyping, responsive front-end development, QA and launches for millions of members. Designed prescription management tools (refill, history, NewRx) that measurably reduced task abandonment.</p><ul class="pills"><li class="pill hi">Full Product Lifecycle</li><li class="pill hi">Responsive Dev</li><li class="pill hi">Rx Management UX</li></ul></div>
+    </li>
+    <li class="rv"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-ship"/></svg></span>
+      <p class="yr">2006 – 2008<span class="ch">Foundations</span></p>
+      <div><h3>INTTRA Inc.</h3><p class="rl"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>User Interface Designer</p><p class="bl">Designed data-rich interfaces for global ocean trade, container tracking, booking and documentation for major shipping carriers. Transformed complex multi-step shipping workflows into WCAG 2.1 AA-compliant, scannable UIs.</p><ul class="pills"><li class="pill hi">Research · User Testing</li><li class="pill hi">WCAG 2.1 AA</li><li class="pill hi">Hi-Fi Prototyping</li></ul></div>
+    </li>
+  </ol>
 </section>
 
-<!-- ============================================================ FIGMA SHOWCASE (warm-3 - alternating) -->
-<!--section id="showcase">
-  <div class="sec-tag ac rv">Live Portfolio</div>
-  <h2 class="sc-h rv d1">Explore the full<br><em>Figma portfolio</em></h2>
-  <div class="sc-links rv d3">
-    <a href="https://www.figma.com/proto/XY7jYHynwQCsb8vruXpqap/Portfolio?page-id=0%3A1&node-id=2355-2231&p=f" target="_blank" class="sc-link primary"><i class="ti ti-external-link" aria-hidden="true"></i>Open Full Portfolio</a>
-  </div>
-  <div class="sc-frame rv d2">
-    <iframe src="https://embed.figma.com/proto/XY7jYHynwQCsb8vruXpqap/Portfolio?page-id=0%3A1&node-id=2355-2231&p=f&viewport=136%2C-372%2C0.19&scaling=contain&content-scaling=fixed&starting-point-node-id=2355%3A2231&embed-host=share" allowfullscreen title="Sankara Kalidasu Figma Portfolio"></iframe>
-  </div>
-  <div class="sc-links rv d3">
-    <a href="https://www.figma.com/proto/XY7jYHynwQCsb8vruXpqap/Portfolio?page-id=0%3A1&node-id=2355-2231&p=f" target="_blank" class="sc-link primary"><i class="ti ti-external-link" aria-hidden="true"></i>Open Full Portfolio</a>
-  </div>
-</section-->
-
-<!-- ============================================================ CONTACT (paper bg) -->
-<section id="contact">
-  <div class="ct-bgnum" aria-hidden="true">SK</div>
-  <div class="ct-grid">
-    <div>
-      <div class="sec-tag rv">Let's connect</div>
-      <h2 class="ct-h rv d1">Let's build<br>something<br><em>lasting.</em></h2>
-    </div>
-    <div class="ct-right rv d2">
-      <div class="ct-item">
-        <span class="ct-lbl">Email</span>
-        <a href="mailto:Sankara.Kalidasu@gmail.com" class="ct-val"><i class="ti ti-mail" aria-hidden="true"></i>Sankara.Kalidasu@gmail.com</a>
-      </div>
-      <div class="ct-item">
-        <span class="ct-lbl">Phone</span>
-        <a href="tel:+17322138722" class="ct-val"><i class="ti ti-phone" aria-hidden="true"></i>+1 732 213 8722</a>
-      </div>
-      <div class="ct-item">
-        <span class="ct-lbl">LinkedIn</span>
-        <a href="https://www.linkedin.com/in/sankarakalidasu/" target="_blank" class="ct-val"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>sankarakalidasu ↗</a>
-      </div>
-      <div class="ct-ctas">
-        <a href="mailto:Sankara.Kalidasu@gmail.com" class="ct-btn dark"><i class="ti ti-send" aria-hidden="true"></i>Say Hello</a>
-        <a href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf" target="_blank" class="ct-btn outline"><i class="ti ti-download" aria-hidden="true"></i>Download CV</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span class="ft-id"><i class="ti ti-hexagon-letter-s" aria-hidden="true"></i>© 2026 Sankara Kalidasu · Product Design · AI Design Engineering · Design Systems</span>
-  <ul class="ft-links">
-    <li><a href="https://www.linkedin.com/in/sankarakalidasu/" target="_blank"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
-    <!--li><a href="https://www.figma.com/proto/XY7jYHynwQCsb8vruXpqap/Portfolio?page-id=0%3A1&node-id=2355-2231&p=f" target="_blank"><i class="ti ti-brand-figma" aria-hidden="true"></i>Figma</a></li-->
-    <li><a href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf" target="_blank"><i class="ti ti-file-cv" aria-hidden="true"></i>CV</a></li>
-    <li><a href="mailto:Sankara.Kalidasu@gmail.com"><i class="ti ti-mail" aria-hidden="true"></i>Email</a></li>
+<section class="sec works" id="works">
+  <p class="chip"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg></p>
+  <h2>Selected<br><em style="font-style:italic;color:var(--ac)">Work</em></h2>
+  <p class="intro">Five enterprise case studies, each a system problem solved through research, architecture, accessibility and design leadership.</p>
+  <ul class="work-list">
+    <li><a class="row rv" href="#case-leaf" data-open="case-leaf">
+      <span class="row-v"><img src="https://www.spaykmedia.com/profile/images/ds.png" alt="" loading="lazy"></span>
+      <span class="row-c">
+      <span class="row-m"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg>Cigna / Evernorth · Tokens · Components</span>
+      <span class="row-t">LEAF<br>Design System</span>
+      <span class="row-e">Architected from zero: 60+ components, token architecture, Storybook documentation and adoption governance across 10+ product teams. Reduced handoff by ~40% and made WCAG 2.2 compliance self-serve.</span>
+      <span class="row-g"><span>Design Systems</span><span>Token Architecture</span><span>Storybook</span></span>
+      <svg class="row-go" viewBox="0 0 48 24" aria-hidden="true"><path d="M2 12h42M34 3l10 9-10 9"/></svg></span>
+    </a></li>
+    <li><a class="row rv" href="#case-benefit" data-open="case-benefit">
+      <span class="row-v"><img src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="" loading="lazy"></span>
+      <span class="row-c">
+      <span class="row-m"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg>Cigna / Evernorth · Product Design</span>
+      <span class="row-t">Benefit Overview<br>Redesign</span>
+      <span class="row-e">Transformed a legacy, text-heavy benefits experience into a modular accessible card-based UI. Real member data surfaced in context. Support dependency reduced across a regulated healthcare portal.</span>
+      <span class="row-g"><span>Product Design</span><span>Accessibility</span><span>Healthcare UX</span></span>
+      <svg class="row-go" viewBox="0 0 48 24" aria-hidden="true"><path d="M2 12h42M34 3l10 9-10 9"/></svg></span>
+    </a></li>
+    <li><a class="row rv" href="#case-pricing" data-open="case-pricing">
+      <span class="row-v"><img src="https://www.spaykmedia.com/images/thumbs/masonry/pricing.jpg" alt="" loading="lazy"></span>
+      <span class="row-c">
+      <span class="row-m"><svg class="ico" aria-hidden="true"><use href="#i-dollar"/></svg>Express Scripts · Product Design</span>
+      <span class="row-t">Pricing Interface<br>Redesign</span>
+      <span class="row-e">Rebuilt a cluttered, inaccessible pricing interface into a clean, structured VoiceOver/NVDA-friendly experience helping members with visual impairments navigate and compare pricing with ease.</span>
+      <span class="row-g"><span>Figma</span><span>Accessibility</span><span>VoiceOver</span><span>WCAG 2.2</span></span>
+      <svg class="row-go" viewBox="0 0 48 24" aria-hidden="true"><path d="M2 12h42M34 3l10 9-10 9"/></svg></span>
+    </a></li>
+    <li><a class="row rv" href="#case-dashboard" data-open="case-dashboard">
+      <span class="row-v"><img src="https://www.spaykmedia.com/images/thumbs/masonry/dashboard.jpg" alt="" loading="lazy"></span>
+      <span class="row-c">
+      <span class="row-m"><svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg>Express Scripts · Product Design</span>
+      <span class="row-t">Member Dashboard<br>Redesign</span>
+      <span class="row-e">Modernized the member dashboard with a card-based layout, subtle micro-interactions and transitions transforming a flat information display into a responsive, engaging and scannable experience.</span>
+      <span class="row-g"><span>Dashboard UX</span><span>Micro-interactions</span><span>Card Layout</span></span>
+      <svg class="row-go" viewBox="0 0 48 24" aria-hidden="true"><path d="M2 12h42M34 3l10 9-10 9"/></svg></span>
+    </a></li>
+    <li><a class="row rv" href="#case-newrx" data-open="case-newrx">
+      <span class="row-v"><img src="https://www.spaykmedia.com/images/thumbs/rxbottle.gif" alt="" loading="lazy"></span>
+      <span class="row-c">
+      <span class="row-m"><svg class="ico" aria-hidden="true"><use href="#i-pill"/></svg>Evernorth · Motion Design</span>
+      <span class="row-t">NewRx<br>Micro-interaction</span>
+      <span class="row-e">A fluid visual metaphor - pill bottle transforms into prescription label, then into a digital circular element communicating the shift from legacy pharmacy to digital-first experience. Solo concept through export.</span>
+      <span class="row-g"><span>Motion Design</span><span>After Effects</span><span>Micro-interaction</span></span>
+      <svg class="row-go" viewBox="0 0 48 24" aria-hidden="true"><path d="M2 12h42M34 3l10 9-10 9"/></svg></span>
+    </a></li>
+    <!-- Hidden case study, add a row to show it: href="#case-evernorth-web" data-open="case-evernorth-web" (Evernorth Website, Web Design and Maintenance) -->
   </ul>
-</footer>
+</section>
 
-
-<!-- ============================================================
-     CASE STUDY OVERLAYS
-============================================================ -->
-
-<!-- 01: BENEFIT OVERVIEW -->
-<div class="cs-ov" id="case-benefit" role="dialog" aria-modal="true" aria-label="Benefit Overview Case Study">
-  <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-heart-rate-monitor"></i>Case Study 01 - Benefit Overview Redesign</span>
-    <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
+<section class="sec ai" id="ai">
+  <div class="side"><p class="chip"><svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg>AI Practice</p><h2>Designing with<br><em>intelligence.</em></h2></div>
+  <div>
+    <p class="big">I don't just use AI tools - <strong>I architect AI-powered design workflows</strong> that are fast, ethical and accessible-first.</p>
+    <p class="st">A clear, forward-looking vision for <strong>AI-enabled product transformation</strong> where governance, accessibility and inclusive design are embedded into every AI-driven solution from the start.</p>
+    <p class="tl">Generative AI helps accelerate exploration and workflows, but strong product design still depends on experience, critical thinking and human decision-making.</p>
+    <ol class="flow" aria-label="How AI fits into the design process">
+        <li class="rv" style="--d:0.00s"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span><h3>Discover</h3><p>Claude for research and specs</p></li>
+        <li class="rv" style="--d:0.12s"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg></span><h3>Ideate</h3><p>FigJam AI for fast exploration</p></li>
+        <li class="rv" style="--d:0.24s"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-pen"/></svg></span><h3>Design</h3><p>Figma with variables and tokens</p></li>
+        <li class="rv" style="--d:0.36s"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg></span><h3>Build</h3><p>Cursor and MCP for prototype code</p></li>
+        <li class="rv" style="--d:0.48s"><span class="node" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Verify</h3><p>WCAG 2.2, VoiceOver and NVDA</p></li>
+    </ol>
+    <dl class="tools"><div><dt><svg class="ico" aria-hidden="true"><use href="#i-robot"/></svg>Claude</dt><dd>Research · specs · agentic workflows · MCP</dd></div><div><dt><svg class="ico" aria-hidden="true"><use href="#i-term"/></svg>Cursor</dt><dd>AI IDE · prototype code · token handoff</dd></div><div><dt><svg class="ico" aria-hidden="true"><use href="#i-figma"/></svg>FigJam AI + Figma MCP</dt><dd>Ideation · design-to-code bridging</dd></div><div><dt><svg class="ico" aria-hidden="true"><use href="#i-plug"/></svg>MCP Integrations</dt><dd>Figma · Storybook · docs pipelines</dd></div><div><dt><svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>Prompt Engineering</dt><dd>Multi-turn · orchestration · LLM interfaces</dd></div><div><dt><svg class="ico" aria-hidden="true"><use href="#i-image"/></svg>AI Image & Video</dt><dd>Midjourney · Firefly · Runway ML · Pika</dd></div></dl>
+    <ul class="pills ai-pills"><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Responsible AI</li><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-access"/></svg>Accessible by default</li><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-brain"/></svg>LLM Interfaces</li><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-sparkle"/></svg>Generative AI</li><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-code"/></svg>Skill Training Models</li><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-transfer"/></svg>Agentic Workflows</li><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg>AI Governance</li><li class="pill"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg>Inclusive Design</li></ul>
   </div>
-  <div class="cs-hero">
-    <img class="cs-hero-img" src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="">
-    <div class="cs-hero-fade"></div>
-    <div class="cs-hero-body">
-      <div class="cs-hero-meta">Cigna / Evernorth · Product Design · 2022</div>
-      <h2 class="cs-hero-title">Benefit<br><em>Overview</em></h2>
-      <div class="cs-stats">
-        <div><div class="cs-stat-v">WCAG<sup>2.2</sup></div><div class="cs-stat-l">Full compliance on launch</div></div>
-        <div><div class="cs-stat-v">Card<sup>↑</sup></div><div class="cs-stat-l">Modular architecture</div></div>
-        <div><div class="cs-stat-v">↓ Calls</div><div class="cs-stat-l">Support dependency reduced</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="cs-body">
-    <div class="cs-sec">
-      <div class="cs-sec-tag">The Problem</div>
-      <h3 class="cs-h">Dense prose. Zero <em>hierarchy.</em></h3>
-      <p class="cs-p">Members navigating health decisions under stress were confronted with long paragraphs of benefit descriptions, no visual hierarchy, no member-specific data, no clear action paths. <strong>Confusion drove support calls. Ambiguity eroded trust.</strong></p>
-      <div class="cs-2col">
-        <div><div class="cs-col-h">Core Issues</div><p class="cs-col-p">Unstructured text with no scan path. No personalization of member data. Multiple WCAG failures. Unclear next actions for checking coverage, comparing plans or finding a provider.</p></div>
-        <div><div class="cs-col-h">Design Constraints</div><p class="cs-col-p">Healthcare compliance requirements. Real-time member data integration. Legacy CMS. Cross-functional alignment across product, clinical, legal and engineering.</p></div>
-      </div>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/bomain.png" alt="Benefit Overview - full modular card layout"></div>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/boverview.png" alt="Benefit Overview - full modular card layout"></div>
-    </div>
-    <div class="cs-img-cap">Benefit Overview · Modular card system · Accessibility · Cigna / Evernorth</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Strategy</div>
-      <h3 class="cs-h">Modular by <em>design.</em></h3>
-      <p class="cs-p">Each benefit category became a self-contained card surfacing real member data, deductibles, coverage tiers, in-network status in context. The member no longer needed to read everything to find what was relevant.</p>
-    </div>
-    <div class="cs-img-grid cols-2">
-      <div class="cs-img-cell"><img src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="Benefit card detail view"></div>
-      <div class="cs-img-cell"><img src="images/bomobile.png" alt="Benefit card mobile view"></div>
-    </div>
-    <div class="cs-img-cap">Left: Benefit card component · Right: Mobile view</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Process</div>
-      <h3 class="cs-h">How the work <em>happened.</em></h3>
-      <div class="cs-steps">
-        <div class="cs-step"><div class="cs-step-n">01</div><div><div class="cs-step-title">Research & Discovery</div><p class="cs-step-body">Conducted internal stakeholder discussions, analyzed previously collected member feedback and facilitated Zoom empathy sessions with 6 users. Identified key pain points around dense healthcare content, poor accessibility and cognitive overload.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">02</div><div><div class="cs-step-title">Information Architecture & Ideation</div><p class="cs-step-body">Audited against WCAG 2.2 and simplified 40+ disconnected content areas into 8 clear card-based benefit categories. Created wireframes focused on scannability, faster decision-making and task-oriented navigation.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">03</div><div><div class="cs-step-title">Design & Prototyping</div><p class="cs-step-body">Designed accessible, reusable UI components with strong visual hierarchy and token-driven consistency. Built interactive prototypes validated through user testing to ensure members could quickly understand coverage details, costs and recommended actions.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">04</div><div><div class="cs-step-title">Accessibility Testing & Handoff</div><p class="cs-step-body">Completed VoiceOver, NVDA, keyboard navigation, focus management and color contrast validation before dev handoff. Delivered annotated Figma specs, accessibility guidance and component documentation for seamless engineering implementation.</p></div></div>
-      </div>
-    </div>
-    <div class="cs-sec">
-      <div class="cs-sec-tag">Outcome</div>
-      <div class="cs-impact-g">
-        <div class="cs-impact-cell"><div class="cs-impact-n">WCAG<sup>2.2</sup></div><div class="cs-impact-l">Full compliance on launch</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">↓</div><div class="cs-impact-l">Support dependency reduced post-launch</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">LEAF</div><div class="cs-impact-l">Component-driven architecture applied</div></div>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
 
-<!-- 02: PRICING -->
-<div class="cs-ov" id="case-pricing" role="dialog" aria-modal="true" aria-label="Pricing Redesign Case Study">
-  <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-currency-dollar"></i>Case Study 02 - Pricing Interface Redesign</span>
-    <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
+<section class="contact" id="contact">
+  <span class="ct-bg" aria-hidden="true">SK</span>
+  <div class="ct-grid">
+    <div><p class="chip"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Let's connect</p><h2>Let's build<br>something<br><em>lasting.</em></h2></div>
+    <div class="ct-right"><div><span class="lbl">Email</span><a href="mailto:Sankara.Kalidasu@gmail.com"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Sankara.Kalidasu@gmail.com</a></div><div><span class="lbl">Phone</span><a href="tel:+17322138722"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>+1 732 213 8722</a></div><div><span class="lbl">LinkedIn</span><a href="https://www.linkedin.com/in/sankarakalidasu/"><svg class="ico" aria-hidden="true"><use href="#i-linkedin"/></svg>sankarakalidasu ↗</a></div><p class="ctas"><a class="cta" href="mailto:Sankara.Kalidasu@gmail.com"><svg class="ico" aria-hidden="true"><use href="#i-send"/></svg>Say Hello</a><a class="cta ghost" href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf"><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>Download CV</a></p></div>
   </div>
-  <div class="cs-hero">
-    <img class="cs-hero-img" src="images/pricingapp.png" alt="">
-    <div class="cs-hero-fade"></div>
-    <div class="cs-hero-body">
-      <div class="cs-hero-meta">Express Scripts · Accessibility-First Design · 2019</div>
-      <h2 class="cs-hero-title">Pricing<br><em>Redesign</em></h2>
-      <div class="cs-stats">
-        <div><div class="cs-stat-v">Product<sup>✓</sup></div><div class="cs-stat-l">User Experience</div></div>
-        <div><div class="cs-stat-v">VoiceOver<sup>✓</sup></div><div class="cs-stat-l">Screen reader first</div></div>
-        <div><div class="cs-stat-v">NVDA<sup>✓</sup></div><div class="cs-stat-l">Fully navigable</div></div>
-        <div><div class="cs-stat-v">WCAG<sup>2.2</sup></div><div class="cs-stat-l">AA compliance met</div></div>
+</section>
+</main>
+<footer class="foot"><span class="ft-id"><svg class="ico" aria-hidden="true"><use href="#i-hex"/></svg>© 2026 Sankara Kalidasu · Product Design · AI Design Engineering · Design Systems</span><ul class="ft-links"><li><a href="https://www.linkedin.com/in/sankarakalidasu/"><svg class="ico" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li><li><a href="https://www.spaykmedia.com/profile/CV_SKalidasu.pdf"><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg>CV</a></li><li><a href="mailto:Sankara.Kalidasu@gmail.com"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>Email</a></li></ul></footer>
+
+<dialog class="case" id="case-leaf" aria-labelledby="leaf-title">
+  <div class="sheet">
+    <div class="c-bar"><span class="c-id"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg><span>Case study<span class="c-sep"> · </span><b>LEAF Design System</b></span></span>
+      <span class="c-act"><button class="c-nx" data-next="case-benefit" aria-label="Next case study, Benefit Overview Redesign"><span>Next</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="c-close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg><span>Close</span></button></span></div>
+    <header class="c-hero">
+      <img class="c-bg" src="https://www.spaykmedia.com/profile/images/splashtoken.png" alt="">
+      <div class="c-fade"></div>
+      <div class="c-body">
+        <p class="c-meta">Cigna / Evernorth · Design Systems · 2020–2025</p>
+        <h2 class="c-title" id="leaf-title">LEAF<br><em>Design System</em></h2>
+        <dl class="c-metrics"><div><dt>60<sup>+</sup></dt><dd>Components shipped</dd></div><div><dt>10<sup>+</sup></dt><dd>Teams adopted</dd></div><div><dt>~40<sup>%</sup></dt><dd>Faster handoff</dd></div></dl>
       </div>
-    </div>
+    </header>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>The Problem</h3>
+      <div><p class="cs-h">10 teams.<br>10 <em>different UIs.</em></p><p class="cs-p">Evernorth's product portfolio had grown through acquisition and independently-operating teams. Visual inconsistency, duplicated design work, inaccessible components shipped repeatedly. <strong>No single source of truth. No shared compliance baseline.</strong></p><div class="cs-notes"><div><h4>Design Debt</h4><p>Multiple unmaintained libraries. No token system. Hardcoded hex values. No documentation developers could self-serve from. Repeated accessibility rework every sprint.</p></div><div><h4>Compliance Risk</h4><p>Each team applied accessibility differently. WCAG 2.2 inconsistent. No shared testing protocol or accessible-by-default component baseline.</p></div></div></div>
+    </section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="LEAF Design System · Token architecture · Cigna / Evernorth" aria-label="Enlarge image, LEAF Design System overview"><img src="https://www.spaykmedia.com/profile/images/ds.png" alt="LEAF Design System overview" loading="lazy"></button></figure></section>
+    <p class="g-cap">LEAF Design System · Token architecture · Cigna / Evernorth</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg>Architecture</h3>
+      <div><p class="cs-h">Tokens → Components<br><em>→ Documentation.</em></p><p class="cs-p">Three architectural layers. First: a <strong>design token system</strong> as a single truth shared between Figma and code. Second: <strong>60+ components</strong> with every state and accessibility behavior documented. Third: <strong>Storybook and Confluence docs</strong> for developer self-service.</p></div>
+    </section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Token architecture · LEAF components applied in Benefit Overview" aria-label="Enlarge image, LEAF Design System overview"><img src="https://www.spaykmedia.com/profile/images/designtoken.png" alt="LEAF Design System overview" loading="lazy"></button></figure></section>
+    <section class="g g2" aria-label="Project images"><figure><button class="zoom" data-cap="Token architecture · LEAF components applied in Benefit Overview" aria-label="Enlarge image, Animation state sequence"><img src="https://www.spaykmedia.com/profile/images/mixins.png" alt="Animation state sequence" loading="lazy"></button></figure><figure><button class="zoom" data-cap="Token architecture · LEAF components applied in Benefit Overview" aria-label="Enlarge image, Dashboard integration context"><img src="https://www.spaykmedia.com/profile/images/splashtoken.png" alt="Dashboard integration context" loading="lazy"></button></figure></section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Token architecture · LEAF components applied in Benefit Overview" aria-label="Enlarge image, LEAF Design System overview"><img src="https://www.spaykmedia.com/profile/images/storybook.png" alt="LEAF Design System overview" loading="lazy"></button></figure></section>
+    <p class="g-cap">Token architecture · LEAF components applied in Benefit Overview</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-steps"/></svg>Process</h3>
+      <div><p class="cs-h">Adopted, not <em>mandated.</em></p><ol class="cs-steps"><li><span class="nd" aria-hidden="true"></span><h4>Audit & Inventory</h4><p>Audited all 10 product teams. 200+ unique components collapsed into 60+ composable LEAF components. Naming conventions and taxonomy established.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Token Architecture</h4><p>Primitive, semantic and component-level tokens. Figma variables → CSS custom properties pipeline. Storybook and Figma kept in sync.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Component Development</h4><p>All states documented: default, hover, focus, active, disabled, error, loading. WCAG 2.2 built-in, not retrofitted.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Storybook & Docs</h4><p>MDX stories, code examples and video tutorials. Teams onboard without designer involvement, self-serve compliance.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Governance & Mentorship</h4><p>Contribution model, critique protocols, accessibility review checklists, versioning standards. Mentored junior designers through documentation practices.</p></li></ol></div>
+    </section>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg>Impact</h3>
+      <div><div class="cs-impact"><div><b>60<sup>+</sup></b><span>Production-ready components</span></div><div><b>~40<sup>%</sup></b><span>Reduction in handoff time</span></div><div><b>10<sup>+</sup></b><span>Teams self-serving WCAG 2.2</span></div></div></div>
+    </section>
+    <nav class="c-next" aria-label="Next case study"><small>Next case study</small><button data-next="case-benefit"><span>Benefit Overview Redesign</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></button></nav>
   </div>
-  <div class="cs-body">
-    <div class="cs-sec">
-      <div class="cs-sec-tag">The Problem</div>
-      <h3 class="cs-h">Cluttered. Inaccessible.<br><em>Not user friendly for millions.</em></h3>
-      <p class="cs-p">The original pricing interface was a dense grid of numbers with no logical heading structure, no keyboard navigation and no screen reader compatibility. <strong>Lack of accessibility stood as a significant barrier to our legal and ethical goals.</strong></p>
-      <div class="cs-2col">
-        <div><div class="cs-col-h">Accessibility Failures</div><p class="cs-col-p">No ARIA roles or labels. Non-semantic table markup. Focus order not matching visual layout. Color-only indicators with no text alternative. No keyboard shortcut support.</p></div>
-        <div><div class="cs-col-h">Business Impact</div><p class="cs-col-p">Members abandoning pricing comparison flows. Increased call center volume. Section 508 compliance risk. High-friction checkout path affecting conversion.</p></div>
-      </div>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/pricingapp.png" alt="Pricing interface redesigned layout"></div>
-    </div>
+</dialog>
 
-    <div class="cs-img-cap">Pricing Interface · Accessible card-based comparison layout · Express Scripts</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Design Approach</div>
-      <h3 class="cs-h">Structure before <em>style.</em></h3>
-      <p class="cs-p">Before redesigning visuals, I rebuilt the semantic structure. Each pricing option became a card with a logical heading hierarchy, explicit text labels replacing color-only indicators, and a clear focus path for keyboard navigation.</p>
-    </div>
-    <div class="cs-img-grid cols-2">
-      <div class="cs-img-cell"><img src="https://www.spaykmedia.com/images/thumbs/masonry/pricing.jpg" alt="Pricing card detail"></div>
-      <div class="cs-img-cell"><img src="images/pricingappvsmall.png" alt="Related UI context"></div>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/pricingappv.png" alt="Pricing interface redesigned layout"></div>
-    </div>
-    <div class="cs-img-cap">Left: Pricing card with explicit text labels · Right: Healthcare context</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Process</div>
-      <h3 class="cs-h">Testing-first <em>methodology.</em></h3>
-      <div class="cs-steps">
-        <div class="cs-step"><div class="cs-step-n">01</div><div><div class="cs-step-title">Accessibility Audit</div><p class="cs-step-body">Full WCAG 2.2 audit with manual screen reader testing (VoiceOver iOS/macOS, NVDA Windows). Every failure documented with severity and fix recommendation.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">02</div><div><div class="cs-step-title">Semantic Redesign</div><p class="cs-step-body">Rebuilt IA with proper heading hierarchy. Replaced color-only indicators with text + icon pairs. Added ARIA roles, labels and live region announcements for dynamic price updates.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">03</div><div><div class="cs-step-title">Visual Redesign</div><p class="cs-step-body">Clean card layout with 7:1 contrast on key elements. Large tap targets. Focus states at 3:1 minimum. Cognitive load reduction through whitespace and logical grouping.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">04</div><div><div class="cs-step-title">Usability Testing</div><p class="cs-step-body">Sessions with visually impaired users using VoiceOver and NVDA. Iterated on announcement order and label wording based on direct feedback. Zero critical failures post-testing.</p></div></div>
+<dialog class="case" id="case-benefit" aria-labelledby="benefit-title">
+  <div class="sheet">
+    <div class="c-bar"><span class="c-id"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg><span>Case study<span class="c-sep"> · </span><b>Benefit Overview Redesign</b></span></span>
+      <span class="c-act"><button class="c-nx" data-next="case-pricing" aria-label="Next case study, Pricing Interface Redesign"><span>Next</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="c-close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg><span>Close</span></button></span></div>
+    <header class="c-hero">
+      <img class="c-bg" src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="">
+      <div class="c-fade"></div>
+      <div class="c-body">
+        <p class="c-meta">Cigna / Evernorth · Product Design · 2022</p>
+        <h2 class="c-title" id="benefit-title">Benefit<br><em>Overview</em></h2>
+        <dl class="c-metrics"><div><dt>WCAG<sup>2.2</sup></dt><dd>Full compliance on launch</dd></div><div><dt>Card<sup>↑</sup></dt><dd>Modular architecture</dd></div><div><dt>↓ Calls</dt><dd>Support dependency reduced</dd></div></dl>
       </div>
-    </div>
-    <div class="cs-sec">
-      <div class="cs-sec-tag">Outcome</div>
-      <div class="cs-impact-g">
-        <div class="cs-impact-cell"><div class="cs-impact-n">0</div><div class="cs-impact-l">Critical a11y defects at launch</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">508<sup>✓</sup></div><div class="cs-impact-l">Section 508 compliance achieved</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">7:1</div><div class="cs-impact-l">Contrast ratio on key elements</div></div>
-      </div>
-    </div>
+    </header>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>The Problem</h3>
+      <div><p class="cs-h">Dense prose. Zero <em>hierarchy.</em></p><p class="cs-p">Members navigating health decisions under stress were confronted with long paragraphs of benefit descriptions, no visual hierarchy, no member-specific data, no clear action paths. <strong>Confusion drove support calls. Ambiguity eroded trust.</strong></p><div class="cs-notes"><div><h4>Core Issues</h4><p>Unstructured text with no scan path. No personalization of member data. Multiple WCAG failures. Unclear next actions for checking coverage, comparing plans or finding a provider.</p></div><div><h4>Design Constraints</h4><p>Healthcare compliance requirements. Real-time member data integration. Legacy CMS. Cross-functional alignment across product, clinical, legal and engineering.</p></div></div></div>
+    </section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Benefit Overview · Modular card system · Accessibility · Cigna / Evernorth" aria-label="Enlarge image, Benefit Overview - full modular card layout"><img src="https://www.spaykmedia.com/profile/images/bomain.png" alt="Benefit Overview - full modular card layout" loading="lazy"></button></figure></section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Benefit Overview · Modular card system · Accessibility · Cigna / Evernorth" aria-label="Enlarge image, Benefit Overview - full modular card layout"><img src="https://www.spaykmedia.com/profile/images/boverview.png" alt="Benefit Overview - full modular card layout" loading="lazy"></button></figure></section>
+    <p class="g-cap">Benefit Overview · Modular card system · Accessibility · Cigna / Evernorth</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>Strategy</h3>
+      <div><p class="cs-h">Modular by <em>design.</em></p><p class="cs-p">Each benefit category became a self-contained card surfacing real member data, deductibles, coverage tiers, in-network status in context. The member no longer needed to read everything to find what was relevant.</p></div>
+    </section>
+    <section class="g g2" aria-label="Project images"><figure><button class="zoom" data-cap="Left: Benefit card component · Right: Mobile view" aria-label="Enlarge image, Benefit card detail view"><img src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="Benefit card detail view" loading="lazy"></button></figure><figure><button class="zoom" data-cap="Left: Benefit card component · Right: Mobile view" aria-label="Enlarge image, Benefit card mobile view"><img src="https://www.spaykmedia.com/profile/images/bomobile.png" alt="Benefit card mobile view" loading="lazy"></button></figure></section>
+    <p class="g-cap">Left: Benefit card component · Right: Mobile view</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-steps"/></svg>Process</h3>
+      <div><p class="cs-h">How the work <em>happened.</em></p><ol class="cs-steps"><li><span class="nd" aria-hidden="true"></span><h4>Research & Discovery</h4><p>Conducted internal stakeholder discussions, analyzed previously collected member feedback and facilitated Zoom empathy sessions with 6 users. Identified key pain points around dense healthcare content, poor accessibility and cognitive overload.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Information Architecture & Ideation</h4><p>Audited against WCAG 2.2 and simplified 40+ disconnected content areas into 8 clear card-based benefit categories. Created wireframes focused on scannability, faster decision-making and task-oriented navigation.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Design & Prototyping</h4><p>Designed accessible, reusable UI components with strong visual hierarchy and token-driven consistency. Built interactive prototypes validated through user testing to ensure members could quickly understand coverage details, costs and recommended actions.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Accessibility Testing & Handoff</h4><p>Completed VoiceOver, NVDA, keyboard navigation, focus management and color contrast validation before dev handoff. Delivered annotated Figma specs, accessibility guidance and component documentation for seamless engineering implementation.</p></li></ol></div>
+    </section>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg>Outcome</h3>
+      <div><div class="cs-impact"><div><b>WCAG<sup>2.2</sup></b><span>Full compliance on launch</span></div><div><b>↓</b><span>Support dependency reduced post-launch</span></div><div><b>LEAF</b><span>Component-driven architecture applied</span></div></div></div>
+    </section>
+    <nav class="c-next" aria-label="Next case study"><small>Next case study</small><button data-next="case-pricing"><span>Pricing Interface Redesign</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></button></nav>
   </div>
-</div>
+</dialog>
 
-<!-- 03: DASHBOARD -->
-<div class="cs-ov" id="case-dashboard" role="dialog" aria-modal="true" aria-label="Dashboard Redesign Case Study">
-  <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-layout-dashboard"></i>Case Study 03 - Member Dashboard Redesign</span>
-    <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
+<dialog class="case" id="case-pricing" aria-labelledby="pricing-title">
+  <div class="sheet">
+    <div class="c-bar"><span class="c-id"><svg class="ico" aria-hidden="true"><use href="#i-dollar"/></svg><span>Case study<span class="c-sep"> · </span><b>Pricing Interface Redesign</b></span></span>
+      <span class="c-act"><button class="c-nx" data-next="case-dashboard" aria-label="Next case study, Member Dashboard Redesign"><span>Next</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="c-close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg><span>Close</span></button></span></div>
+    <header class="c-hero">
+      <img class="c-bg" src="https://www.spaykmedia.com/profile/images/pricingapp.png" alt="">
+      <div class="c-fade"></div>
+      <div class="c-body">
+        <p class="c-meta">Express Scripts · Accessibility-First Design · 2019</p>
+        <h2 class="c-title" id="pricing-title">Pricing<br><em>Redesign</em></h2>
+        <dl class="c-metrics"><div><dt>Product<sup>✓</sup></dt><dd>User Experience</dd></div><div><dt>VoiceOver<sup>✓</sup></dt><dd>Screen reader first</dd></div><div><dt>NVDA<sup>✓</sup></dt><dd>Fully navigable</dd></div><div><dt>WCAG<sup>2.2</sup></dt><dd>AA compliance met</dd></div></dl>
+      </div>
+    </header>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>The Problem</h3>
+      <div><p class="cs-h">Cluttered. Inaccessible.<br><em>Not user friendly for millions.</em></p><p class="cs-p">The original pricing interface was a dense grid of numbers with no logical heading structure, no keyboard navigation and no screen reader compatibility. <strong>Lack of accessibility stood as a significant barrier to our legal and ethical goals.</strong></p><div class="cs-notes"><div><h4>Accessibility Failures</h4><p>No ARIA roles or labels. Non-semantic table markup. Focus order not matching visual layout. Color-only indicators with no text alternative. No keyboard shortcut support.</p></div><div><h4>Business Impact</h4><p>Members abandoning pricing comparison flows. Increased call center volume. Section 508 compliance risk. High-friction checkout path affecting conversion.</p></div></div></div>
+    </section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Pricing Interface · Accessible card-based comparison layout · Express Scripts" aria-label="Enlarge image, Pricing interface redesigned layout"><img src="https://www.spaykmedia.com/profile/images/pricingapp.png" alt="Pricing interface redesigned layout" loading="lazy"></button></figure></section>
+    <p class="g-cap">Pricing Interface · Accessible card-based comparison layout · Express Scripts</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-compass"/></svg>Design Approach</h3>
+      <div><p class="cs-h">Structure before <em>style.</em></p><p class="cs-p">Before redesigning visuals, I rebuilt the semantic structure. Each pricing option became a card with a logical heading hierarchy, explicit text labels replacing color-only indicators, and a clear focus path for keyboard navigation.</p></div>
+    </section>
+    <section class="g g2" aria-label="Project images"><figure><button class="zoom" data-cap="Left: Pricing card with explicit text labels · Right: Healthcare context" aria-label="Enlarge image, Pricing card detail"><img src="https://www.spaykmedia.com/images/thumbs/masonry/pricing.jpg" alt="Pricing card detail" loading="lazy"></button></figure><figure><button class="zoom" data-cap="Left: Pricing card with explicit text labels · Right: Healthcare context" aria-label="Enlarge image, Related UI context"><img src="https://www.spaykmedia.com/profile/images/pricingappvsmall.png" alt="Related UI context" loading="lazy"></button></figure></section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Left: Pricing card with explicit text labels · Right: Healthcare context" aria-label="Enlarge image, Pricing interface redesigned layout"><img src="https://www.spaykmedia.com/profile/images/pricingappv.png" alt="Pricing interface redesigned layout" loading="lazy"></button></figure></section>
+    <p class="g-cap">Left: Pricing card with explicit text labels · Right: Healthcare context</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-steps"/></svg>Process</h3>
+      <div><p class="cs-h">Testing-first <em>methodology.</em></p><ol class="cs-steps"><li><span class="nd" aria-hidden="true"></span><h4>Accessibility Audit</h4><p>Full WCAG 2.2 audit with manual screen reader testing (VoiceOver iOS/macOS, NVDA Windows). Every failure documented with severity and fix recommendation.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Semantic Redesign</h4><p>Rebuilt IA with proper heading hierarchy. Replaced color-only indicators with text + icon pairs. Added ARIA roles, labels and live region announcements for dynamic price updates.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Visual Redesign</h4><p>Clean card layout with 7:1 contrast on key elements. Large tap targets. Focus states at 3:1 minimum. Cognitive load reduction through whitespace and logical grouping.</p></li><li><span class="nd" aria-hidden="true"></span><h4>Usability Testing</h4><p>Sessions with visually impaired users using VoiceOver and NVDA. Iterated on announcement order and label wording based on direct feedback. Zero critical failures post-testing.</p></li></ol></div>
+    </section>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg>Outcome</h3>
+      <div><div class="cs-impact"><div><b>0</b><span>Critical a11y defects at launch</span></div><div><b>508<sup>✓</sup></b><span>Section 508 compliance achieved</span></div><div><b>7:1</b><span>Contrast ratio on key elements</span></div></div></div>
+    </section>
+    <nav class="c-next" aria-label="Next case study"><small>Next case study</small><button data-next="case-dashboard"><span>Member Dashboard Redesign</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></button></nav>
   </div>
-  <div class="cs-hero">
-    <img class="cs-hero-img" src="https://www.spaykmedia.com/images/thumbs/masonry/dashboard.jpg" alt="">
-    <div class="cs-hero-fade"></div>
-    <div class="cs-hero-body">
-      <div class="cs-hero-meta">Express Scripts · Dashboard UX · 2018</div>
-      <h2 class="cs-hero-title">Member<br><em>Dashboard</em></h2>
-      <div class="cs-stats">
-        <div><div class="cs-stat-v">Card<sup>+</sup></div><div class="cs-stat-l">Modern card layout</div></div>
-        <div><div class="cs-stat-v">Motion<sup>+</sup></div><div class="cs-stat-l">Micro-interactions added</div></div>
-        <div><div class="cs-stat-v">↑ UX</div><div class="cs-stat-l">Engagement improved</div></div>
+</dialog>
+
+<dialog class="case" id="case-dashboard" aria-labelledby="dashboard-title">
+  <div class="sheet">
+    <div class="c-bar"><span class="c-id"><svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg><span>Case study<span class="c-sep"> · </span><b>Member Dashboard Redesign</b></span></span>
+      <span class="c-act"><button class="c-nx" data-next="case-newrx" aria-label="Next case study, NewRx Micro-interaction"><span>Next</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="c-close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg><span>Close</span></button></span></div>
+    <header class="c-hero">
+      <img class="c-bg" src="https://www.spaykmedia.com/images/thumbs/masonry/dashboard.jpg" alt="">
+      <div class="c-fade"></div>
+      <div class="c-body">
+        <p class="c-meta">Express Scripts · Dashboard UX · 2018</p>
+        <h2 class="c-title" id="dashboard-title">Member<br><em>Dashboard</em></h2>
+        <dl class="c-metrics"><div><dt>Card<sup>+</sup></dt><dd>Modern card layout</dd></div><div><dt>Motion<sup>+</sup></dt><dd>Micro-interactions added</dd></div><div><dt>↑ UX</dt><dd>Engagement improved</dd></div></dl>
       </div>
-    </div>
+    </header>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>The Problem</h3>
+      <div><p class="cs-h">An information dump<br>instead of a <em>dashboard.</em></p><p class="cs-p">The member dashboard was a legacy list interface with no visual hierarchy, no status indicators and no motion feedback. Members couldn't quickly understand their prescription status, account activity or available actions. <strong>It displayed information. It didn't communicate it.</strong></p></div>
+    </section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Dashboard card layout · NewRx motion · Status card detail" aria-label="Enlarge image, Pricing interface redesigned layout"><img src="https://www.spaykmedia.com/profile/images/dashboardm.png" alt="Pricing interface redesigned layout" loading="lazy"></button></figure></section>
+    <section class="g g2" aria-label="Project images"><figure><button class="zoom" data-cap="Dashboard card layout · NewRx motion · Status card detail" aria-label="Enlarge image, Dashboard overview - card layout"><img src="https://www.spaykmedia.com/profile/images/dashv1.png" alt="Dashboard overview - card layout" loading="lazy"></button></figure><figure><button class="zoom" data-cap="Dashboard card layout · NewRx motion · Status card detail" aria-label="Enlarge image, Status card detail"><img src="https://www.spaykmedia.com/profile/images/dashboardmv.png" alt="Status card detail" loading="lazy"></button></figure></section>
+    <p class="g-cap">Dashboard card layout · NewRx motion · Status card detail</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-layers"/></svg>Design System</h3>
+      <div><p class="cs-h">Cards, motion <em>and meaning.</em></p><p class="cs-p">The redesign introduced a card grid where each card communicated a distinct status context. Micro-interactions and loading transitions made state changes visible and reassuring rather than abrupt.</p><div class="cs-notes"><div><h4>Motion Philosophy</h4><p>Every transition communicates a state change. Cards enter with staggered reveal. Loading uses skeleton screens not spinners. Status badges animate only on change, not on load.</p></div><div><h4>Tools Used</h4><p>Figma for layout and components. After Effects for motion specs. Framer for interactive prototyping. Storybook for component handoff and documentation.</p></div></div></div>
+    </section>
+    <p class="g-cap">Card grid layout · Integrated benefits module</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg>Outcome</h3>
+      <div><div class="cs-impact"><div><b>Card<sup>↑</sup></b><span>Modern scannable layout shipped</span></div><div><b>↑ Eng.</b><span>Increased user engagement</span></div><div><b>Motion<sup>✓</sup></b><span>Micro-interactions & transitions live</span></div></div></div>
+    </section>
+    <nav class="c-next" aria-label="Next case study"><small>Next case study</small><button data-next="case-newrx"><span>NewRx Micro-interaction</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></button></nav>
   </div>
-  <div class="cs-body">
-    <div class="cs-sec">
-      <div class="cs-sec-tag">The Problem</div>
-      <h3 class="cs-h">An information dump<br>instead of a <em>dashboard.</em></h3>
-      <p class="cs-p">The member dashboard was a legacy list interface with no visual hierarchy, no status indicators and no motion feedback. Members couldn't quickly understand their prescription status, account activity or available actions. <strong>It displayed information. It didn't communicate it.</strong></p>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/dashboardm.png" alt="Pricing interface redesigned layout"></div>
-    </div>
-    <div class="cs-img-grid  cols-2">
-      <div class="cs-img-cell"><img src="images/dashv1.png" alt="Dashboard overview - card layout"></div>
-      <div class="cs-img-cell"><img src="images/dashboardmv.png" alt="Status card detail"></div>
-    </div>
-    <div class="cs-img-cap">Dashboard card layout · NewRx motion · Status card detail</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Design System</div>
-      <h3 class="cs-h">Cards, motion <em>and meaning.</em></h3>
-      <p class="cs-p">The redesign introduced a card grid where each card communicated a distinct status context. Micro-interactions and loading transitions made state changes visible and reassuring rather than abrupt.</p>
-      <div class="cs-2col">
-        <div><div class="cs-col-h">Motion Philosophy</div><p class="cs-col-p">Every transition communicates a state change. Cards enter with staggered reveal. Loading uses skeleton screens not spinners. Status badges animate only on change, not on load.</p></div>
-        <div><div class="cs-col-h">Tools Used</div><p class="cs-col-p">Figma for layout and components. After Effects for motion specs. Framer for interactive prototyping. Storybook for component handoff and documentation.</p></div>
+</dialog>
+
+<dialog class="case" id="case-newrx" aria-labelledby="newrx-title">
+  <div class="sheet">
+    <div class="c-bar"><span class="c-id"><svg class="ico" aria-hidden="true"><use href="#i-pill"/></svg><span>Case study<span class="c-sep"> · </span><b>NewRx Micro-interaction</b></span></span>
+      <span class="c-act"><button class="c-nx" data-next="case-leaf" aria-label="Next case study, LEAF Design System"><span>Next</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="c-close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg><span>Close</span></button></span></div>
+    <header class="c-hero">
+      <img class="c-bg" src="https://www.spaykmedia.com/images/thumbs/rxbottle.gif" alt="">
+      <div class="c-fade"></div>
+      <div class="c-body">
+        <p class="c-meta">Evernorth · Motion Design · Solo Project</p>
+        <h2 class="c-title" id="newrx-title">NewRx<br><em>Micro-interaction</em></h2>
+        <dl class="c-metrics"><div><dt>Solo<sup>✓</sup></dt><dd>Concept to export</dd></div><div><dt>≤400<sup>ms</sup></dt><dd>Animation</dd></div><div><dt>A11y<sup>✓</sup></dt><dd>Reduced motion support</dd></div></dl>
       </div>
-    </div>
-    <div class="cs-img-cap">Card grid layout · Integrated benefits module</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Outcome</div>
-      <div class="cs-impact-g">
-        <div class="cs-impact-cell"><div class="cs-impact-n">Card<sup>↑</sup></div><div class="cs-impact-l">Modern scannable layout shipped</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">↑ Eng.</div><div class="cs-impact-l">Increased user engagement</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">Motion<sup>✓</sup></div><div class="cs-impact-l">Micro-interactions & transitions live</div></div>
-      </div>
-    </div>
+    </header>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-bulb"/></svg>The Concept</h3>
+      <div><p class="cs-h">One metaphor.<br><em>Three states.</em></p><p class="cs-p">A fluid visual metaphor communicating the prescription process, from a traditional physical pill bottle, through a prescription label, to a clean digital circular element. The animation signals the shift from legacy pharmacy to digital-first experience. <strong>Every frame designed, animated and exported solo in After Effects.</strong></p></div>
+    </section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="NewRx · Pill bottle → label → circular digital ID · After Effects" aria-label="Enlarge image, NewRx pill bottle transformation animation"><img src="https://www.spaykmedia.com/profile/images/rx.png" alt="NewRx pill bottle transformation animation" loading="lazy"></button></figure></section>
+    <p class="g-cap">NewRx · Pill bottle → label → circular digital ID · After Effects</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-motion"/></svg>Motion System</h3>
+      <div><p class="cs-h">Purpose-first <em>animation.</em></p><p class="cs-p">In healthcare, motion carries responsibility. It must communicate progress without inducing anxiety. Every easing curve was deliberate, ease-out on entry, ease-in on exit, spring curves on transformation states.</p><div class="cs-notes"><div><h4>Technical Specs</h4><p>Designed in After Effects. Frame-by-frame easing curves. Exported as optimised GIF and MP4. Animation budget under 400ms. CSS fallback for prefers-reduced-motion.</p></div><div><h4>Accessibility</h4><p>All animated elements have static fallback states. Motion is decorative, interface communicates fully without it. Respects prefers-reduced-motion at CSS and component level.</p></div></div></div>
+    </section>
+    <section class="g g2" aria-label="Project images"><figure><button class="zoom" data-cap="Animation · Dashboard context · Benefit integration" aria-label="Enlarge image, Dashboard integration context"><img src="https://www.spaykmedia.com/profile/images/rxbottle.png" alt="Dashboard integration context" loading="lazy"></button></figure><figure><button class="zoom" data-cap="Animation · Dashboard context · Benefit integration" aria-label="Enlarge image, Animation state sequence"><img src="https://www.spaykmedia.com/images/thumbs/rxbottle.gif" alt="Animation state sequence" loading="lazy"></button></figure></section>
+    <p class="g-cap">Animation · Dashboard context · Benefit integration</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg>Outcome</h3>
+      <div><div class="cs-impact"><div><b>Solo<sup>✓</sup></b><span>Full ownership concept to export</span></div><div><b>3</b><span>Transformation states designed</span></div><div><b>0</b><span>External dependencies required</span></div></div></div>
+    </section>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-motion"/></svg>Motion System</h3>
+      <div><p class="cs-h">Other <em>animations.</em></p><p class="cs-p">In healthcare, motion carries responsibility. It must communicate progress without inducing anxiety. Every easing curve was deliberate, ease-out on entry, ease-in on exit, spring curves on transformation states.</p></div>
+    </section>
+    <section class="g g2" aria-label="Project images"><figure><button class="zoom" data-cap="" aria-label="Enlarge image, Dashboard integration context"><img src="https://www.spaykmedia.com/profile/images/dayNight.gif" alt="Dashboard integration context" loading="lazy"></button></figure><figure><button class="zoom" data-cap="" aria-label="Enlarge image, Animation state sequence"><img src="https://www.spaykmedia.com/profile/images/cap.gif" alt="Animation state sequence" loading="lazy"></button></figure></section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="" aria-label="Enlarge image, Dashboard integration context"><img src="https://www.spaykmedia.com/profile/images/EverNorth.gif" alt="Dashboard integration context" loading="lazy"></button></figure></section>
+    <nav class="c-next" aria-label="Next case study"><small>Next case study</small><button data-next="case-leaf"><span>LEAF Design System</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></button></nav>
   </div>
-</div>
+</dialog>
 
-<!-- 04: NEWRX -->
-<div class="cs-ov" id="case-newrx" role="dialog" aria-modal="true" aria-label="NewRx Micro-interaction Case Study">
-  <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-pill"></i>Case Study 04 - NewRx Micro-interaction</span>
-    <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
+<dialog class="case" id="case-evernorth-web" aria-labelledby="evernorth-web-title">
+  <div class="sheet">
+    <div class="c-bar"><span class="c-id"><svg class="ico" aria-hidden="true"><use href="#i-globe"/></svg><span>Case study<span class="c-sep"> · </span><b>Evernorth Website</b></span></span>
+      <span class="c-act"><button class="c-nx" data-next="case-leaf" aria-label="Next case study, LEAF Design System"><span>Next</span><svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="c-close" data-close><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg><span>Close</span></button></span></div>
+    <header class="c-hero">
+      <img class="c-bg" src="https://www.spaykmedia.com/images/thumbs/masonry/evernorth.jpg" alt="">
+      <div class="c-fade"></div>
+      <div class="c-body">
+        <p class="c-meta">Evernorth · Web Design & Maintenance</p>
+        <h2 class="c-title" id="evernorth-web-title">Evernorth<br><em>Website</em></h2>
+        <dl class="c-metrics"><div><dt>Resp.<sup>✓</sup></dt><dd>All devices & viewports</dd></div><div><dt>Brand<sup>✓</sup></dt><dd>Consistent identity</dd></div><div><dt>Perf.<sup>↑</sup></dt><dd>Optimized delivery</dd></div></dl>
+      </div>
+    </header>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg>Overview</h3>
+      <div><p class="cs-h">Designed, maintained,<br><em>evolved.</em></p><p class="cs-p">Designed and maintained the Evernorth public website, ensuring it remained visually modern, responsive across all devices and up-to-date with new content, features and product updates.</p><div class="cs-notes"><div><h4>Responsibilities</h4><p>UI design for new pages and features. Brand consistency enforcement. Performance optimization. Collaboration with content, marketing and engineering teams on continuous delivery.</p></div><div><h4>Tools</h4><p>Figma for design and prototyping. HTML and CSS for front-end implementation. Responsive design patterns. Brand token system aligned with LEAF Design System foundations.</p></div></div></div>
+    </section>
+    <section class="g g1" aria-label="Project images"><figure><button class="zoom" data-cap="Evernorth Website · Responsive, brand-consistent design" aria-label="Enlarge image, Evernorth website design"><img src="https://www.spaykmedia.com/images/thumbs/masonry/evernorth.jpg" alt="Evernorth website design" loading="lazy"></button></figure></section>
+    <p class="g-cap">Evernorth Website · Responsive, brand-consistent design</p>
+    <section class="g g2" aria-label="Project images"><figure><button class="zoom" data-cap="Desktop layout · Brand component system detail" aria-label="Enlarge image, Evernorth desktop view"><img src="https://www.spaykmedia.com/images/thumbs/masonry/evernorth.jpg" alt="Evernorth desktop view" loading="lazy"></button></figure><figure><button class="zoom" data-cap="Desktop layout · Brand component system detail" aria-label="Enlarge image, Brand component detail"><img src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="Brand component detail" loading="lazy"></button></figure></section>
+    <p class="g-cap">Desktop layout · Brand component system detail</p>
+    <section class="cs">
+      <h3 class="cs-tag"><svg class="ico" aria-hidden="true"><use href="#i-flag"/></svg>Outcome</h3>
+      <div><div class="cs-impact"><div><b>All<sup>↑</sup></b><span>Devices fully responsive</span></div><div><b>Brand<sup>✓</sup></b><span>Consistent identity maintained</span></div><div><b>Perf.<sup>↑</sup></b><span>Optimized across all pages</span></div></div></div>
+    </section>
+    <nav class="c-next" aria-label="Next case study"><small>Next case study</small><button data-next="case-leaf"><span>LEAF Design System</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></button></nav>
   </div>
-  <div class="cs-hero"">
-    <img class="cs-hero-img" src="https://www.spaykmedia.com/images/thumbs/rxbottle.gif" alt="">
-    <div class="cs-hero-fade"></div>
-    <div class="cs-hero-body">
-      <div class="cs-hero-meta">Evernorth · Motion Design · Solo Project</div>
-      <h2 class="cs-hero-title">NewRx<br><em>Micro-interaction</em></h2>
-      <div class="cs-stats">
-        <div><div class="cs-stat-v">Solo<sup>✓</sup></div><div class="cs-stat-l">Concept to export</div></div>
-        <div><div class="cs-stat-v">≤400<sup>ms</sup></div><div class="cs-stat-l">Animation</div></div>
-        <div><div class="cs-stat-v">A11y<sup>✓</sup></div><div class="cs-stat-l">Reduced motion support</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="cs-body">
-    <div class="cs-sec">
-      <div class="cs-sec-tag">The Concept</div>
-      <h3 class="cs-h">One metaphor.<br><em>Three states.</em></h3>
-      <p class="cs-p">A fluid visual metaphor communicating the prescription process, from a traditional physical pill bottle, through a prescription label, to a clean digital circular element. The animation signals the shift from legacy pharmacy to digital-first experience. <strong>Every frame designed, animated and exported solo in After Effects.</strong></p>
-    </div>
-    <div class="cs-img-grid cols-1" >
-      <div class="cs-img-cell"><img src="images/rx.png" alt="NewRx pill bottle transformation animation"></div>
-    </div>
-    <div class="cs-img-cap" style="margin:-3rem auto 5rem;">NewRx · Pill bottle → label → circular digital ID · After Effects</div>
-    <div class="cs-sec">
-      <div class="cs-sec-tag">Motion System</div>
-      <h3 class="cs-h">Purpose-first <em>animation.</em></h3>
-      <p class="cs-p">In healthcare, motion carries responsibility. It must communicate progress without inducing anxiety. Every easing curve was deliberate, ease-out on entry, ease-in on exit, spring curves on transformation states.</p>
-      <div class="cs-2col">
-        <div><div class="cs-col-h">Technical Specs</div><p class="cs-col-p">Designed in After Effects. Frame-by-frame easing curves. Exported as optimised GIF and MP4. Animation budget under 400ms. CSS fallback for prefers-reduced-motion.</p></div>
-        <div><div class="cs-col-h">Accessibility</div><p class="cs-col-p">All animated elements have static fallback states. Motion is decorative, interface communicates fully without it. Respects prefers-reduced-motion at CSS and component level.</p></div>
-      </div>
-    </div>
-    <div class="cs-img-grid cols-2">
-      <div class="cs-img-cell"><img src="images/rxbottle.png" alt="Dashboard integration context"></div>
-      <div class="cs-img-cell gif-cell"><img src="https://www.spaykmedia.com/images/thumbs/rxbottle.gif" alt="Animation state sequence"></div>
-    </div>
-    
-    <div class="cs-img-cap">Animation · Dashboard context · Benefit integration</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Outcome</div>
-      <div class="cs-impact-g">
-        <div class="cs-impact-cell"><div class="cs-impact-n">Solo<sup>✓</sup></div><div class="cs-impact-l">Full ownership concept to export</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">3</div><div class="cs-impact-l">Transformation states designed</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">0</div><div class="cs-impact-l">External dependencies required</div></div>
-      </div>
-    </div>
+</dialog>
 
-    <div class="cs-sec">
-      <div class="cs-sec-tag">Motion System</div>
-      <h3 class="cs-h">Other <em>animations.</em></h3>
-      <p class="cs-p">In healthcare, motion carries responsibility. It must communicate progress without inducing anxiety. Every easing curve was deliberate, ease-out on entry, ease-in on exit, spring curves on transformation states.</p>
-    </div>
-    <div class="cs-img-grid cols-2">
-      <div class="cs-img-cell"><img src="images/dayNight.gif" alt="Dashboard integration context"></div>
-      <div class="cs-img-cell gif-cell"><img src="images/cap.gif" alt="Animation state sequence"></div>
-    </div>
-    <div class="cs-img-grid">
-      <div class="cs-img-cell"><img src="images/EverNorth.gif" alt="Dashboard integration context"></div>
-    </div>
-  </div>
-</div>
-
-<!-- 05: LEAF DESIGN SYSTEM -->
-<div class="cs-ov" id="case-design-system" role="dialog" aria-modal="true" aria-label="LEAF Design System Case Study">
-  <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-lego"></i>Case Study 05 - LEAF Design System</span>
-    <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
-  </div>
-  <div class="cs-hero">
-    <img class="cs-hero-img" src="images/splashtoken.png" alt="">
-    <div class="cs-hero-fade"></div>
-    <div class="cs-hero-body">
-      <div class="cs-hero-meta">Cigna / Evernorth · Design Systems · 2020–2025</div>
-      <h2 class="cs-hero-title">LEAF<br><em>Design System</em></h2>
-      <div class="cs-stats">
-        <div><div class="cs-stat-v">60<sup>+</sup></div><div class="cs-stat-l">Components shipped</div></div>
-        <div><div class="cs-stat-v">10<sup>+</sup></div><div class="cs-stat-l">Teams adopted</div></div>
-        <div><div class="cs-stat-v">~40<sup>%</sup></div><div class="cs-stat-l">Faster handoff</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="cs-body">
-    <div class="cs-sec">
-      <div class="cs-sec-tag">The Problem</div>
-      <h3 class="cs-h">10 teams.<br>10 <em>different UIs.</em></h3>
-      <p class="cs-p">Evernorth's product portfolio had grown through acquisition and independently-operating teams. Visual inconsistency, duplicated design work, inaccessible components shipped repeatedly. <strong>No single source of truth. No shared compliance baseline.</strong></p>
-      <div class="cs-2col">
-        <div><div class="cs-col-h">Design Debt</div><p class="cs-col-p">Multiple unmaintained libraries. No token system. Hardcoded hex values. No documentation developers could self-serve from. Repeated accessibility rework every sprint.</p></div>
-        <div><div class="cs-col-h">Compliance Risk</div><p class="cs-col-p">Each team applied accessibility differently. WCAG 2.2 inconsistent. No shared testing protocol or accessible-by-default component baseline.</p></div>
-      </div>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/ds.png" alt="LEAF Design System overview"></div>
-    </div>
-    <div class="cs-img-cap">LEAF Design System · Token architecture · Cigna / Evernorth</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Architecture</div>
-      <h3 class="cs-h">Tokens → Components<br><em>→ Documentation.</em></h3>
-      <p class="cs-p">Three architectural layers. First: a <strong>design token system</strong> as a single truth shared between Figma and code. Second: <strong>60+ components</strong> with every state and accessibility behavior documented. Third: <strong>Storybook and Confluence docs</strong> for developer self-service.</p>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/designtoken.png" alt="LEAF Design System overview"></div>
-    </div>
-    <div class="cs-img-grid cols-2">
-      <div class="cs-img-cell gif-cell"><img src="images/mixins.png" alt="Animation state sequence"></div>
-      <div class="cs-img-cell"><img src="images/splashtoken.png" alt="Dashboard integration context"></div>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="images/storybook.png" alt="LEAF Design System overview"></div>
-    </div>
-    <div class="cs-img-cap">Token architecture · LEAF components applied in Benefit Overview</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Process</div>
-      <h3 class="cs-h">Adopted, not <em>mandated.</em></h3>
-      <div class="cs-steps">
-        <div class="cs-step"><div class="cs-step-n">01</div><div><div class="cs-step-title">Audit & Inventory</div><p class="cs-step-body">Audited all 10 product teams. 200+ unique components collapsed into 60+ composable LEAF components. Naming conventions and taxonomy established.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">02</div><div><div class="cs-step-title">Token Architecture</div><p class="cs-step-body">Primitive, semantic and component-level tokens. Figma variables → CSS custom properties pipeline. Storybook and Figma kept in sync.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">03</div><div><div class="cs-step-title">Component Development</div><p class="cs-step-body">All states documented: default, hover, focus, active, disabled, error, loading. WCAG 2.2 built-in, not retrofitted.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">04</div><div><div class="cs-step-title">Storybook & Docs</div><p class="cs-step-body">MDX stories, code examples and video tutorials. Teams onboard without designer involvement, self-serve compliance.</p></div></div>
-        <div class="cs-step"><div class="cs-step-n">05</div><div><div class="cs-step-title">Governance & Mentorship</div><p class="cs-step-body">Contribution model, critique protocols, accessibility review checklists, versioning standards. Mentored junior designers through documentation practices.</p></div></div>
-      </div>
-    </div>
-    <div class="cs-sec">
-      <div class="cs-sec-tag">Impact</div>
-      <div class="cs-impact-g">
-        <div class="cs-impact-cell"><div class="cs-impact-n">60<sup>+</sup></div><div class="cs-impact-l">Production-ready components</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">~40<sup>%</sup></div><div class="cs-impact-l">Reduction in handoff time</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">10<sup>+</sup></div><div class="cs-impact-l">Teams self-serving WCAG 2.2</div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 06: EVERNORTH WEB -->
-<div class="cs-ov" id="case-evernorth-web" role="dialog" aria-modal="true" aria-label="Evernorth Website Case Study">
-  <div class="cs-nav">
-    <span class="cs-nav-id"><i class="ti ti-world"></i>Case Study 06 - Evernorth Website</span>
-    <button class="cs-close" onclick="closeCase()" aria-label="Close case study"><span class="cs-close-ico" aria-hidden="true">✕</span><span class="cs-close-label">Close</span></button>
-  </div>
-  <div class="cs-hero">
-    <img class="cs-hero-img" src="https://www.spaykmedia.com/images/thumbs/masonry/evernorth.jpg" alt="">
-    <div class="cs-hero-fade"></div>
-    <div class="cs-hero-body">
-      <div class="cs-hero-meta">Evernorth · Web Design & Maintenance</div>
-      <h2 class="cs-hero-title">Evernorth<br><em>Website</em></h2>
-      <div class="cs-stats">
-        <div><div class="cs-stat-v">Resp.<sup>✓</sup></div><div class="cs-stat-l">All devices & viewports</div></div>
-        <div><div class="cs-stat-v">Brand<sup>✓</sup></div><div class="cs-stat-l">Consistent identity</div></div>
-        <div><div class="cs-stat-v">Perf.<sup>↑</sup></div><div class="cs-stat-l">Optimized delivery</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="cs-body">
-    <div class="cs-sec">
-      <div class="cs-sec-tag">Overview</div>
-      <h3 class="cs-h">Designed, maintained,<br><em>evolved.</em></h3>
-      <p class="cs-p">Designed and maintained the Evernorth public website, ensuring it remained visually modern, responsive across all devices and up-to-date with new content, features and product updates.</p>
-      <div class="cs-2col">
-        <div><div class="cs-col-h">Responsibilities</div><p class="cs-col-p">UI design for new pages and features. Brand consistency enforcement. Performance optimization. Collaboration with content, marketing and engineering teams on continuous delivery.</p></div>
-        <div><div class="cs-col-h">Tools</div><p class="cs-col-p">Figma for design and prototyping. HTML and CSS for front-end implementation. Responsive design patterns. Brand token system aligned with LEAF Design System foundations.</p></div>
-      </div>
-    </div>
-    <div class="cs-img-grid cols-1">
-      <div class="cs-img-cell"><img src="https://www.spaykmedia.com/images/thumbs/masonry/evernorth.jpg" alt="Evernorth website design"></div>
-    </div>
-    <div class="cs-img-cap">Evernorth Website · Responsive, brand-consistent design</div>
-    <div class="cs-img-grid cols-2" style="margin-top:2px;">
-      <div class="cs-img-cell"><img src="https://www.spaykmedia.com/images/thumbs/masonry/evernorth.jpg" alt="Evernorth desktop view"></div>
-      <div class="cs-img-cell"><img src="https://www.spaykmedia.com/images/thumbs/masonry/benefitoverview.jpg" alt="Brand component detail"></div>
-    </div>
-    <div class="cs-img-cap">Desktop layout · Brand component system detail</div>
-    <div class="cs-sec" style="margin-top:5rem;">
-      <div class="cs-sec-tag">Outcome</div>
-      <div class="cs-impact-g">
-        <div class="cs-impact-cell"><div class="cs-impact-n">All<sup>↑</sup></div><div class="cs-impact-l">Devices fully responsive</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">Brand<sup>✓</sup></div><div class="cs-impact-l">Consistent identity maintained</div></div>
-        <div class="cs-impact-cell"><div class="cs-impact-n">Perf.<sup>↑</sup></div><div class="cs-impact-l">Optimized across all pages</div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ============================================================ JAVASCRIPT -->
-<script>
-const navTop = document.getElementById('navTop');
-const navToggle = document.getElementById('navToggle');
-const navPanel = document.getElementById('navPanel');
-const navBackdrop = document.getElementById('navBackdrop');
-const MOBILE_NAV_MQ = window.matchMedia('(max-width: 900px)');
-
-function syncNavPanelMode() {
-  if (!MOBILE_NAV_MQ.matches) setNavOpen(false);
-}
-
-function setNavOpen(open) {
-  if (!MOBILE_NAV_MQ.matches) return;
-  navTop.classList.toggle('is-open', open);
-  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  if (navPanel) navPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
-  navBackdrop.classList.toggle('is-visible', open);
-  navBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
-  document.body.classList.toggle('nav-open', open);
-}
-
-navToggle.addEventListener('click', () => setNavOpen(!navTop.classList.contains('is-open')));
-if (navBackdrop) navBackdrop.addEventListener('click', () => setNavOpen(false));
-if (navPanel) {
-  navPanel.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => setNavOpen(false));
-  });
-}
-MOBILE_NAV_MQ.addEventListener('change', syncNavPanelMode);
-window.addEventListener('resize', syncNavPanelMode);
-syncNavPanelMode();
-
-window.addEventListener('scroll', () => {
-  navTop.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-const revEls = document.querySelectorAll('.rv, .rv-sc');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-revEls.forEach(el => observer.observe(el));
-
-const heroName = document.getElementById('heroName');
-window.addEventListener('scroll', () => {
-  if (heroName && window.scrollY < window.innerHeight) {
-    heroName.style.transform = `translateY(${window.scrollY * 0.14}px)`;
-  }
-}, { passive: true });
-
-let lastY = 0;
-function openCase(id) {
-  lastY = window.scrollY;
-  const ov = document.getElementById('case-' + id);
-  if (!ov) return;
-  document.body.style.overflow = 'hidden';
-  ov.classList.add('open');
-  ov.scrollTop = 0;
-  setTimeout(() => { const b = ov.querySelector('.cs-close'); if (b) b.focus(); }, 100);
-  const innerRevs = ov.querySelectorAll('.rv, .rv-sc');
-  const innerObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { root: ov, threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  innerRevs.forEach(el => innerObs.observe(el));
-}
-function closeCase() {
-  document.querySelectorAll('.cs-ov.open').forEach(o => o.classList.remove('open'));
-  document.body.style.overflow = '';
-  window.scrollTo(0, lastY);
-}
-document.querySelectorAll('.proj-row[data-case]').forEach(card => {
-  card.addEventListener('click', () => openCase(card.dataset.case));
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCase(card.dataset.case); }
-  });
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    if (navTop.classList.contains('is-open')) setNavOpen(false);
-    closeCase();
-  }
-});
-</script>
+<dialog class="lb" id="lb" aria-label="Image viewer"><figure><img alt=""><figcaption></figcaption></figure><button data-step="-1" aria-label="Previous image">Prev</button><button data-step="1" aria-label="Next image">Next</button><button data-x aria-label="Close image viewer">Close</button></dialog>
+<script src="../js/scripts1.js"></script>
 </body>
 </html>
