@@ -8,7 +8,7 @@ em{font-style:normal;color:var(--act)}
 .top{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;gap:1.2rem;padding:.65rem var(--pad);background:var(--ac);color:var(--on-ac);font:500 .95rem var(--f-d)}
 .top a{text-decoration:none}.top :focus-visible{outline-color:var(--on-ac);box-shadow:none}
 .logo{display:flex;align-items:center;gap:.55rem;font-weight:700;margin-right:auto}.logo .ico{width:1.6rem;height:1.6rem}
-.top nav{display:flex;align-items:center;gap:1.4rem}.top ul{display:flex;gap:1.3rem}
+.top nav{display:flex;align-items:center;gap:2rem}.top ul{display:flex;gap:2rem}
 .top nav li a{display:inline-flex;align-items:center;gap:.4rem;padding:.2rem 0;background:linear-gradient(currentColor,currentColor) 0 100%/0 2px no-repeat;transition:background-size .35s var(--ease)}
 .top nav li a:hover{background-size:100% 2px}.top nav .ico{width:1.1rem;height:1.1rem}
 .btn{display:inline-flex;align-items:center;gap:.45rem;border:1.5px solid currentColor;padding:.4rem .95rem;border-radius:99px;transition:background .25s,color .25s}
@@ -54,7 +54,7 @@ em{font-style:normal;color:var(--act)}
 .skills li{display:flex;align-items:center;gap:.7rem;padding:.8rem 0;border-top:1px solid var(--line);font:500 1rem var(--f-d)}.skills .ico{color:var(--act)}
 .pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem}
 .pill{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .85rem;border:1.5px solid var(--line);border-radius:99px;font:500 .88rem/1.3 var(--f-d)}
-.pill.hi{border-color:var(--act)}.pill .ico{width:1.1rem;height:1.1rem;color:var(--act)}
+.pill.hi{border-color:var(--line)}.pill .ico{width:1.1rem;height:1.1rem;color:var(--act)}
 
 /* Experience as a journey */
 .exp-ct{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;font:500 .95rem var(--f-d);color:var(--mute)}.exp-ct .ico{width:1.2rem;height:1.2rem;color:var(--act)}
