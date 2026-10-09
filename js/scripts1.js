@@ -22,7 +22,7 @@ const L = $$('.l', nm), w = L.map(() => 300), t0 = performance.now();
 let mx = -1e4, my = -1e4, sy = scrollY, heroVis = true;
 const paint = (el,i,v) => { w[i] = v; el.style.fontVariationSettings = `'wght' ${v|0},'wdth' ${(100 - (v-300)/500*16)|0}`; };
 
-const ctx = cv.getContext('2d'), GAP = 26, R0 = 210, col = {ink:'#000', ac:'#f0f'};
+let GAP = 26, R0 = 210, RN = 260; const ctx = cv.getContext('2d'), col = {ink:'#000', ac:'#f0f'};
 let W = 0, H = 0, px = -1e4, py = -1e4, tx = -1e4, ty = -1e4, rad = 0;
 const colors = () => { const s = getComputedStyle(root); col.ink = s.getPropertyValue('--ink').trim(); col.ac = s.getPropertyValue('--ac').trim(); draw(); };
 const draw = () => {
@@ -37,24 +37,31 @@ const draw = () => {
     ctx.globalAlpha = .35 + .65*s; ctx.beginPath(); ctx.arc(hot[i], hot[i+1], 1.1 + 3.4*s, 0, 6.2832); ctx.fill(); }
   ctx.globalAlpha = 1;
 };
-const size = () => { const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W*d; cv.height = H*d; ctx.setTransform(d,0,0,d,0,0); draw(); };
+const size = () => { RN = Math.max(90, parseFloat(getComputedStyle(nm).fontSize)*1.5); R0 = Math.min(210, Math.max(110, innerWidth*.4)); const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W*d; cv.height = H*d; ctx.setTransform(d,0,0,d,0,0); draw(); };
 size(); colors(); addEventListener('resize', size);
 new MutationObserver(colors).observe(root, {attributes:true, attributeFilter:['data-theme']});
 
 if (calm) L.forEach((el,i) => paint(el,i,420)); else {
+  const coarse = matchMedia('(hover:none)').matches; let lastTouch = -1e9;
   addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
   addEventListener('pointerdown', e => { mx = e.clientX; my = e.clientY; });
-  root.addEventListener('pointerleave', () => { mx = my = -1e4; });
+  if (!coarse) root.addEventListener('pointerleave', () => { mx = my = -1e4; });
+  /* Touch. Follow the finger while it is down, and keep scrolling working (passive listeners) */
+  const touch = e => { const t = e.touches[0] || e.changedTouches[0]; if (t) { mx = t.clientX; my = t.clientY; } lastTouch = performance.now(); };
+  ['touchstart','touchmove','touchend'].forEach(n => addEventListener(n, touch, {passive:true}));
   addEventListener('scroll', () => { sy = scrollY; }, {passive:true});
   new IntersectionObserver(e => { heroVis = e[0].isIntersecting; }).observe(hero);
   (function tick(now){
     if (heroVis) {
-      const t = (now - t0)/1000, sc = sy/innerHeight*(L.length+6) - 3;
+      const t = (now - t0)/1000;
+      /* No hover on phones, so a soft invisible cursor drifts over the hero until a finger takes over */
+      if (coarse && now - lastTouch > 1600) { const hr = hero.getBoundingClientRect(); mx = hr.left + hr.width*(.5 + .38*Math.sin(t*.55)); my = hr.top + hr.height*(.56 + .2*Math.sin(t*.4 + 1)); }
+      const sc = sy/innerHeight*(L.length+6) - 3;
       L.forEach((el,i) => {
         const r = el.getBoundingClientRect(), d = Math.hypot(mx-(r.left+r.width/2), my-(r.top+r.height/2));
         const load = t < 2.6 ? 420*Math.max(0, 1 - Math.abs(i - (t*9 - 3))/3) : 0;
         const scroll = sy > 2 ? 440*Math.max(0, 1 - Math.abs(i - sc)/3) : 0;
-        paint(el, i, w[i] + (Math.min(780, 300 + 480*Math.max(0, 1 - d/260) + Math.max(load, scroll)) - w[i]) * .14);
+        paint(el, i, w[i] + (Math.min(780, 300 + 480*Math.max(0, 1 - d/RN) + Math.max(load, scroll)) - w[i]) * .14);
       });
       const r = cv.getBoundingClientRect(), inside = mx >= r.left && mx <= r.right && my >= r.top && my <= r.bottom;
       if (inside) { tx = mx - r.left; ty = my - r.top; if (px < -1e3) { px = tx; py = ty; } }
